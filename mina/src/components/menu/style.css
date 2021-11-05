@@ -1,6 +1,45 @@
 
-
-
 nav{
     background-color: #052554;
+    padding-bottom: 1%;
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 0.7%;
+    position: relative;
+    display: flex;
+    justify-content: space-between; /*faz com que os elementos filhos possam ser alinhados em lados opostos*/
+    
 }
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    margin-left: -1%;
+    margin-top: 1.6%;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  /* Links inside the dropdown */
+.dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+  
+  /* Add a grey background color to dropdown links on hover */
+  .dropdown-content a:hover {
+    background-color: #ddd;
+    
+  }
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {
+    display: block;
+    transition-duration: 6s;
+    transition-timing-function: ease-in-out;
+  }

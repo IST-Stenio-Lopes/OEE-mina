@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import Machines from "./components/machines";
 import Menu from "./components/menu";
 import index from "./index.css";
+import Aside from "./components/aside";
 
 function App() {
   return (
@@ -10,8 +11,11 @@ function App() {
        
       </head>
       <Menu/>
+
+
     </div>
   );
 }
 
 export default App;
+ 
