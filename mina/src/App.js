@@ -11,7 +11,7 @@ function App() {
        
       </head>
       <Menu/>
-
+      <Machines/>
 
     </div>
   );

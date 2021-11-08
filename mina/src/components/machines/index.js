@@ -1,5 +1,8 @@
 import { render } from "@testing-library/react";
 import React, {Component} from "react";
+import '../machines/style.css';
+import MaterialIcon from 'react-google-material-icons';
+
 
 class Machines extends Component{
 
@@ -18,8 +21,27 @@ class Machines extends Component{
 
     render(){
         return(
-            <div>
-                test
+            <div id="principal">
+                <div id="conteudo1">
+                    <div id="texto">
+                        <h5>A02 - Man. Mecânica</h5>
+                        <h1>Prensa <br/> Menegotto</h1>
+                    </div>
+                    <p id="linha"></p>
+
+                    <div id="horas">
+                        
+                    </div> 
+                </div>
+                <div id="icons">
+                    <div id="icon"><a><MaterialIcon icon="vpn_key" size={20} /></a><p>0000</p></div>
+                    <div id="icon2"><a><MaterialIcon icon="inventory2" size={20} /></a><p>0000</p></div>
+                </div> 
+                
+                <div id="conteudo2">
+
+                </div>    
+                
             </div>
         );
     }
