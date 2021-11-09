@@ -1,21 +1,20 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import Machines from "./components/machines";
 import Menu from "./components/menu";
 import index from "./index.css";
 import Aside from "./components/aside";
+import ApexCharts from 'apexcharts';
 
 function App() {
   return (
     <div>
       <head>
-       
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
       </head>
-      <Menu/>
-      <Machines/>
-
+      <Menu />
+      <Machines />
     </div>
   );
 }
 
 export default App;
- 
