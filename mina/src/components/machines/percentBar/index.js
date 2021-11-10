@@ -6,7 +6,7 @@ import '../percentBar/style.css';
 class ApexChart extends React.Component {
     constructor(props) {
         super(props);
-        var porcentagem = 90;
+        var porcentagem = 68;
         this.state = {
 
             series: [porcentagem],
