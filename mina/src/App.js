@@ -5,6 +5,7 @@ import index from "./index.css";
 import ApexCharts from 'apexcharts';
 import ShowLarge from "./components/machines/show-large";
 import ShowMedium from "./components/machines/show-medium";
+import ShowSmall from "./components/machines/show-small";
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
       <ShowLarge/>
       <br/>
       <ShowMedium/>
+      <br/>
+      <ShowSmall/>
     </div>
   );
 }
