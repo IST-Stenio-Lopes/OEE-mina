@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import '../menu/style.css';
-import '../aside/index.js'
 import MaterialIcon from 'react-google-material-icons';
 
 class Menu extends Component{

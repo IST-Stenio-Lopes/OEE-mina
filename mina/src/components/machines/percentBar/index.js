@@ -6,7 +6,7 @@ import '../percentBar/style.css';
 class ApexChart extends React.Component {
     constructor(props) {
         super(props);
-        var porcentagem = 70;
+        var porcentagem = 90;
         this.state = {
 
             series: [porcentagem],
@@ -19,7 +19,6 @@ class ApexChart extends React.Component {
                 plotOptions: {
                     radialBar: {
                         hollow: {
-
                             size: '50%',
                         },
                         dataLabels: {
@@ -34,7 +33,9 @@ class ApexChart extends React.Component {
                                 offsetY: 4,
                                 show: true,
                                 color: "#052554", //O que muda a cor do nome
-                                fontSize: "12px",
+                                fontSize: "13px",
+                                fontFamily: 'Montserrat',
+                                fontWeight: 500,
                                 top: 20
                             },
                             value: {
