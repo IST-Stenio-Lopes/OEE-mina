@@ -1,0 +1,7 @@
+#top{
+    display: flex;
+}
+
+#top div{
+    margin-right: 200px;
+}

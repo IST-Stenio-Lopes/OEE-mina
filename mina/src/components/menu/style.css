@@ -51,7 +51,7 @@ nav{
   }
   
   #dropdown-content a #icon{
-    color: #3270CD
+    color: #3270CD;
   }
   /* Show the dropdown menu on hover */
   /*.dropdown:hover .dropdown-content {

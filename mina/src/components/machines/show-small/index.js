@@ -1,7 +1,6 @@
-import MaterialIcon from 'react-google-material-icons';
 import ApexChart from "../percentBar";
 import '../show-small/style.css';
-import React, { Component } from "react";
+import React from "react";
 import { oeeValue } from '../../../utils/utilities';
 
 

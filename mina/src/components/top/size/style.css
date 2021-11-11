@@ -1,0 +1,15 @@
+#size{
+    width: 10%;
+    margin-left: 20%;
+    display: flex;
+}
+#size #size-icon1{
+    color: #3270CD;
+
+    margin-right: 10px;
+}
+#size #size-icon2{
+    margin-top: 5px;
+    color: #3270CD;
+    margin-left: 15px;
+}
