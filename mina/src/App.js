@@ -6,6 +6,8 @@ import ShowLarge from "./components/machines/show-large";
 import ShowMedium from "./components/machines/show-medium";
 import ShowSmall from "./components/machines/show-small";
 import Top from "./components/top";
+import Workstation from "./components/workstation";
+import Register from "./components/register";
 
 function App() {
   return (
@@ -15,13 +17,20 @@ function App() {
       </head>
       
       <Menu />
+      <Top/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
       <ShowLarge/>
       <br/>
       <ShowMedium/>
       <br/>
       <ShowSmall/>
       <br/>
-      <Top/>
+      <Workstation/>
+      <br/>
+      <Register/>
     </div>
   );
 }

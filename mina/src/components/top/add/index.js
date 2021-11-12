@@ -1,5 +1,5 @@
 import React from "react";
-import "../size/style.css";
+import "../add/style.css";
 import Button from '@material-ui/core/Button';
 
 
@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 export default function Add(){
 
     return(
-        <div>
+        <div id="add-button">
             <Button variant="contained">+ ADICIONAR</Button>
         </div>
     );

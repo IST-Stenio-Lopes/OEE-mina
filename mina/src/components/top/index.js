@@ -10,13 +10,13 @@ export default function Top() {
 
     return (
         <div id="top">
-            <div>
+            <div id="top-1">
                 <Search />
             </div>
-            <div>
+            <div id="top-2">
                 <Size />
             </div>
-            <div>
+            <div id="top-3">
                 <Add />
             </div>
         </div>

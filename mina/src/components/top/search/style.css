@@ -3,6 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+   
 }
 #bar input{
     height: 30px;
@@ -12,19 +13,20 @@
 }
 #bar #bar-icon{
     position: absolute;
-    width: 30%;
+    margin-left: 1%;
+    width: 50%; /*controla tamanho da barra, principalmente em relação ao componente Top*/
 }
 #bar #bar-icon #bar-icon1{
     color:#3270CD ;
     margin-left: 2%;
     position: absolute;
-    margin-top: 1%;
+    margin-top: 0.5%;
 }
 #bar #bar-icon #bar-icon2{
     color:#3270CD ;
-    left: 90%;
+    left: 95%;
     position: absolute;
-    margin-top: 1%;
+    margin-top: .5%;
 }
 
 /*.box {
