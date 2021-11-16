@@ -6,7 +6,7 @@ import Size from "./size";
 
 
 
-export default function Top() {
+export default function Top({handleSizeChange}) {
 
     return (
         <div id="top">
@@ -14,7 +14,7 @@ export default function Top() {
                 <Search />
             </div>
             <div id="top-2">
-                <Size />
+                <Size handleChange={handleSizeChange}/>
             </div>
             <div id="top-3">
                 <Add />

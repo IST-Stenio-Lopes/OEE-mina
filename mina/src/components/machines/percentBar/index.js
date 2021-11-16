@@ -6,10 +6,11 @@ import '../percentBar/style.css';
 class ApexChart extends React.Component {
     constructor(props) {
         super(props);
-        var porcentagem = 68;
+        var porcentagem = this.props.oee;
+
         this.state = {
 
-            series: [porcentagem],
+            series: [props.oee],
             options: {
                 fill: {
                     colors: ['#052554'] //O que muda a cor do circulo

@@ -7,3 +7,11 @@ export function oeeValue (valor) {
         return valor;
     }
 }
+
+export function formatWord(word){
+   var wordModified = word.toString();
+   wordModified = wordModified.replace(" ", "\n");
+   return wordModified;
+}
+
+
