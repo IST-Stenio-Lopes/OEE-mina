@@ -39,7 +39,7 @@ export default function ShowMedium() {
                             <div className="informacoes">
 
                                 <div className="segundo">
-                                    <p id="aprovados">3.487</p>
+                                    <p id="aprovados">{post.production}</p>
                                     APROVADAS
                                 </div>
                             </div>

@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 //import './index.css';
 import App from './App';
+import Machines from './components/machines';
+import Workstation from './components/workstation';
+import { BrowserRouter, Routes, Switch, Route } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import './styles/global.css';
 

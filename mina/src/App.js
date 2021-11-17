@@ -1,21 +1,25 @@
 import React from "react";
 import Machines from "./components/machines";
+import Workstation from "./components/workstation";
 import Menu from "./components/menu";
+import Register from "./components/register";
 
+import Routes from "./routes/routes";
 
 function App() {
   return (
-    <div id="first-page">
+    <div>
       <head>
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
       </head>
       
       <Menu />
-      <Machines/>
+
       <br/>
       <br/>
       <div id="show-app">
-
+      <br/>
+      <Workstation/>
       </div>
       
     </div>

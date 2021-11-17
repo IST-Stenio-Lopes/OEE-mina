@@ -13,7 +13,7 @@ nav{
 
 #dropdown-content {
     display: none;
-    position: fixed;
+    position: absolute;
     background-color: #f9f9f9;
     margin-left: -1%;
     margin-top: 1.6%;

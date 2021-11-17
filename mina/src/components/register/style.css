@@ -1,38 +1,42 @@
-#box-register{
-    border: 1px solid #F0F0F0;
-    padding-bottom: 400px;
+
+.container-fluid{
+ 
+}
+.row-cabecalho{
+    margin-left: 20%;
+    margin-right: 10%;
+    display: flex;
+    padding-bottom: 0px;
+}
+.row-cabecalho h1{
+    font-size: 18px;
+    font-weight: bolder;
+    text-align: center;
+}
+.border{
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 5%;
+    border-radius: 5px;
+    padding: 2%;
 }
 
-#box-register-field input{
-    border: 1px solid #F0F0F0;
-
-    border-radius: 3px;
-    background-color: red;
+.form-check-input{
+    background-color: lightgray;
+    border: none;
+    padding: 3%;
 }
-.position{
-    margin-left: 10%;
+
+.row{
     margin-top: 3%;
 }
-.padding{
-    padding-bottom: 3%;
-}
-#box-register-1{
-    
-   
-}
-#box-register-2{
-
-    
-}
-#box-register-3{
-
-}
-#box-register-4{
-
+.row.justify-content-evenly input{
+    margin-left: 100%;
 }
 
-#box-register-2 #box-register-field{
-    display: grid;
-    padding-right: 10%;
+.row.justify-content-end button{
+    margin-top: 15%;
+    margin-left: 10%;
+    padding-left: 20%;
+    padding-right: 20%;
 }
-

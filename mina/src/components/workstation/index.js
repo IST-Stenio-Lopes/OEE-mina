@@ -1,57 +1,32 @@
-import React, { useState } from "react";
-import '../workstation/style.css';
-import Data from '../../mock-data.json';
-import Button from '@material-ui/core/Button';
-
-
-
+import React from "react";
+import ApexChart from "./line-chart";
+import { ApexChart as ApexChart2 } from "./bar-chart";
 
 
 export default function Workstation() {
-    const [dataOS, setDataOS] = useState(Data)
+
     return (
-     
         <div>
-            <div id="workstatio-top">
-                <h1>Estações de Trabalho</h1>
-                <Button variant="contained">Centros de Trabalho</Button>
-            </div>
-            
+            <div className=".container-fluid">
+                <div class="row align-items-start">
+                    <div class="col-md-5">
 
 
-        
-            <div id="ws-content">
-                    
-                    <div id="ws-table">
-                        <div id="ws-table-description">
-                            <p>Nome estação de trabalho</p>
-                            <p>Descrição</p>
-                            <p>Taxa de produção (u/h)</p>
-                            <p>Meta OEE%</p>
-                            <p>Descontar retrabalho</p>
-                            <p>Descontar refugo</p>
+                        <div class="col-md-8">
+
                         </div>
-                        <div>
-                            {
-                                dataOS.map((post) => (
-                                    <div id="ws-table-data">
-                                        <p>{post.name}</p>
-                                        <p>{post.description}</p>
-                                        <p>{post.production}</p>
-                                        <p>{post.oee}%</p>
-                                        <p>{post.cach_in_word ? 'Sim' : 'Não'}</p>
-                                        <p>{post.discount_scrap ? 'Sim' : 'Não'}</p>
-                                    </div>
-                                ))
-                            }
+                        <div class="col-md-4">
+                            <ApexChart2 />
                         </div>
-
                     </div>
-            
+                    <div class="col-md-7">
+                        <ApexChart />
+                        <ApexChart2 />
+                    </div>
+                </div>
+
             </div>
+
         </div>
     );
-
-    
-
 }
