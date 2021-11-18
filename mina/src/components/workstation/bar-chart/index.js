@@ -15,6 +15,7 @@ export class ApexChart extends React.Component {
                 data: [30]
             }],
             options: {
+                
                 dataLabels: {
                     //enabled: false, remove o percentual interno
                     style: {
@@ -49,22 +50,21 @@ export class ApexChart extends React.Component {
                         borderRadius: 10
                     },
                 },
-                legend:{
-                    show: false
-                },
                 xaxis: {
                     type: 'category',
                     categories: ['OEE'],
+                    
                 },
                 yaxis: {
                     show: false,
                 },
                 legend: {
                     position: 'right',
-                    offsetY: 40
+                    offsetY: 40,
+                    show: false //Remove os nomes dos dados que aparecem na lateral
                 },
                 grid: {
-                    show: false
+                    show: false //Remove as linhas 
                 },
                 fill: {
                     opacity: 1,

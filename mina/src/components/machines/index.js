@@ -16,7 +16,7 @@ function showMachine(valueSlider){
 
 
 export default function Machines(){
-    const [size, setSize] = useState();
+    const [size, setSize] = useState(1);
     function test (value){
         setSize(value);
         console.log(`teste ${value}`);
