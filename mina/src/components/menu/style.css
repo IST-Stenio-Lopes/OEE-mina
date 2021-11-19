@@ -1,3 +1,7 @@
+#menu-index{
+  background-color: red;
+}
+
 
 nav{
     background-color: #052554;
@@ -10,6 +14,7 @@ nav{
     justify-content: space-between; /*faz com que os elementos filhos possam ser alinhados em lados opostos*/
     
 }
+
 
 #dropdown-content {
     display: none;

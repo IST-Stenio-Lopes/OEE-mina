@@ -26,7 +26,7 @@ export default function ShowSmall() {
 
                             </div>
                         </div>
-                        <div id="icons">
+                        <div id="icons-small">
                             <div id="icon"><p>0000</p></div>
                             <div id="icon2"><p>0000</p></div>
                         </div>
@@ -38,7 +38,6 @@ export default function ShowSmall() {
                     </div>
                 ))
             }
-
         </div>
         /*<div id="principal-small">
 

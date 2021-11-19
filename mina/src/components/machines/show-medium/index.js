@@ -8,7 +8,6 @@ import {formatWord} from '../../../utils/utilities';
 
 
 export default function ShowMedium() {
-
     return (
 
         <div id="showMedium-expand">

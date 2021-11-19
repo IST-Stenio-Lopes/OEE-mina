@@ -25,7 +25,7 @@
 }
 #conteudo1-medium{
     width: 209px;
-    height: 90px;
+    height: 80px;
     margin-top: 3%;
 }
 #texto{
@@ -85,7 +85,7 @@
     margin-left: 3%;
     display: flex;
     position: unset;
-    padding-top: 1px;
+
     height: 120px;
 }
 
@@ -95,7 +95,7 @@
     width: 40%;
     height: 87%;
     padding-bottom: 32%;
-    margin-top: 3%;
+
     margin-left: 5%;
     border: 2px solid #f0f0f0;
 }

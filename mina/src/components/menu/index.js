@@ -1,11 +1,37 @@
-import React, {Component} from "react";
+import React, { useState } from "react";
 import '../menu/style.css';
 import MaterialIcon from 'react-google-material-icons';
+import Drop from "./drop";
 
-class Menu extends Component{
-    render(){
-        var aside = true;
+export default function Menu(){
+    // var dropValue = true;
+    // function dropChange(){
+        
+    //     if(dropValue == false){
+    //         document.getElementById("add-dropdown").innerHTML=(<Drop/>);
+    //         dropValue = true;
+    //     }else if(dropValue == true){
+    //         document.getElementById("add-dropdown").innerHTML="";
+    //         dropValue = false;
+    //     }
+   
+    // }
+    const [dropValue, setDropValue] = useState(false);
+    
+    // dropChange(dropValue? false : true);
+    // {
 
+    //     if(dropValue === true){
+    //         document.getElementById("add-dropdown").innerHTML("a");
+    //     }else{
+    //         document.getElementById("add-dropdown").innerHTML("");
+    //     }
+    // }
+    
+       // (dropValue? document.getElementById("add-dropdown").innerHTML(<Drop/>) : document.getElementById("add-dropdown").innerHTML());
+    
+
+    return(
         /*
         function changeAside() {
             if(aside === false){
@@ -22,7 +48,9 @@ class Menu extends Component{
                 return null;
             }
         }*/
-        function drop(){
+
+
+       /* function drop(){
             var div = document.getElementById("dropdown-content");
             if(aside == false){
                 div.style.display= "block";
@@ -31,24 +59,23 @@ class Menu extends Component{
                 div.style.display= "none";
                 aside = false;
             }
-        }
+        }*/
+      
 
 
-        return(
-            <div>
-                
+            <div id="menu-index">
+          
+                {dropValue && <div id="add-dropdown">
+                    <Drop/>
+                </div>}
                 <nav >
                     <div className="dropdown" style={{alignItems:'flex-start'}}>
-                        <button className="dropbtn" /*onClick={changeAside}*/ onClick={drop} style={{textDecoration:"none", border:"none", background:"none", color:'#fff'}}>
-                            <MaterialIcon id="dropdawn" icon="menu" size={20} />
+                        <button className="dropbtn" onClick={dropValue}/*onClick={changeAside}*/  style={{textDecoration:"none", border:"none", background:"none", color:'#fff'}}>
+                            <MaterialIcon  id="dropdawn" icon="menu" size={20} />
+                            
                             
                         </button>
-                        <div id="dropdown-content">
-                            <a><p id="icon"><MaterialIcon id="dropdawn" icon="home" size={20} /></p> <p>INÍCIO</p></a>
-                            <a><p id="icon"><MaterialIcon id="dropdawn" icon="view_agenda" size={20} /></p> <p>ESTAÇÕES</p></a>
-                            <a><p id="icon"><MaterialIcon id="dropdawn" icon="settings_remote" size={20} /></p> <p>COLETORES</p></a>
-                            <a><p id="icon"><MaterialIcon id="dropdawn" icon="settings" size={20} /></p> <p>CONFIGURAÇÕES</p></a>
-                        </div>
+                        
                     </div>
                     <div style={{color:'#FFF', right:"0px", alignItems:'flex-end'}}>
                         <MaterialIcon icon="person" size={30} float={"right"} />
@@ -60,8 +87,7 @@ class Menu extends Component{
                     </span> */}
                 </nav>
             </div>
-        );
-    }
+   
+    );
 }
 
-export default Menu;

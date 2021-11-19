@@ -41,36 +41,36 @@
     color: #C66B00;
 }
 
-#icons{
+#icons-small{
     margin-left: 10%;
-    margin-top: 2%;
+    margin-top: -10%;
     display: flex;
 
 }
 
-#icons p{
+#icons-small p{
     font-size: 8px;
     margin-left: 20%;
 }
-#icons a{
+#icons-small a{
     padding-right: -50%;
     width: 30px;
 }
-#icons #icon{
+#icons-small #icon{
     display: flex;
 }
-#icons #icon2{
+#icons-small #icon2{
     display: flex;
 }
 
 
-#icons #icon2{
+#icons-small #icon2{
     margin-left: 10%;
     padding:0px
 }
 
 #conteudo2-small{
-    margin-top: -10px;
+    margin-top: -25px;
     margin-left: 3%;
     display: inline-block;
     position: static;
@@ -80,6 +80,9 @@
     height: 90px;
 }
 
+#conteudo2-small #oee{
+    margin-top: -11px;
+}
 
 /*
 #conteudo2-small .informacoes{
