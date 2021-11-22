@@ -13,7 +13,7 @@ export default function Workstation() {
     function handleChangeMachine(value){
         var machine = Data.find((x) => x.id === value);
         setSelectedMachine(machine);
-        console.log(machine)
+        //console.log(machine)
     }
     const options = Data.map((post) => {
         return {
@@ -36,7 +36,7 @@ export default function Workstation() {
                                     <SelectSearch className="container"  multiple={false} closeOnSelect={true} onChange={handleChangeMachine} options={options} value='3' name="machines" search={true} />
                                 </div>
                                 <div class="col-md-5">
-                                    <p>aaaaaaaaaaaaaa</p>
+                                    <p>D   |   H   |   M   |   S   </p>
                                 </div>
                             </div>
                             <div className="border">
@@ -59,7 +59,7 @@ export default function Workstation() {
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <ApexChart />
+                        <ApexChart production_per_hour={selectedMachine.production_per_hour}/>
                     </div>
                 </div>
 

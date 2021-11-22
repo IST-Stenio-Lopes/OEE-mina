@@ -17,6 +17,11 @@ export default function Menu(){
    
     // }
     const [dropValue, setDropValue] = useState(false);
+
+
+    /*setDropValue(){
+        dropValue = !dropValue;
+    }*/
     
     // dropChange(dropValue? false : true);
     // {
@@ -70,7 +75,7 @@ export default function Menu(){
                 </div>}
                 <nav >
                     <div className="dropdown" style={{alignItems:'flex-start'}}>
-                        <button className="dropbtn" onClick={dropValue}/*onClick={changeAside}*/  style={{textDecoration:"none", border:"none", background:"none", color:'#fff'}}>
+                        <button className="dropbtn" onClick={dropValue}/*onClick={changeAside}*/ onClick={() => setDropValue(!dropValue)} style={{textDecoration:"none", border:"none", background:"none", color:'#fff'}}>
                             <MaterialIcon  id="dropdawn" icon="menu" size={20} />
                             
                             
