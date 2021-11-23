@@ -16,10 +16,7 @@ export default function WorkstationList() {
                 <h1>Estações de Trabalho</h1>
                 <Button variant="contained">Centros de Trabalho</Button>
             </div>
-            
 
-
-        
             <div id="ws-content">
                     
                     <div id="ws-table">

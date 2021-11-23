@@ -11,10 +11,10 @@ export default function Register() {
 
     return (
         <div>
-            <div className=".container-fluid">
+            <div className="container-fluid">
                 <div class="row-cabecalho">
                     <div class="col-md-10"><h1>CADASTRAR NOVA ESTAÇÃO DE TRABALHO</h1></div>
-                    <div class="col-md-2"><button type="button" class="btn-close " aria-label="Close"></button></div>
+                    <div class="col-md-2"><a  href="/"><button type="button" class="btn-close " aria-label="Close"></button></a></div>
                 </div>
                 <div className="border">
                     <div class="row align-items-start">
@@ -40,6 +40,15 @@ export default function Register() {
                             <input type="text" class="form-control" aria-label="Username"></input>
                         </div>
                     </div>
+                    <div class="row align-items-start">
+                        <div class="col-md-5">
+                            Tempo Disponivel (Horas trabalhadas durante o dia)
+                            <div class="input-group mb-3">
+
+                                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" />
+                            </div>
+                        </div>
+                    </div>
                     <div class="row justify-content-evenly">
                         <div class="col-4">
                             Descontar refugos da produção
@@ -62,7 +71,7 @@ export default function Register() {
                     </div>
                     <div class="row justify-content-end">
                         <div class="col-4">
-                            <button type="button" class="btn btn-outline-secondary">Cancelar</button>
+                        <a  href="/"><button type="button" class="btn btn-outline-secondary">Cancelar</button></a>
                         </div>
                         <div class="col-4">
                             <button type="button" class="btn btn-outline-secondary">Salvar</button>

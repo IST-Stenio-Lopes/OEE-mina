@@ -30,6 +30,7 @@ import Machines from "../components/machines";
 import Workstation from "../components/workstation";
 import WorkstationList from '../components/workstation-list';
 import Register from "../components/register";
+import RegisterColector from '../components/register-colector';
 import Error from '../components/404';
 
 const Routees = () => {
@@ -47,6 +48,7 @@ const Routees = () => {
             <Route path="/workstation" element={<Workstation/>}/>
             <Route path="/workstationlist" element={<WorkstationList/>}/>
             <Route path="/register" element={<Register/>}/>
+            <Route path="/registercolector" element={<RegisterColector/>}/>
             <Route path='*' element={<Error/>}/>
         </Routes>
       </BrowserRouter>
