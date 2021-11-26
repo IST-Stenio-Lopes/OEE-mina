@@ -13,6 +13,9 @@
     margin-right: 20px;
     margin-top: 20px;
 }
+#principal-small #settingLine{
+    padding-right: 10%;
+}
 #principal-small #linha{
     border-top: 2px solid #C66B00;
     width: 90%;

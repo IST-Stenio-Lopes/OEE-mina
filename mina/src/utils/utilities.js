@@ -15,3 +15,23 @@ export function formatWord(word){
 }
 
 
+export function getStateMachine(value){
+    if (value === "funcionando") {
+        return "FUNCIONANDO";
+    } else if(value === "manutencao"){
+        return "MAN.MECÂNICA";
+    } else if (value === "pausa"){
+        return "PARADO";
+    }
+}
+
+
+export function getNameStateIcon(value){
+    if (value === "funcionando") {
+        return "check";
+    } else if(value === "manutencao"){
+        return "build";
+    } else if (value === "pausa"){
+        return "pause";
+    }
+}

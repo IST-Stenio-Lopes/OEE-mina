@@ -3,77 +3,84 @@
 [{
     "id": 1,
     "name": "Prensa Manegotto",
-    "description": "Trabalhando",
+    "description": "funcionando",
     "production": 3002,
     "production_time": "Polygender",
     "oee": 23,
+    "stop_time":"",
     "cach_in_word": false,
     "discount_scrap": false,
     "production_per_hour": [ 1725, 3604, 2613, 6589, 2064, 2098, 1335, 2942, 7700, 7008, 6865, 876, 1706, 1241, 9161, 3296, 5007, 3129, 8031, 7265, 2660, 1271, 1816, 6660]
   }, {
     "id": 2,
     "name": "Assimilated demand driven archive",
-    "description": "Trabalhando",
+    "description": "funcionando",
     "production": 1995,
     "production_time": "Bigender",
     "oee": 7,
+    "stop_time":"",
     "cach_in_word": false,
     "discount_scrap": false,
     "production_per_hour": [2656, 3636, 4664, 7447, 6502, 5854, 1322, 6383, 4906, 1305, 5996, 5290, 6455, 6256, 2917, 4448, 7697, 6063, 5425, 4358, 1200, 5769, 6795, 4517]
   }, {
     "id": 3,
     "name": "Business focused multi tasking adapter",
-    "description": "Trabalhando",
+    "description": "funcionando",
     "production": 1995,
     "production_time": "Genderqueer",
     "oee": 80,
+    "stop_time":"",
     "cach_in_word": true,
     "discount_scrap": true,
     "production_per_hour": [4641, 4313, 5646, 6343, 5307, 2373, 5080, 5564, 4101, 4096, 4596, 3587, 2153, 6815, 4769, 4824, 2942, 4951, 4581, 6492, 7610, 6539, 7995, 7643]
   }, {
     "id": 4,
     "name": "Public key monitored service",
-    "description": "Quebrada",
+    "description": "pausa",
     "production": 1992,
     "production_time": "Male",
     "oee": 66,
+    "stop_time":"",
     "cach_in_word": false,
     "discount_scrap": true,
     "production_per_hour": [6820, 1206, 4311, 5165, 6684, 5343, 1053, 5035, 4297, 6462, 5117, 3458, 5260, 6448, 7177, 7297, 5132, 6316, 7799, 7471, 1342, 6525, 5013, 3785]
   }, {
     "id": 5,
     "name": "Fundamental bandwidth monitored",
-    "description": "Trabalhando",
+    "description": "funcionando",
     "production": 2011,
     "production_time": "Male",
     "oee": 41,
+    "stop_time":"",
     "cach_in_word": true,
     "discount_scrap": false,
     "production_per_hour": [7266, 3606, 3776, 6685, 5480, 7612, 4597, 4468, 2405, 4793, 3203, 7098, 3985, 6503, 4128, 3882, 4305, 2420, 3638, 2996, 7583, 6615, 7764, 5065]
   }, {
     "id": 6,
     "name": "Realigned discrete project",
-    "description": "Trabalhando",
+    "description": "funcionando",
     "production": 2003,
     "production_time": "Male",
     "oee": 63,
+    "stop_time":"",
     "cach_in_word": false,
     "discount_scrap": false,
     "production_per_hour": [5028, 7687, 5995, 2918, 2088, 6137, 1535, 1120, 6476, 1976, 1797, 1618, 2476, 7640, 5732, 4865, 2201, 3106, 7840, 2953, 6070, 4337, 3310, 4638]
   }, {
     "id": 7,
     "name": "Triple-buffered directional installation",
-    "description": "Manutenção",
+    "description": "manutencao",
     "production": 1993,
     "production_time": "Genderqueer",
     "oee": 84,
+    "stop_time":"",
     "cach_in_word": true,
     "discount_scrap": false,
     "production_per_hour": [6394, 4282, 5488, 6929, 6667, 7283, 4835, 2627, 2386, 6022, 1478, 2892, 5419, 3936, 1650, 1836, 3967, 6898, 1193, 1897, 4232, 2698, 1226, 7702]
   }, {
     "id": 8,
     "name": "Fundamental well-modulated capacity",
-    "description": "Trabalhando",
+    "description": "funcionando",
     "production": 2006,
     "production_time": "Bigender",
     "oee": 56,
@@ -83,7 +90,7 @@
   }, {
     "id": 9,
     "name": "Future-proofed homogeneous time-frame",
-    "description": "Trabalhando",
+    "description": "funcionando",
     "production": 2001,
     "production_time": "Male",
     "oee": 55,
@@ -92,7 +99,7 @@
   }, {
     "id": 10,
     "name": "Operative directional hardware",
-    "description": "Trabalhando",
+    "description": "funcionando",
     "production": 2012,
     "production_time": "Male",
     "oee": 35,
@@ -101,7 +108,7 @@
   }, {
     "id": 11,
     "name": "Persevering maximized instruction set",
-    "description": "Trabalhando",
+    "description": "funcionando",
     "production": 1997,
     "production_time": "Agender",
     "oee": 85,
@@ -110,7 +117,7 @@
   }, {
     "id": 12,
     "name": "User-friendly artificial intelligence",
-    "description": "Trabalhando",
+    "description": "funcionando",
     "production": 1985,
     "production_time": "Non-binary",
     "oee": 46,
@@ -119,7 +126,7 @@
   }, {
     "id": 13,
     "name": "Profit-focused dedicated encryption",
-    "description": "Manutenção",
+    "description": "manutencao",
     "production": 2006,
     "production_time": "Male",
     "oee": 53,
@@ -128,7 +135,7 @@
   }, {
     "id": 14,
     "name": "Future-proofed explicit throughput",
-    "description": "Manutenção",
+    "description": "manutencao",
     "production": 1999,
     "production_time": "Agender",
     "oee": 83,
@@ -137,7 +144,7 @@
   }, {
     "id": 15,
     "name": "Persistent tertiary artificial intelligence",
-    "description": "Trabalhando",
+    "description": "funcionando",
     "production": 2008,
     "production_time": "Genderfluid",
     "oee": 28,
@@ -146,7 +153,7 @@
   }, {
     "id": 16,
     "name": "Fundamental global Graphical User Interface",
-    "description": "Trabalhando",
+    "description": "funcionando",
     "production": 2009,
     "production_time": "Genderqueer",
     "oee": 41,
@@ -155,7 +162,7 @@
   }, {
     "id": 17,
     "name": "Configurable heuristic matrices",
-    "description": "Trabalhando",
+    "description": "funcionando",
     "production": 1987,
     "production_time": "Genderqueer",
     "oee": 28,
@@ -164,7 +171,7 @@
   }, {
     "id": 18,
     "name": "User-friendly 3rd generation interface",
-    "description": "Trabalhando",
+    "description": "funcionando",
     "production": 1986,
     "production_time": "Non-binary",
     "oee": 62,
@@ -173,7 +180,7 @@
   }, {
     "id": 19,
     "name": "Enhanced reciprocal secured line",
-    "description": "Quebrada",
+    "description": "pausa",
     "production": 1992,
     "production_time": "Non-binary",
     "oee": 97,
@@ -182,7 +189,7 @@
   }, {
     "id": 20,
     "name": "Self-enabling static intranet",
-    "description": "Trabalhando",
+    "description": "funcionando",
     "production": 2008,
     "production_time": "Male",
     "oee": 28,
@@ -191,7 +198,7 @@
   }, {
     "id": 21,
     "name": "Secured multimedia implementation",
-    "description": "Trabalhando",
+    "description": "funcionando",
     "production": 1996,
     "production_time": "Non-binary",
     "oee": 84,
@@ -200,7 +207,7 @@
   }, {
     "id": 22,
     "name": "Phased asymmetric adapter",
-    "description": "Trabalhando",
+    "description": "funcionando",
     "production": 1992,
     "production_time": "Polygender",
     "oee": 42,
@@ -209,7 +216,7 @@
   }, {
     "id": 23,
     "name": "Sharable dedicated database",
-    "description": "Quebrada",
+    "description": "pausa",
     "production": 2004,
     "production_time": "Genderqueer",
     "oee": 26,
@@ -218,16 +225,17 @@
   }, {
     "id": 24,
     "name": "Cross-group human-resource throughput",
-    "description": "Trabalhando",
+    "description": "funcionando",
     "production": 2008,
     "production_time": "Non-binary",
     "oee": 42,
+
     "cach_in_word": false,
     "discount_scrap": true
   }, {
     "id": 25,
     "name": "Quality-focused explicit Graphical User Interface",
-    "description": "Manutenção",
+    "description": "manutencao",
     "production": 2006,
     "production_time": "Female",
     "oee": 94,
@@ -236,7 +244,7 @@
   }, {
     "id": 26,
     "name": "Phased static infrastructure",
-    "description": "Manutenção",
+    "description": "manutencao",
     "production": 2008,
     "production_time": "Non-binary",
     "oee": 27,
@@ -245,7 +253,7 @@
   }, {
     "id": 27,
     "name": "Streamlined hybrid circuit",
-    "description": "Trabalhando",
+    "description": "funcionando",
     "production": 1992,
     "production_time": "Bigender",
     "oee": 68,
@@ -254,7 +262,7 @@
   }, {
     "id": 28,
     "name": "Self-enabling 3rd generation benchmark",
-    "description": "Trabalhando",
+    "description": "funcionando",
     "production": 2003,
     "production_time": "Genderfluid",
     "oee": 72,
@@ -263,7 +271,7 @@
   }, {
     "id": 29,
     "name": "Assimilated contextually-based encryption",
-    "description": "Trabalhando",
+    "description": "funcionando",
     "production": 1992,
     "production_time": "Bigender",
     "oee": 29,
@@ -272,7 +280,7 @@
   }, {
     "id": 30,
     "name": "Networked client-server workforce",
-    "description": "Manutenção",
+    "description": "manutencao",
     "production": 1998,
     "production_time": "Polygender",
     "oee": 37,

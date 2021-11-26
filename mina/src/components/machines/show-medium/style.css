@@ -39,11 +39,17 @@
     width: 270px;
     height: 80px;
 }
-#conteudo1-medium #superior h5{
+/*#conteudo1-medium #superior h5{
     font-size: 10px;
     color: #C66B00;
     margin-left: 8%;
    
+}*/
+#nameTop{
+    margin-left: 8%;
+}
+#principal-medium #settingLine{
+    padding-right: 15%;
 }
 #conteudo1-medium #inferior h1{
     font-size: 15px;

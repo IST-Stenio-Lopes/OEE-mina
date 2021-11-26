@@ -4,7 +4,8 @@ import '../show-medium/style.css';
 import React from "react";
 import { oeeValue } from '../../../utils/utilities';
 import Data from '../../../mock-data.json';
-import {formatWord} from '../../../utils/utilities';
+import {formatWord, getStateMachine} from '../../../utils/utilities';
+import { NameTop, LinhaL } from '../show-large/style';
 
 
 export default function ShowMedium() {
@@ -17,14 +18,18 @@ export default function ShowMedium() {
 
                         <div id="conteudo1-medium">
                             <div id="superior">
-                                <h5>A02 - Man. Mecânica</h5>
+                                <NameTop id="nameTop"description={post.description}>0{post.id}    {getStateMachine(post.description)}</NameTop>
                             </div>
                             <div id="inferior">
                                 <h1>{formatWord(post.name)}</h1>
                             </div>
                             
                         </div>
-                        <p id="linha"></p>
+                        <div id="settingLine">
+                            <LinhaL description={post.description} />
+                        </div>
+                        
+                     
                         <div id="icons">
                             <div id="icon"><a><MaterialIcon icon="vpn_key" size={20} /></a><p>0000</p></div>
                             <div id="icon2"><a><MaterialIcon icon="inventory2" size={20} /></a><p>0000</p></div>

@@ -4,6 +4,7 @@ import React from "react";
 import { oeeValue } from '../../../utils/utilities';
 import Data from '../../../mock-data.json';
 import { formatWord } from '../../../utils/utilities';
+import { LinhaL } from "../show-large/style";
 
 
 export default function ShowSmall() {
@@ -20,7 +21,9 @@ export default function ShowSmall() {
                             <div id="texto">
                                 <h1>{formatWord(post.name)}</h1>
                             </div>
-                            <p id="linha"></p>
+                            <div id="settingLine">
+                                <LinhaL description={post.description} />
+                            </div>
 
                             <div id="horas">
 

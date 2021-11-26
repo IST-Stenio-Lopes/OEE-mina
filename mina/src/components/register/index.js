@@ -7,11 +7,9 @@ import '../register/style.css';
 
 export default function Register() {
 
-
-
     return (
         <div>
-            <div className="container-fluid">
+            <div className="container-fluid" id="register">
                 <div class="row-cabecalho">
                     <div class="col-md-10"><h1>CADASTRAR NOVA ESTAÇÃO DE TRABALHO</h1></div>
                     <div class="col-md-2"><a  href="/"><button type="button" class="btn-close " aria-label="Close"></button></a></div>

@@ -8,7 +8,6 @@
 }
 
 #principal{
-
     border: 3px solid #f0f0f0;
     width: 312px;
     height: 245px;
@@ -16,14 +15,17 @@
     margin-top: 5%;
     margin-right: 20px;
 }
-#principal #linha{
+/*#principal #linha{
     border-top: 2px solid #C66B00;
     width: 98%;
     text-align: center;
     padding: 0px;
     margin-top: -4%;
     margin-left: 7%;
+}*/
 
+#conteudo1 #superior-1 h5{
+  
 }
 #conteudo1{
     width: 270px;
@@ -37,6 +39,9 @@
     
     
 }
+.row{
+    height: 20px;
+}
 #conteudo1 #superior, #inferior{
     margin-top: 3%;
     margin-left: 8%;
@@ -45,10 +50,7 @@
     white-space: pre-wrap; /*Se não colocar essa propriedade, o JS não vai ler o \n da função como uma quebra de linha*/
     width: 100%;
 }
-#conteudo1 #superior h5{
-    font-size: 10px;
-    color: #C66B00;
-}
+
 #conteudo1 #inferior h1{
     font-size: 16px;
     margin-top: 3%;

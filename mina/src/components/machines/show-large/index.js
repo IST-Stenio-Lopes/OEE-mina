@@ -4,31 +4,52 @@ import '../show-large/style.css';
 import React, { Component } from "react";
 import { oeeValue } from '../../../utils/utilities';
 import {formatWord} from '../../../utils/utilities';
+import {getStateMachine} from '../../../utils/utilities';
+import { getNameStateIcon } from '../../../utils/utilities';
 import Data from '../../../mock-data.json';
+//import { Container } from './style';
+import { LinhaL, NameTop, StatusColor, DateStatusControll} from './style';
 
-
-export default function ShowLarge() {
-
+export default function ShowLarge({description}) {
+    
+    //<Container background='#00FF00'/>
 
     return (
+        
     
         <div id="showLarger-expand">
+            
             {
                 Data.map((post) => (
+                    description = post.description,
                     <div id="principal">
-
+                      
                         <div id="conteudo1">
-                            <div id="superior">
-                                <h5>A02 - Man. Mecânica</h5>
-                                <div id="horas">
-
+                            <div id="superior" className="row">
+                                <div className="col-6" >
+                                    <NameTop  description={post.description}>0{post.id}    {getStateMachine(post.description)}</NameTop>
                                 </div>
+                                <div className="col-6 row">
+                                
+                                        <div className="col-9">
+                                            <div id="horas">
+                                            <DateStatusControll description={post.description}>D|H|M|S</DateStatusControll>
+                                            </div> 
+                                            
+                                        </div>
+                                        <div className="col-3">
+                                            <StatusColor description={post.description}><MaterialIcon icon={getNameStateIcon(post.description)} size={20} /></StatusColor>
+                                        </div>
+                                    
+                                </div>
+                                
                             </div>
                             <div id="inferior">
                                 <h1>{formatWord(post.name)}</h1>
                             </div>
-
-                            <p id="linha"></p>
+                            
+                            <LinhaL description={post.description} />
+                         
                         </div>
                         <div id="icons">
                             <div id="icon"><a><MaterialIcon icon="vpn_key" size={20} /></a><p>0000</p></div>
@@ -53,7 +74,9 @@ export default function ShowLarge() {
                         </div>
                     </div>
                 ))
+                
             }
+            
             <br/>
         </div>
 

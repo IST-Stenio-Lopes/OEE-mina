@@ -6,11 +6,11 @@ import ShowSmall from "./show-small";
 
 function showMachine(valueSlider){
     if(valueSlider === 1){
-        return <ShowLarge/>
+        return <ShowLarge description=""/>
     }else if(valueSlider === 2){
-        return <ShowMedium/>
+        return <ShowMedium description=""/>
     }else if(valueSlider === 3){
-        return <ShowSmall/>
+        return <ShowSmall description=""/>
     }
 }
 
@@ -19,7 +19,7 @@ export default function Machines(){
     const [size, setSize] = useState(1);
     function test (value){
         setSize(value);
-        console.log(`teste ${value}`);
+        //console.log(`teste ${value}`);
     }
     
     return(
