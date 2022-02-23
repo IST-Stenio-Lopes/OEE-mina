@@ -40,7 +40,7 @@ export default function ShowLarge({description}) {
                                         <div className="col-3">
                                             <StatusColor description={post.description}><MaterialIcon icon={getNameStateIcon(post.description)} size={20} /></StatusColor>
                                         </div>
-                                    
+                                
                                 </div>
                                 
                             </div>

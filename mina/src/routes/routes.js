@@ -54,6 +54,4 @@ const Routees = () => {
       </BrowserRouter>
     );
   };
-
-
   export default Routees;
