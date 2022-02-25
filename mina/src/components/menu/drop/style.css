@@ -1,26 +1,27 @@
-#drop{
+#drop {
     position: absolute;
     display: flex;
     flex-direction: column;
     margin: 0px auto;
-    margin-top: 3.8%;
+    top: 7.8%;
     width: 15%;
     height: 100%;
     background-color: white;
     z-index: 1;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 
 }
 
-#drop a{
+#drop a {
     display: flex;
     margin-left: 10%;
     margin-top: 8%;
     text-decoration: none;
     color: #3270CD;
 }
-#drop a #icon{
-   padding-right: 4%;
+
+#drop a #icon {
+    padding-right: 4%;
 
 
 }

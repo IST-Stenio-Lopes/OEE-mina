@@ -5,21 +5,14 @@ import Menu from "./components/menu";
 import Register from "./components/register";
 import Routes from "./routes/routes";
 import Routees from "./routes/routes";
+import AppProvider from "./contexts";
 
 function App() {
   return (
-    <div>
-      <head>
- 
-      </head>
-      <Menu />
-
-    
-      <div>
-      <Routees/>
-     
-      </div>
-    </div>
+      <AppProvider>
+        <Menu />
+        <Routees/>
+      </AppProvider>
   );
 }
 
