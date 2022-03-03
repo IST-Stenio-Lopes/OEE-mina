@@ -3,7 +3,7 @@ import { createContext, ReactNode, useCallback, useContext, useReducer, useState
 export type Machine = {
     id?: string;
     name: string;
-    shift: string;
+    shift: string; //Turno que ela irá produzir
     produced_product?: { //Produto que está sendo produzido pela maquina
         code: string;  //O código do produto
         description: string; //A descrição do produto
@@ -19,6 +19,28 @@ export type Machine = {
     cach_in_word: boolean; //descontar retrabalho
     discount_scrap: boolean; //descontar refugo
 
+}
+
+//Dados necessários na listagem de maquinas nas estações de trabalho
+interface MachineForWorksTationList {
+    name: string;
+    description: string;
+    production_per_hour: number;
+    oee: number; 
+    cach_in_word: boolean;
+    discount_scrap: boolean;
+}
+//Dados necessários na especificação da maquina na estação de trabalho
+interface MachineForWorksTation{
+    name: string;
+    status: string;
+    approved: number;
+    
+    description: string;
+    production_per_hour: number;
+    oee: number; 
+    cach_in_word: boolean;
+    discount_scrap: boolean;
 }
 
 

@@ -1,17 +1,29 @@
-import React from "react";
-import '../register/style.css';
+import React, { useState } from "react";
 
+import Interruptor2 from "../inputs/interruptor/index2";
+
+import '../register/style.css';
 
 
 
 
 export default function Register() {
 
+    const [workstationName, setWorkstationName] = useState('');
+    const [shift, setShift] = useState('');
+    const [oeeTarget, setOeeTarget] = useState('');
+    const [productionPerHour, setProductionPerHour] = useState('');
+    const [freeTime, setFreeTime] = useState('');
+    const [discountScrap, setDiscountScrap] = useState(false);
+    const [discountRework, setDiscountRework] = useState(false);
+
+
     return (
         <div>
             <div className="container-fluid" id="register">
                 <div class="row-cabecalho">
                     <div class="col-md-10"><h1>CADASTRAR NOVA ESTAÇÃO DE TRABALHO</h1></div>
+                    <Interruptor2 state={discountScrap} changeState={() => setDiscountScrap(!discountScrap)}/>
                     <div class="col-md-2"><a  href="/"><button type="button" class="btn-close " aria-label="Close"></button></a></div>
                 </div>
                 <div className="border">
@@ -19,12 +31,13 @@ export default function Register() {
                         <div class="col">
                             Nome Estação de trabalho
                             <div class="input-group mb-3">
-
                                 <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" />
                             </div>
                         </div>
                     </div>
                     <div class="row align-items-center">
+                      
+                
                         <div class="col">
                             Turnos
                             <input type="text" class="form-control" aria-label="Username"></input>
@@ -52,9 +65,7 @@ export default function Register() {
                             Descontar refugos da produção
                         </div>
                         <div class="col-4">
-                            <div>
-                                <input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..." />
-                            </div>
+                           
                         </div>
                     </div>
                     <div class="row justify-content-evenly">

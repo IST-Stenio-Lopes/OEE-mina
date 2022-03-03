@@ -2,8 +2,8 @@ import { createContext, ReactNode, useCallback, useContext, useReducer, useState
 
 export type Colector = {
     id?: string;
-    identification: string;
-    type: string;
+    identification: string; //Nome do coletor
+    type: string; //Ex: Wise  qnd for cadastrar deve aparecer um select input para escolher qual o tipo
     last_atualization?: Date;
     channel_colector?: {
         active: boolean;

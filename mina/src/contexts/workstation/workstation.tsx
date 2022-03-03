@@ -8,9 +8,6 @@ export type Workstation = {
     oee: number;
     cach_in_word: boolean,
     discount_scrap: boolean,
-
-
-
 }
 
 

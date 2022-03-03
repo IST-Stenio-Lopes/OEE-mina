@@ -1,19 +1,21 @@
-
-.container-fluid{
+.container-fluid {
     margin-top: 5%;
 }
-.row-cabecalho{
+
+.row-cabecalho {
     margin-left: 20%;
     margin-right: 10%;
     display: flex;
     padding-bottom: 0px;
 }
-.row-cabecalho h1{
+
+.row-cabecalho h1 {
     font-size: 18px;
     font-weight: bolder;
     text-align: center;
 }
-.border{
+
+.border {
     margin-left: 20%;
     margin-right: 20%;
     margin-top: 5%;
@@ -23,26 +25,30 @@
     padding-bottom: 6%;
 }
 
-.form-check-input{
+.form-check-input {
     background-color: lightgray;
     border: none;
     padding: 3%;
 }
 
-#register .row{
+#register .row {
     margin-top: 9%;
 }
-#register  .row.justify-content-evenly{
+
+#register .row.justify-content-evenly {
     margin-top: 5%;
 }
-#register  .row.justify-content-evenly input{
+
+#register .row.justify-content-evenly input {
     margin-left: 100%;
 
 }
-#register  .row.justify-content-end{
+
+#register .row.justify-content-end {
     margin-top: 2%;
 }
-#register  .row.justify-content-end button{
+
+#register .row.justify-content-end button {
     margin-top: 15%;
     margin-left: 10%;
     padding-left: 20%;
