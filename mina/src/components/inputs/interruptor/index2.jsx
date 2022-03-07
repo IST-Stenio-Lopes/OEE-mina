@@ -22,7 +22,7 @@ const blue = {
     display: inline-block;
     width: 40px;
     height: 20px;
-    margin: 10px;
+    margin: 0px;
     cursor: pointer;
   
     &.${switchUnstyledClasses.disabled} {

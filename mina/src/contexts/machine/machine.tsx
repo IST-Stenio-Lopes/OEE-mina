@@ -16,10 +16,11 @@ export type Machine = {
         contTime: Date; // Tanto no status 'parado' quanto 'manutenção' vai existir o contador, que mostra quanto tempo ele está com esse status
         codeCondition?: string; //O código da condição vai ser dado para o status 'parado' como uma justificativa do "por quê a maquina está parada. Ex: "A02 - Man. Preventiva"
     }
-    cach_in_word: boolean; //descontar retrabalho
+    discount_rework: boolean; //descontar retrabalho
     discount_scrap: boolean; //descontar refugo
 
 }
+
 
 //Dados necessários na listagem de maquinas nas estações de trabalho
 interface MachineForWorksTationList {
@@ -27,7 +28,7 @@ interface MachineForWorksTationList {
     description: string;
     production_per_hour: number;
     oee: number; 
-    cach_in_word: boolean;
+    discount_rework: boolean;
     discount_scrap: boolean;
 }
 //Dados necessários na especificação da maquina na estação de trabalho
@@ -35,11 +36,10 @@ interface MachineForWorksTation{
     name: string;
     status: string;
     approved: number;
-    
     description: string;
     production_per_hour: number;
     oee: number; 
-    cach_in_word: boolean;
+    discount_rework: boolean;
     discount_scrap: boolean;
 }
 
@@ -74,7 +74,7 @@ const initialData: Machine = { //dados iniciais
     oee: 0,
     approved: 0,
     status: 'inativo',
-    cach_in_word: false,
+    discount_rework: false,
     discount_scrap: false
 }
 
@@ -93,7 +93,7 @@ export enum MachineActions {
     setApproved,
     setStatus,
     setCondition,
-    setCach_in_word,
+    setDiscount_rework,
     setDiscount_scrap,
 
     reset
@@ -119,7 +119,7 @@ const machineReducer = (machine: Machine, action: Action) => { //Ela recebe uma 
             return { ...machine, status: action.payload };
         case MachineActions.setCondition:
             return { ...machine, condition: action.payload };
-        case MachineActions.setCach_in_word:
+        case MachineActions.setDiscount_rework:
             return { ...machine, cach_in_word: action.payload };
         case MachineActions.setDiscount_scrap:
             return { ...machine, discount_scrap: action.payload };
