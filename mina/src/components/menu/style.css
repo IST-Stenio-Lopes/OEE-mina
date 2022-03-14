@@ -1,5 +1,7 @@
 #menu-index{
-  background-color: red;
+  background: transparent;
+  position: absolute;
+  top: 0;
 }
 
 
@@ -9,9 +11,11 @@ nav{
     padding-left: 1%;
     padding-right: 1%;
     padding-top: 0.7%;
-    position: relative;
+    position: fixed;
+    width: 100vw;
     display: flex;
     justify-content: space-between; /*faz com que os elementos filhos possam ser alinhados em lados opostos*/
+    z-index: 2;
     
 }
 

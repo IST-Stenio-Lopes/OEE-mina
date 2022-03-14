@@ -18,11 +18,13 @@ export const DisplayGridStyle = styled.div`
 `
 
 export const MarginSpaceStyle = styled.div`
+
     ${(props) => css`
         margin-right: ${props.right}%;
         margin-left: ${props.left}%;
         margin-top: ${props.top}%;
         margin-bottom: ${props.bottom}%;
+        width: ${props.width}%;
     `}
 `
 export const AlignCenterStyle = styled.div`

@@ -1,7 +1,7 @@
 import ReactApexChart from 'react-apexcharts';
 import React, { Component } from "react";
 import { render } from "@testing-library/react";
-import '../percentBar/style.css';
+import './style.css';
 
 class ApexChart extends React.Component {
     constructor(props) {

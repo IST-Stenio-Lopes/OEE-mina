@@ -1,5 +1,14 @@
+
+
 .col-md-5.alinhamento{
     display: flex;
+    
+}
+.col-md-7{
+    margin-bottom: 15%;
+}
+.col-md-5.data{
+    margin-left: 15%;
 }
 
 .col-md-9 .border{
@@ -10,34 +19,3 @@
     margin-left: 16%;
 }
 
-
-.col-md-9 .container{
-   
-}
-.col-md-9 .container input{
-   width: 100%;
-    border: none;
-    border-bottom: 1px solid gray;
-}
-.col-md-9 .container ul{
-    list-style: none;
-    text-decoration: none;
-    
-}
-.col-md-9 .container ul li *{
-    text-decoration: none;
-    border: none;
-    background-color: unset;
-    border-bottom: 1px solid gray;
-    padding-top: 10px;
-    font-size: 12px;
-    text-align: start;
-}
-
-.container__select {
-    margin-left: -2%;
-    position: absolute;
-    background-color: white;
-    height: 200px;
-    overflow: auto; /*Faz com que seja exibida a barra de scroll*/
-}

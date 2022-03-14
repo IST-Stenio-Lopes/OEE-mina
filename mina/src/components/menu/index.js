@@ -74,6 +74,7 @@ export default function Menu(){
                     <Drop/>
                 </div>}
                 <nav >
+                    
                     <div className="dropdown" style={{alignItems:'flex-start'}}>
                         <button className="dropbtn" onClick={dropValue}/*onClick={changeAside}*/ onClick={() => setDropValue(!dropValue)} style={{textDecoration:"none", border:"none", background:"none", color:'#fff'}}>
                             <MaterialIcon  id="dropdawn" icon="menu" size={20} />

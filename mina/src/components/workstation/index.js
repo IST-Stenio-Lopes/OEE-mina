@@ -14,9 +14,23 @@ import pause from "../../assets/pause.svg";
 import play from "../../assets/play.svg";
 import add from "../../assets/add-work.svg";
 import stop from "../../assets/stop.svg";
+import Modal from "../modal";
+import ModalStopWorkstation from "./modal-stop";
+import { useLocation } from "react-router-dom";
+import { DateMachineStoped, SelectSearchModifield } from "./style";
+import moment from "moment";
 
-export default function Workstation() {
-  const [selectedMachine, setSelectedMachine] = useState(Data[0]); //caso eu inicie com um valor vazio (useState();) então deve ser aplicado um operador ternario (")selectedMachine ? selectedMachine.production : '') para que ele não incicie com undefined
+export default function Workstation(props) {
+  const location = useLocation();
+
+  const [selectedMachine, setSelectedMachine] = useState(
+    location.state.id ? Data[location.state.id - 1] : Data[0]
+  ); //caso eu inicie com um valor vazio (useState();) então deve ser aplicado um operador ternario (")selectedMachine ? selectedMachine.production : '') para que ele não incicie com undefined
+  const [showModal, setShowModal] = useState(false);
+
+  /* {
+    props.id && setSelectedMachine(Data[location.state]);
+  } */
   function handleChangeMachine(value) {
     var machine = Data.find((x) => x.id === value);
     setSelectedMachine(machine);
@@ -31,25 +45,36 @@ export default function Workstation() {
 
   return (
     <div>
-      <div className=".container-fluid">
+      {showModal && (
+        <ModalStopWorkstation
+          close={() => setShowModal(false)}
+        ></ModalStopWorkstation>
+      )}
+
+      <div className="container-fluid">
         <div class="row align-items-start">
           <div class="col-md-5 alinhamento">
             <div class="col-md-9">
               <div id="cont1">
                 <div class="col-md-7">
-                  <SelectSearch
+                  <SelectSearchModifield
+                    status={selectedMachine.description}
                     className="container"
                     multiple={false}
                     closeOnSelect={true}
                     onChange={handleChangeMachine}
                     options={options}
-                    value="3"
+                    value={selectedMachine.id}
                     name="machines"
                     search={true}
                   />
                 </div>
-                <div class="col-md-5">
-                  <p>D | H | M | S </p>
+                <div class="col-md-5 data">
+                  <DateMachineStoped>
+                    {selectedMachine.description !== "funcionando" &&
+                      moment().format("DD/MM/YY, h:mm:ss")}
+                  </DateMachineStoped>
+                  {/* <p>D | H | M | S </p> */}
                 </div>
               </div>
               <div className="border">
@@ -87,7 +112,7 @@ export default function Workstation() {
                   <img
                     src={stop}
                     onClick={() => {
-                      alert("aaa");
+                      setShowModal(true);
                     }}
                   />
                 </AlignCenterStyle>

@@ -47,3 +47,16 @@ export function adjustSizeWithResolution(value) {
     return value;
   }
 }
+export function ChangeArrayInputSelect(array) {
+  const arraySelect = [];
+
+  for (let i = 0; i < array.length; i++) {
+
+      arraySelect.push({
+          value: array[i],
+          label: array[i]
+      })
+
+  }
+  return arraySelect;
+}

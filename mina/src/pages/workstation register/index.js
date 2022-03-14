@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import Interruptor2 from "../inputs/interruptor/index2";
+import Interruptor2 from "../../components/inputs/interruptor/index2";
 import {
   BoxDivPrincipalRegisterWorkstation,
   CancelButton,
@@ -10,13 +10,13 @@ import {
   SaveButton,
 } from "./style";
 
-import "../register/style.css";
+import "./style.css";
 import {
   DisplayFlexStyle,
   DisplayGridStyle,
   MarginSpaceStyle,
 } from "../../styles/style";
-import NormalInput from "../inputs/normal";
+import NormalInput from "../../components/inputs/normal";
 import { adjustSizeWithResolution } from "../../utils/utilities";
 
 export default function Register({ o }) {

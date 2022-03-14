@@ -14,11 +14,21 @@ export const BoxDivPrincipalRegisterWorkstation = styled.div`
         text-align: center;
         width: 100%;
     }
+    
 
     ${(props) => props.size <= 1600 && css`
         height: 57vh;
     `}
+    @media(max-width: 1500px) {
+        margin-left: 35%;
+        width: 80vh;
+        height: 70vh;
 
+        h1{
+            font-size: 14px;
+            margin-bottom: 5%;
+        }
+    }
 `
 
 export const CloseButtonRegisterWorkstation = styled.button `

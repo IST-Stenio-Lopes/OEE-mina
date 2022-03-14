@@ -24,34 +24,38 @@ const Routes = () => {
 
 export default Routes;*/
 
-import React from 'react';
-import { Routes, Route, BrowserRouter, useLocation } from 'react-router-dom';
-import Machines from "../components/machines";
+import React from "react";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+
+import RegisterColector from "../components/register-colector";
 import Workstation from "../components/workstation";
-import WorkstationList from '../components/workstation-list';
-import Register from "../components/register";
-import RegisterColector from '../components/register-colector';
+import Machines from "../pages/begin";
+import WorkstationList from "../pages/workstation list";
+import Register from "../pages/workstation register";
+
 /* import Error from '../components/404'; */
 
 const Routees = () => {
-    // const location = useLocation();
-  
-    return (
-      <BrowserRouter>
-        {/* { location.pathname !== '/'
+  // const location = useLocation();
+
+  return (
+    <BrowserRouter>
+      {/* { location.pathname !== '/'
          && location.pathname !== '/forgot'
           && location.pathname !== '/404'
            && !location.pathname.includes('resetpassword')
            && <Error/>} */}
-        <Routes>
-            <Route path="/" element={<Machines/>}/>
-            <Route path="/workstation" element={<Workstation/>}/>
-            <Route path="/workstationlist" element={<WorkstationList/>}/>
-            <Route path="/register" element={<Register/>}/>
-            <Route path="/registercolector" element={<RegisterColector/>}/>
-            {/* <Route path='*' element={<Error/>}/> */}
-        </Routes>
-      </BrowserRouter>
-    );
-  };
-  export default Routees;
+      <Routes>
+        <Route path="/" element={<Machines />} />
+        <Route path="workstation">
+          <Route index element={<WorkstationList />} />
+          <Route path="details" element={<Workstation />} />
+          <Route path="register" element={<Register />} />
+        </Route>
+        <Route path="/registercolector" element={<RegisterColector />} />
+        {/* <Route path='*' element={<Error/>}/> */}
+      </Routes>
+    </BrowserRouter>
+  );
+};
+export default Routees;

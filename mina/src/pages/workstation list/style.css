@@ -1,4 +1,6 @@
-
+.principal-workstationlist{
+    padding-top: 3%;
+}
 #ws-content{
     width: 95%;
     margin: 10px auto
