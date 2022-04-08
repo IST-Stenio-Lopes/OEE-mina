@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { styled } from '@mui/system';
 import SwitchUnstyled, { switchUnstyledClasses } from '@mui/base/SwitchUnstyled';
-
-
+import { HasPermission } from '../../../utils/utilities';
+import { AlertActions, useAlert } from '../../../contexts/alert/alert';
 
 
 const blue = {
@@ -85,12 +85,14 @@ const blue = {
   );
 
 
-export default function Interruptor2(props) {
+export default function Interruptor2({state, changeState, click}) {
     
   
     return (
-        <div>
-        <SwitchUnstyled component={Root}  defaultChecked={props.state} onChange={() => {props.changeState()}} />
+        <div onClick={() => {
+          click();
+        }}>
+        <SwitchUnstyled  component={Root} readOnly={true} defaultChecked={state} onChange={() => {changeState()}} />
         </div>
     );
   }

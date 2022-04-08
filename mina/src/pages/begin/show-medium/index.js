@@ -1,7 +1,10 @@
 import React from "react";
 import MaterialIcon from "react-google-material-icons";
-
-import { useWorkstation, WorkstationActions } from "../../../contexts/workstation/workstation";
+import { useNavigate } from "react-router-dom";
+import {
+  useWorkstation,
+  WorkstationActions,
+} from "../../../contexts/workstation/workstation";
 import Data from "../../../mock-data.json";
 import { oeeValue } from "../../../utils/utilities";
 import { formatWord, getStateMachine } from "../../../utils/utilities";
@@ -12,6 +15,7 @@ import "../show-medium/style.css";
 
 export default function ShowMedium() {
   const { dispatch } = useWorkstation();
+  const navigate = useNavigate();
 
   const handleWorkstationId = (id) => {
     dispatch({
@@ -25,8 +29,11 @@ export default function ShowMedium() {
       {Data.map((post) => (
         <div
           id="principal-medium"
-          onClick={() => {
+          /* onClick={() => {
             handleWorkstationId(post.id);
+          }} */
+          onClick={() => {
+            navigate("/workstation/details", { state: { id: post.id } });
           }}
         >
           <div id="conteudo1-medium">

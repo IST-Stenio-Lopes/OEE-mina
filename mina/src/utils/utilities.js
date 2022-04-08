@@ -1,3 +1,7 @@
+import Check from "../assets/machine-begin/check.svg";
+import Build from "../assets/machine-begin/build.svg";
+import Pause from "../assets/machine-begin/pause.svg";
+
 export function oeeValue(valor) {
   if (valor > 100) {
     return 100;
@@ -24,13 +28,13 @@ export function getStateMachine(value) {
   }
 }
 
-export function getNameStateIcon(value) {
+export function getStateIcon(value) {
   if (value === "funcionando") {
-    return "check";
+    return /* "check"; */ Check;
   } else if (value === "manutencao") {
-    return "build";
+    return Build;
   } else if (value === "pausa") {
-    return "pause";
+    return Pause;
   }
 }
 
@@ -51,12 +55,21 @@ export function ChangeArrayInputSelect(array) {
   const arraySelect = [];
 
   for (let i = 0; i < array.length; i++) {
-
-      arraySelect.push({
-          value: array[i],
-          label: array[i]
-      })
-
+    arraySelect.push({
+      value: array[i],
+      label: array[i],
+    });
   }
   return arraySelect;
+}
+
+/* var permissions = []; */
+export function HasPermission(permissions, userPermission) {
+  /* permissions.indexOf(userPermission) !== -1
+    ?  true
+    :  false */
+  if (permissions.indexOf(userPermission) !== -1) {
+    return true;
+  }
+  return false;
 }

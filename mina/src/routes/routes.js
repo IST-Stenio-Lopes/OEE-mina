@@ -26,33 +26,70 @@ export default Routes;*/
 
 import React from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
-
-import RegisterColector from "../components/register-colector";
-import Workstation from "../components/workstation";
+import PersonalizedAlerts from "../components/alert";
+import RegisterColector from "../pages/collectors/register-colector";
+import ColumnOee from "../pages/workstation/workstation-details/bar-chart2/index";
+import { useAlert } from "../contexts/alert/alert";
+import { useAuth } from "../contexts/auth/auth";
 import Machines from "../pages/begin";
-import WorkstationList from "../pages/workstation list";
-import Register from "../pages/workstation register";
+import Collectors from "../pages/collectors";
+import SignIn from "../pages/signIn";
+import WorkstationList from "../pages/workstation/workstation list";
+import Register from "../pages/workstation/workstation-register";
+import CustomRoute from "./custom";
+import WorkstationDetails from "../pages/workstation/workstation-details";
 
 /* import Error from '../components/404'; */
 
 const Routees = () => {
-  // const location = useLocation();
+  //const location = useLocation(); tá deixando tudo branco, nn sei pq
+  const { user } = useAuth();
+  const { stateAlert, dispatch } = useAlert();
 
   return (
     <BrowserRouter>
+      <PersonalizedAlerts
+        visibility={stateAlert.visibility}
+        type={stateAlert.type}
+        title={stateAlert.title}
+        msg={stateAlert.msg}
+      />
       {/* { location.pathname !== '/'
          && location.pathname !== '/forgot'
           && location.pathname !== '/404'
            && !location.pathname.includes('resetpassword')
            && <Error/>} */}
+
       <Routes>
-        <Route path="/" element={<Machines />} />
+        <Route path="/" element={<CustomRoute component={<SignIn />} />} />
+        <Route
+          path="/machines"
+          element={<CustomRoute component={<Machines />} />}
+        />
         <Route path="workstation">
-          <Route index element={<WorkstationList />} />
-          <Route path="details" element={<Workstation />} />
-          <Route path="register" element={<Register />} />
+          <Route
+            index
+            element={<CustomRoute component={<WorkstationList />} />}
+          />
+          <Route
+            path="details"
+            element={<CustomRoute component={<WorkstationDetails />} />}
+          />
+          <Route
+            path="register"
+            element={<CustomRoute component={<Register />} />}
+          />
         </Route>
-        <Route path="/registercolector" element={<RegisterColector />} />
+        <Route
+          path="collector"
+          element={<CustomRoute component={<Collectors />} />}
+        />
+        <Route
+          path="/registercolector"
+          element={<CustomRoute component={<RegisterColector />} />}
+        />
+
+        <Route path="test" element={<ColumnOee />} />
         {/* <Route path='*' element={<Error/>}/> */}
       </Routes>
     </BrowserRouter>

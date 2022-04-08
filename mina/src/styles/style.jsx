@@ -15,6 +15,19 @@ export const DisplayFlexStyle = styled.div`
 export const DisplayGridStyle = styled.div`
     display: grid;
     position: relative;
+    
+    ${(props) => css`
+        margin-right: ${props.right}%;
+        margin-left: ${props.left}%;
+        margin-top: ${props.top}%;
+        margin-bottom: ${props.bottom}%;
+        width: ${props.width}%;
+        height: ${props.height}%;
+        padding-left: ${props.pleft}%;
+        padding-right: ${props.pright}%;
+        padding-top: ${props.ptop}%;
+        padding-bottom: ${props.pbottom}%;
+    `}
 `
 
 export const MarginSpaceStyle = styled.div`
@@ -25,7 +38,13 @@ export const MarginSpaceStyle = styled.div`
         margin-top: ${props.top}%;
         margin-bottom: ${props.bottom}%;
         width: ${props.width}%;
+        height: ${props.height}%;
+        padding-left: ${props.pleft}%;
+        padding-right: ${props.pright}%;
+        padding-top: ${props.ptop}%;
+        padding-bottom: ${props.pbottom}%;
     `}
+
 `
 export const AlignCenterStyle = styled.div`
   position: absolute;

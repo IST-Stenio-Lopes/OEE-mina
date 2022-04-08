@@ -1,26 +1,35 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import MaterialIcon from "react-google-material-icons";
-import Workstation from "../../../components/workstation";
+import Workstation from "../../workstation/workstation-details";
 import {
   useWorkstation,
   WorkstationActions,
 } from "../../../contexts/workstation/workstation";
 import Data from "../../../mock-data.json";
-import { oeeValue } from "../../../utils/utilities";
+import { getStateIcon, oeeValue } from "../../../utils/utilities";
 import { formatWord } from "../../../utils/utilities";
 import { getStateMachine } from "../../../utils/utilities";
-import { getNameStateIcon } from "../../../utils/utilities";
 import ApexChart from "../percentBar";
 //import { DateStatusControll, LinhaL, NameTop, StatusColor } from './style';
 import { LinhaL, NameTop, StatusColor, DateStatusControll } from "./style";
 
 import "../show-large/style.css";
 import { useNavigate } from "react-router-dom";
+import Vpn from "../../../assets/machine-begin/vpn_key.svg";
+import Inventory from "../../../assets/machine-begin/inventory_2.svg";
+import { MarginSpaceStyle } from "../../../styles/style";
+//import { getWorkstationsDetailed } from "../../../services/workstation";
 
 export default function ShowLarge({ description }) {
   //<Container background='#00FF00'/>
 
   const { dispatch } = useWorkstation();
+  /* 
+  useEffect(() => {
+    getWorkstationsDetailed();
+  }, []); */
+
+  /*   const Data = getWorkstationsDetailed(); */
 
   const handleWorkstationId = (id) => {
     dispatch({
@@ -38,6 +47,7 @@ export default function ShowLarge({ description }) {
           (description = post.description),
           (
             <div
+              key={post.id}
               id="principal"
               onClick={() => {
                 /* handleWorkstationId(post.id); */
@@ -61,10 +71,7 @@ export default function ShowLarge({ description }) {
                     </div>
                     <div className="col-3">
                       <StatusColor description={post.description}>
-                        <MaterialIcon
-                          icon={getNameStateIcon(post.description)}
-                          size={20}
-                        />
+                        <img src={getStateIcon(post.description)} />
                       </StatusColor>
                     </div>
                   </div>
@@ -78,13 +85,17 @@ export default function ShowLarge({ description }) {
               <div id="icons">
                 <div id="icon">
                   <a>
-                    <MaterialIcon icon="vpn_key" size={20} />
+                    <MarginSpaceStyle top={-30}>
+                      <img src={Vpn} width={20} />
+                    </MarginSpaceStyle>
                   </a>
                   <p>0000</p>
                 </div>
                 <div id="icon2">
                   <a>
-                    <MaterialIcon icon="inventory2" size={20} />
+                    <MarginSpaceStyle top={-30}>
+                      <img src={Inventory} width={20} />
+                    </MarginSpaceStyle>
                   </a>
                   <p>0000</p>
                 </div>

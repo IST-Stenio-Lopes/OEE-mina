@@ -1,6 +1,9 @@
 import React from "react";
-
-import { useWorkstation, WorkstationActions } from "../../../contexts/workstation/workstation";
+import { useNavigate } from "react-router-dom";
+import {
+  useWorkstation,
+  WorkstationActions,
+} from "../../../contexts/workstation/workstation";
 import Data from "../../../mock-data.json";
 import { oeeValue } from "../../../utils/utilities";
 import { formatWord } from "../../../utils/utilities";
@@ -11,6 +14,7 @@ import "../show-small/style.css";
 
 export default function ShowSmall() {
   const { dispatch } = useWorkstation();
+  const navigate = useNavigate();
 
   const handleWorkstationId = (id) => {
     dispatch({
@@ -25,7 +29,7 @@ export default function ShowSmall() {
         <div
           id="principal-small"
           onClick={() => {
-            handleWorkstationId(post.id);
+            navigate("/workstation/details", { state: { id: post.id } });
           }}
         >
           <div id="conteudo1-small">

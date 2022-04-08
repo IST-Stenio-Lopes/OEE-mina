@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 //import './index.css';
 import App from './App';
 import Machines from './pages/begin';
-import Workstation from './components/workstation';
+import Workstation from './pages/workstation/workstation-details';
 import { BrowserRouter, Routes, Switch, Route } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import './styles/global.css';

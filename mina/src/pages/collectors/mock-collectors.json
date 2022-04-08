@@ -1,0 +1,79 @@
+[{
+    "id": 1,
+    "identification": "WISE 001",
+    "type": "Wise",
+    "last_atualization": "25-5-2018",
+    "channels": [{
+        "machine_id": "15",
+        "active": true,
+        "channel": 1,
+        "type": "teste 01",
+        "acumulative": false
+    },
+    {
+      "machine_id": "15",
+      "active": true,
+      "channel": 1,
+      "type": "teste 01 v2",
+      "acumulative": true
+    },
+    {
+      "machine_id": "15",
+      "active": true,
+      "channel": 1,
+      "type": "teste 01 v3",
+      "acumulative": true
+    },
+    {
+      "machine_id": "15",
+      "active": true,
+      "channel": 1,
+      "type": "teste 01 v4",
+      "acumulative": true
+    }
+  ],
+    "active": true
+  
+  }, {
+    "id": 2,
+    "identification": "WISE 002",
+    "type": "Wise",
+    "last_atualization": "15-2-2020",
+    "channels": [{
+        "machine_id": "15",
+        "active": true,
+        "channel": 1,
+        "type": "teste 02",
+        "acumulative": true
+    }],
+    "active": false
+  }, {
+    "id": 3,
+    "identification": "WISE 003",
+    "type": "Wise",
+    "last_atualization": "27-2-1997",
+    "channels": [{
+        "machine_id": "25",
+        "active": true,
+        "channel": 2,
+        "type": "teste 03",
+        "acumulative": false
+    }],
+    "active": true
+  }, {
+    "id": 4,
+    "identification": "WISE 004",
+    "type": "Wise",
+    "last_atualization": "",
+    "channels": [{
+        "machine_id": "30",
+        "active": true,
+        "channel": 2,
+        "type": "teste 03",
+        "acumulative": false
+    }],
+    "active": true
+  }
+
+]
+
