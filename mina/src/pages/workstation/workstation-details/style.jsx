@@ -23,15 +23,15 @@ export const SelectSearchModifield = styled(SelectSearch)`
         padding-bottom: 5%;
         
         
-        ${(props) => props.status === 'funcionando' && css`
+        ${(props) => props.status === 'Produzindo' && css`
             border-bottom: 2px solid #2BC079;
         `}
 
-        ${(props) => props.status === 'manutencao' && css`
+        ${(props) => props.status === 'Desativada ' && css`
             border-bottom: 2px solid #C66B00;
         `}
 
-        ${(props) => props.status === 'pausa' && css`
+        ${(props) => props.status === 'Parada' && css`
             border-bottom: 2px solid #C02B2B;
         `}
 
@@ -66,11 +66,11 @@ export const DateMachineStoped = styled.p`
     margin-left: 3%;
     font-size: 22px;
     
-    ${(props) => props.description === 'manutencao' && css`
+    ${(props) => props.description === 'Desativada ' && css`
         color: #C66B00;
     `}
 
-    ${(props) => props.description === 'pausa' && css`
+    ${(props) => props.description === 'Parada' && css`
         color: #C02B2B;
     `}
     p{
@@ -119,15 +119,15 @@ export const OeelBarChart = styled.p`
 export const SelectedMachineTopTextStatus = styled.p`
     font-size: 9px;
     font-weight: bolder;
-    ${(props) => props.status === 'funcionando' && css`
+    ${(props) => props.status === 'Produzindo' && css`
     color: #2BC079;
         `}
 
-        ${(props) => props.status === 'manutencao' && css`
+        ${(props) => props.status === 'Desativada ' && css`
         color: #C66B00;
         `}
 
-        ${(props) => props.status === 'pausa' && css`
+        ${(props) => props.status === 'Parada' && css`
         color: #C02B2B;
         `}
 

@@ -3,13 +3,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-   
+    
 }
 #bar input{
     height: 30px;
     width: 100%;
     border-radius: 4px;
     border: 1px solid #E5E5E5;
+    padding-left: 5%;
 }
 #bar #bar-icon{
     position: absolute;

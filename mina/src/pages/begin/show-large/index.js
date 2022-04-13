@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { Component, useEffect, useState, useCallback } from "react";
 import MaterialIcon from "react-google-material-icons";
 import Workstation from "../../workstation/workstation-details";
 import {
@@ -11,25 +11,35 @@ import { formatWord } from "../../../utils/utilities";
 import { getStateMachine } from "../../../utils/utilities";
 import ApexChart from "../percentBar";
 //import { DateStatusControll, LinhaL, NameTop, StatusColor } from './style';
-import { LinhaL, NameTop, StatusColor, DateStatusControll } from "./style";
+import { LinhaL, NameTop, StatusColor, DateStatusControll, MachineName } from "./style";
 
 import "../show-large/style.css";
 import { useNavigate } from "react-router-dom";
 import Vpn from "../../../assets/machine-begin/vpn_key.svg";
 import Inventory from "../../../assets/machine-begin/inventory_2.svg";
 import { MarginSpaceStyle } from "../../../styles/style";
+import { listWorkstationsBegin } from "../../../services/workstation";
 //import { getWorkstationsDetailed } from "../../../services/workstation";
 
 export default function ShowLarge({ description }) {
   //<Container background='#00FF00'/>
 
+  const [dataWorkstations, setDataWorkstations] = useState();
   const { dispatch } = useWorkstation();
   /* 
   useEffect(() => {
     getWorkstationsDetailed();
   }, []); */
-
   /*   const Data = getWorkstationsDetailed(); */
+  const getListWorkstations = useCallback(async () => {
+    const res = await listWorkstationsBegin();
+
+    setDataWorkstations(res);
+  }, []);
+
+  useEffect(() => {
+    getListWorkstations();
+  }, []);
 
   const handleWorkstationId = (id) => {
     dispatch({
@@ -42,7 +52,7 @@ export default function ShowLarge({ description }) {
 
   return (
     <div id="showLarger-expand">
-      {Data.map(
+      {dataWorkstations && dataWorkstations.object_list.map(
         (post) => (
           (description = post.description),
           (
@@ -57,30 +67,30 @@ export default function ShowLarge({ description }) {
               <div id="conteudo1">
                 <div id="superior" className="row">
                   <div className="col-6">
-                    <NameTop description={post.description}>
-                      0{post.id} {getStateMachine(post.description)}
+                    <NameTop description={post.status}>
+                      {getStateMachine(post.status)}
                     </NameTop>
                   </div>
                   <div className="col-6 row">
                     <div className="col-9">
                       <div id="horas">
-                        <DateStatusControll description={post.description}>
+                        <DateStatusControll description={post.status}>
                           D|H|M|S
                         </DateStatusControll>
                       </div>
                     </div>
                     <div className="col-3">
-                      <StatusColor description={post.description}>
-                        <img src={getStateIcon(post.description)} />
+                      <StatusColor description={post.status}>
+                        <img src={getStateIcon(post.status)} />
                       </StatusColor>
                     </div>
                   </div>
                 </div>
                 <div id="inferior">
-                  <h1>{formatWord(post.name)}</h1>
+                 <MachineName>{formatWord(post.name)}</MachineName>
                 </div>
 
-                <LinhaL description={post.description} />
+                <LinhaL description={post.status} />
               </div>
               <div id="icons">
                 <div id="icon">
@@ -108,7 +118,7 @@ export default function ShowLarge({ description }) {
                 </div>
                 <div className="informacoes">
                   <div className="segundo">
-                    <p id="aprovados">{post.production}</p>
+                    <p id="aprovados">{post.approved}</p>
                     APROVADAS
                   </div>
                 </div>

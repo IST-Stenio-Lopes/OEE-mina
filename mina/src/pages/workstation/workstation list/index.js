@@ -1,16 +1,27 @@
 import Button from "@material-ui/core/Button";
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Data from "../../../mock-data.json";
+import { deleteWorkstation, listWorkstationsBegin } from "../../../services/workstation";
 import { DisplayFlexStyle, MarginSpaceStyle } from "../../../styles/style";
 import { WorksCenterButton } from "./style";
-
+import Delete from "../../../assets/delete.svg";
 import "./style.css";
 
 export default function WorkstationList() {
   let navigate = useNavigate();
-
+  const [dataWorkstations, setDataWorkstations] = useState();
   const [dataOS, setDataOS] = useState(Data);
+
+  const getListWorkstations = useCallback(async () => {
+    const res = await listWorkstationsBegin();
+
+    setDataWorkstations(res);
+  }, []);
+
+  useEffect(() => {
+    getListWorkstations();
+  }, []);
 
   return (
     <div className="principal-workstationlist">
@@ -33,25 +44,30 @@ export default function WorkstationList() {
               <p>Meta OEE%</p>
               <p>Descontar retrabalho</p>
               <p>Descontar refugo</p>
+              <p>Remover</p>
             </div>
             <div>
-              {dataOS.map((post) => (
-                <div
-                  id="ws-table-data"
-                  onClick={() => {
+              {dataWorkstations &&
+                dataWorkstations.object_list.map((post) => (
+                  <div
+                    id="ws-table-data"
+                    /* onClick={() => {
                     navigate("/workstation/details", {
                       state: { id: post.id },
                     });
-                  }}
-                >
-                  <p>{post.name}</p>
-                  <p>{post.description}</p>
-                  <p>{post.production}</p>
-                  <p>{post.oee}%</p>
-                  <p>{post.cach_in_word ? "Sim" : "Não"}</p>
-                  <p>{post.discount_scrap ? "Sim" : "Não"}</p>
-                </div>
-              ))}
+                  }} */
+                  >
+                    <p>{post.name}</p>
+                    <p>{post.name}</p>
+                    <p>{post.production_per_hour}</p>
+                    <p>{post.oee}%</p>
+                    <p>{post.cach_in_word ? "Sim" : "Não"}</p>
+                    <p>{post.discount_scrap ? "Sim" : "Não"}</p>
+                    <p>
+                      <img onClick={() => deleteWorkstation(post.id)} src={Delete} />
+                    </p>
+                  </div>
+                ))}
             </div>
           </div>
         </MarginSpaceStyle>

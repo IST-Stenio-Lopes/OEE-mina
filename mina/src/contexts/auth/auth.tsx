@@ -1,7 +1,7 @@
 // contexto é a forma de criar váriaveis globais entre components do react
 // importação do react e hooks
 import jwtDecode from 'jwt-decode';
-import React, { createContext, useCallback, useContext, useState } from 'react';
+import React, { createContext, ReactNode, useCallback, useContext, useState } from 'react';
 
 // importação da coneção da api
 import api from '../../services/api';
@@ -28,6 +28,9 @@ interface SingInCredentials {
   email: string;
   password: string;
 }
+type AuthProviderProps = {
+  children: ReactNode;
+}
 
 // define o tipo dos dados do contexto de autenticação
 interface AuthContextData {
@@ -45,7 +48,7 @@ interface DecodedProps {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 // cria o provedor do contexto
-const AuthProvider: React.FC = ({ children }) => {
+const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // define o estado inicial dos dados
   const [data, setData] = useState<AuthState>(() => {
     // busca no local storage os dados
@@ -56,7 +59,7 @@ const AuthProvider: React.FC = ({ children }) => {
     // se houver dados no storage, retorna um objeto com esses dados
     if (token && user && refresh_token) {
       const decoded: DecodedProps = jwtDecode(token);
-      console.log("funcionando")
+      console.log("Produzindo")
       const expirationTime = (decoded.exp * 1000);
 
       if (Date.now() >= expirationTime) {
@@ -76,7 +79,7 @@ const AuthProvider: React.FC = ({ children }) => {
   });
 
   // função de signin usando callback
-  const signIn = useCallback(async ({ email, password }) => {
+  const signIn = useCallback(async ({ email, password }: any) => {
 
 
     // faz a coneção da rota passando os dados

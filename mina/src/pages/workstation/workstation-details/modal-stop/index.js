@@ -1,8 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import {
-  CancelButton,
-  SaveButton,
-} from "../../workstation-register/style";
+import { CancelButton, SaveButton } from "../../workstation-register/style";
 import {
   AlignCenterStyle,
   DisplayFlexStyle,
@@ -155,6 +152,7 @@ export default function ModalStopWorkstation(props) {
               onClick={() => {
                 props.close();
                 stateStop.reset();
+                handleClear();
               }}
             >
               x
@@ -166,9 +164,10 @@ export default function ModalStopWorkstation(props) {
           <FieldNameStopWorkstation>Motivo da Parada</FieldNameStopWorkstation>
           <MarginSpaceStyle bottom={4} top={-2}>
             <ReactSelect
-              selectRef={selectRef}
+              selectRefProp={selectRef}
               array={FirstSelectOptions}
               onChange={handleSelectChange}
+              placeholder={"Selecione o motivo"}
             />
           </MarginSpaceStyle>
           <FieldNameStopWorkstation>Código do Motivo</FieldNameStopWorkstation>
@@ -178,6 +177,7 @@ export default function ModalStopWorkstation(props) {
               array={ReturnSelect()}
               handleChange={(v) => setFirstOptionCategory(v)}
               onChange={handleSelectChangeCode}
+              placeholder={"Selecione o código do motivo"}
             />
           </MarginSpaceStyle>
           <DisplayFlexStyle top={4}>
@@ -195,7 +195,12 @@ export default function ModalStopWorkstation(props) {
 
           <MarginSpaceStyle left={window.screen.width <= 1600 ? 6 : 26} top={6}>
             <DisplayFlexStyle>
-              <CancelButton onClick={() => props.close()}>
+              <CancelButton
+                onClick={() => {
+                  handleClear();
+                  props.close();
+                }}
+              >
                 Cancelar
               </CancelButton>
               <MarginSpaceStyle left={10}>

@@ -14,7 +14,7 @@ export const StackStyled = styled(Stack)`
     background-color: aliceblue;
     position: absolute;
     top: 55px;
-    z-index: 12;
+    z-index: 1000;
     //transform: rotate(180deg);
 
 `

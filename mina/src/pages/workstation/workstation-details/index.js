@@ -1,5 +1,5 @@
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import MaterialIcon from "react-google-material-icons";
 import { useLocation } from "react-router-dom";
 import SelectSearch from "react-select-search";
@@ -37,41 +37,72 @@ import TimeMachine from "./time-machine";
 
 import "./style.css";
 import { HasPermission } from "../../../utils/utilities";
+import { listWorkstationsBegin } from "../../../services/workstation";
+import ModalAddOrder from "./modal-order";
 
 export default function WorkstationDetails(props) {
   const { user } = useAuth();
   const { stateAlert, dispatch } = useAlert();
 
+  const [dataWorkstations, setDataWorkstations] = useState();
+
   const location = useLocation();
   const [changeTimeNow, setChangeTimeNow] = useState();
   const [timeNow, setTimeNow] = useState();
 
-  const [selectedMachine, setSelectedMachine] = useState(
+  /* const [selectedMachine, setSelectedMachine] = useState(
     location.state.id ? Data[location.state.id - 1] : Data[0]
-  ); //caso eu inicie com um valor vazio (useState();) então deve ser aplicado um operador ternario (")selectedMachine ? selectedMachine.production : '') para que ele não incicie com undefined
-  const [showModal, setShowModal] = useState(false);
+  ); */ //caso eu inicie com um valor vazio (useState();) então deve ser aplicado um operador ternario (")selectedMachine ? selectedMachine.production : '') para que ele não incicie com undefined
+  const [showModalStop, setShowModalStop] = useState(false);
+  const [showModalOrder, setShowModalOrder] = useState(false);
+  const [selectedMachine, setSelectedMachine] = useState(location.state.id);
 
   /* {
     props.id && setSelectedMachine(Data[location.state]);
   } */
+  useEffect(() => {
+    getListWorkstations();
+  }, []);
+
+  useEffect(() => {
+    //
+
+    dataWorkstations && handleChangeMachine(location.state.id);
+  }, [dataWorkstations]);
+
+  const getListWorkstations = useCallback(async () => {
+    const res = await listWorkstationsBegin();
+    res && setDataWorkstations(res.object_list);
+  }, []);
+
   function handleChangeMachine(value) {
-    var machine = Data.find((x) => x.id === value);
+    const machine =
+      dataWorkstations && dataWorkstations.find((x) => x.id === value);
+    console.log(machine);
     setSelectedMachine(machine);
     /*     setOeeMachine(selectedMachine.oee);
     setOeeGoalMachine(selectedMachine.oee_goal); */
-    //console.log(machine)
+    console.log(dataWorkstations);
   }
   /*   const [oeeMachine, setOeeMachine] = useState(selectedMachine? selectedMachine.oee : 50);
   const [oeeGoalMachine, setOeeGoalMachine] = useState(selectedMachine? selectedMachine.oee_goal : Data[0].oee_goal); */
 
-  const options = Data.map((post) => {
+  /* const options = Data.map((post) => {
     return {
       name: post.name,
       value: post.id,
     };
-  });
+  }); */
+  const options =
+    dataWorkstations &&
+    dataWorkstations.map((post) => {
+      return {
+        name: post.name,
+        value: post.id,
+      };
+    });
 
-  useEffect(() => {}, [selectedMachine.oee]);
+  //useEffect(() => {}, [selectedMachine.oee]);
 
   const handleAlertSetValues = (type, title, msg) => {
     dispatch({
@@ -110,10 +141,17 @@ export default function WorkstationDetails(props) {
 
   return (
     <div>
-      {showModal && (
+      {showModalStop && (
         <ModalStopWorkstation
-          close={() => setShowModal(false)}
+          close={() => setShowModalStop(false)}
         ></ModalStopWorkstation>
+      )}
+
+      {showModalOrder && (
+        <ModalAddOrder
+          machineId={selectedMachine.id}
+          close={() => setShowModalOrder(false)}
+        ></ModalAddOrder>
       )}
 
       <div className="container-fluid">
@@ -121,20 +159,25 @@ export default function WorkstationDetails(props) {
           <div class="col-md-5 alinhamento">
             <div class="col-md-9">
               <div id="cont1">
+                {/* <button onClick={() => {console.log(
+              dataWorkstations.find((x) => x.id === location.state.id)
+            )}}> 
+            teste
+          </button>*/}
                 <div class="col-md-7">
                   <MarginSpaceStyle left={9}>
                     <SelectedMachineTopTextStatus
-                      status={selectedMachine.description}
+                      status={selectedMachine.status}
                     >
-                      {selectedMachine.description === "funcionando"
-                        ? "funcionando"
-                        : selectedMachine.description === "manutencao"
-                        ? "0" + selectedMachine.id + "- manutenção"
-                        : "0" + selectedMachine.id + "- parada"}
+                      {selectedMachine.status === "Produzindo"
+                        ? "Produzindo"
+                        : selectedMachine.status === "Desativada "
+                        ? "Desativada"
+                        : "Parada"}
                     </SelectedMachineTopTextStatus>
                   </MarginSpaceStyle>
                   <SelectSearchModifield
-                    status={selectedMachine.description}
+                    status={selectedMachine.status}
                     className="container"
                     multiple={false}
                     closeOnSelect={true}
@@ -149,7 +192,7 @@ export default function WorkstationDetails(props) {
                 </div>
                 <div class="col-md-5 data">
                   <DateMachineStoped description={selectedMachine.description}>
-                    {selectedMachine.description !== "funcionando" && (
+                    {selectedMachine.description !== "Produzindo" && (
                       /* moment().format("DD/MM/YY, h | mm | ss")} */
                       /*  moment().format("DD | h | mm | ss")} */
 
@@ -211,16 +254,18 @@ export default function WorkstationDetails(props) {
                   return <>1aaaaaaaaaaaaaaaaaaaaaaaaaaaa</>;
                 }, [selectedMachine])}
                 <GraphicBar
-                  oeeGoal={selectedMachine.oee_goal}
-                  oee={selectedMachine.oee}
+                  /* oeeGoal={selectedMachine.oee_goal} */
+                  oeeGoal={selectedMachine.oee}
+                  oee={80}
                 />
 
                 <MarginSpaceStyle top={-40}>
-                  <OeelBarChart>OEE = {selectedMachine.oee}%</OeelBarChart>
+                  {/* <OeelBarChart>OEE = {selectedMachine.oee}%</OeelBarChart> */}
+                  <OeelBarChart>OEE = {80}%</OeelBarChart>
                 </MarginSpaceStyle>
                 <MarginSpaceStyle top={-20}>
                   <OeeGoalBarChart>
-                    META OEE = {selectedMachine.oee_goal}%
+                    META OEE = {selectedMachine.oee}%
                   </OeeGoalBarChart>
                 </MarginSpaceStyle>
               </DisplayGridStyle>
@@ -228,7 +273,8 @@ export default function WorkstationDetails(props) {
           </div>
           <div class="col-md-6">
             <ApexChart
-              production_per_hour={selectedMachine.production_per_hour}
+              //production_per_hour={[selectedMachine.production_per_hour, 20]}
+              production_per_hour={Data[0].production_per_hour}
             />
 
             <DisplayFlexStyle>
@@ -253,11 +299,11 @@ export default function WorkstationDetails(props) {
                         [2048, 15360, 536887168, 1073758094, -2147221506],
                         parseInt(localStorage.getItem("@Oee:role"), 10)
                       )
-                        ? handleAlertSetValues(
+                        ? /* handleAlertSetValues(
                             "success",
                             "Com Permissão",
                             "Parabéns!"
-                          )
+                          ) */ setShowModalOrder(true)
                         : handleAlertSetValues(
                             "error",
                             "Sem Permissão",
@@ -268,7 +314,7 @@ export default function WorkstationDetails(props) {
                   <img
                     src={stop}
                     onClick={() => {
-                      setShowModal(true);
+                      setShowModalStop(true);
                     }}
                   />
                 </AlignCenterStyle>

@@ -51,14 +51,14 @@ const options =[
     {value: 'as cpoisa ', label: "outra cousa"},
 ]
 
-export default function ReactSelect(props) {
+export default function ReactSelect({array, selectRefProp, onChange, placeholder}) {
 
     const[value, setValue] = useState('');
     const selectRef = useRef(null);
 
  
     const filterArray = (inputValue) => {
-        return props.array.filter((i) =>
+        return array.filter((i) =>
             i.label.toLowerCase().includes(inputValue.toLowerCase())
         );
     }; 
@@ -75,10 +75,10 @@ export default function ReactSelect(props) {
 
         return (
                 <SelectContainer  
-                    options={props.array}
-                    placeholder="Selecione o motivo" 
-                    ref={props.selectRef}
-                    onChange={props.onChange}
+                    options={array}
+                    placeholder={placeholder} 
+                    ref={selectRefProp}
+                    onChange={onChange}
                 />
         );
 

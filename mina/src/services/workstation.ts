@@ -90,9 +90,9 @@ interface ICreateMachineDTO {
           };  */
           
         try {
-            const response = api.post("http://192.168.1.191:5555/machine/dashboard ", machine);
+            const response = api.post("/machine/dashboard", machine);
             //console.log("chegou!" + (await response).status);
-            return (await response).status;
+            return (await response).status; 
             
         } catch (error: any) {
           //console.log("chegou no erro!")
@@ -100,6 +100,24 @@ interface ICreateMachineDTO {
            return error.response.data.message;
         }
     } 
+
+    export async function listWorkstationsBegin(){
+      try {
+          const response : any = await api.get("/machine/dashboard/list", {params: {itens_per_page: 500, page: 0}});
+          return response.data;
+      } catch (error: any) {
+          return error.response.data.message ? error.response.data.message : error.message;
+      }
+  }
+
+    export async function deleteWorkstation(id:string) {
+      try {
+        const response : any = await api.delete(`/machine/dashboard/${id}`, {params: {itens_per_page: 500, page: 0}});
+        return response.data;
+    } catch (error: any) {
+        return error.response.data.message ? error.response.data.message : error.message;
+    }
+    }
 
 
 

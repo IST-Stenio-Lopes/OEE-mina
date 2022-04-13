@@ -28,7 +28,8 @@ export const service = new Service(axios); */
           }; */
 
 
-const baseURL = 'http://192.168.1.191:5555';
+//const baseURL = 'http://192.168.1.191:5555';
+const baseURL = 'http://senaisolucoes.com.br:2225';
 
 
 // cria uma conexão

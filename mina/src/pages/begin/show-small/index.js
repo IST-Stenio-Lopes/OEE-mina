@@ -1,20 +1,32 @@
-import React from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   useWorkstation,
   WorkstationActions,
 } from "../../../contexts/workstation/workstation";
 import Data from "../../../mock-data.json";
+import { listWorkstationsBegin } from "../../../services/workstation";
 import { oeeValue } from "../../../utils/utilities";
 import { formatWord } from "../../../utils/utilities";
 import ApexChart from "../percentBar";
-import { LinhaL } from "../show-large/style";
+import { LinhaL, MachineName } from "../show-large/style";
 
 import "../show-small/style.css";
 
 export default function ShowSmall() {
+  const [dataWorkstations, setDataWorkstations] = useState();
   const { dispatch } = useWorkstation();
   const navigate = useNavigate();
+
+  const getListWorkstations = useCallback(async () => {
+    const res = await listWorkstationsBegin();
+
+    setDataWorkstations(res);
+  }, []);
+
+  useEffect(() => {
+    getListWorkstations();
+  }, []);
 
   const handleWorkstationId = (id) => {
     dispatch({
@@ -25,38 +37,39 @@ export default function ShowSmall() {
 
   return (
     <div id="showSmall-expand">
-      {Data.map((post) => (
-        <div
-          id="principal-small"
-          onClick={() => {
-            navigate("/workstation/details", { state: { id: post.id } });
-          }}
-        >
-          <div id="conteudo1-small">
-            <div id="texto">
-              <h1>{formatWord(post.name)}</h1>
+      {dataWorkstations &&
+        dataWorkstations.object_list.map((post) => (
+          <div
+            id="principal-small"
+            onClick={() => {
+              navigate("/workstation/details", { state: { id: post.id } });
+            }}
+          >
+            <div id="conteudo1-small">
+              <div id="texto">
+                <MachineName>{formatWord(post.name)}</MachineName>
+              </div>
+              <div id="settingLine">
+                <LinhaL description={post.status} />
+              </div>
+
+              <div id="horas"></div>
             </div>
-            <div id="settingLine">
-              <LinhaL description={post.description} />
+            <div id="icons-small">
+              <div id="icon">
+                <p>0000</p>
+              </div>
+              <div id="icon2">
+                <p>0000</p>
+              </div>
             </div>
 
-            <div id="horas"></div>
-          </div>
-          <div id="icons-small">
-            <div id="icon">
-              <p>0000</p>
-            </div>
-            <div id="icon2">
-              <p>0000</p>
+            <div id="conteudo2-small">
+              <ApexChart oee={post.oee} />
+              <p id="oee">OEE = {oeeValue(87)}</p>
             </div>
           </div>
-
-          <div id="conteudo2-small">
-            <ApexChart oee={post.oee} />
-            <p id="oee">OEE = {oeeValue(87)}</p>
-          </div>
-        </div>
-      ))}
+        ))}
     </div>
     /*<div id="principal-small">
 

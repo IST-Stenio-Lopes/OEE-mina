@@ -30,7 +30,7 @@ export default function Register({ o }) {
   const { dispatch } = useAlert();
 
   const [workstationName, setWorkstationName] = useState("");
-  const [shift, setShift] = useState("");
+  //const [shift, setShift] = useState("");
   const [oeeTarget, setOeeTarget] = useState();
   const [productionPerHour, setProductionPerHour] = useState();
   //const [freeTime, setFreeTime] = useState("");
@@ -39,7 +39,7 @@ export default function Register({ o }) {
 
   const [errorInputWorkstationName, setErrorInputWorkstationName] =
     useState(false);
-  const [errorInputShift, setErrorInputShift] = useState(false);
+  //const [errorInputShift, setErrorInputShift] = useState(false);
   const [errorInputOeeTarget, setErrorInputOeeTarget] = useState(false);
   const [errorInputProductionPerHour, setErrorInputProductionPerHour] =
     useState(false);
@@ -97,7 +97,7 @@ export default function Register({ o }) {
 
   useEffect(() => {
     o?.name && setWorkstationName(o?.name);
-    o?.shift && setShift(o?.shift);
+    //o?.shift && setShift(o?.shift);
     o?.oee && setOeeTarget(o?.oee);
     o?.production_per_hour && setProductionPerHour(o?.production_per_hour);
     o?.discount_scrap && setDiscountScrap(o?.discount_scrap);
@@ -129,16 +129,16 @@ export default function Register({ o }) {
 
   async function SendObjectMachine() {
     setErrorInputWorkstationName(false);
-    setErrorInputShift(false);
+    //setErrorInputShift(false);
     setErrorInputOeeTarget(false);
     setErrorInputProductionPerHour(false);
 
     if (workstationName === "") {
       setErrorInputWorkstationName(true);
       console.log(parseInt(oeeTarget, 10));
-    } else if (shift === "") {
+    } /* else if (shift === "") {
       setErrorInputShift(true);
-    } else if (
+    } */ else if (
       oeeTarget === undefined ||
       oeeTarget <= 0 ||
       parseInt(oeeTarget, 10) / 1 !== parseInt(oeeTarget, 10)
@@ -152,8 +152,6 @@ export default function Register({ o }) {
       setErrorInputProductionPerHour(true);
     } else {
       //setShowSave(true);
-      alert("ok");
-      console.log("Está chegando?");
       var post = await postWorkstation({
         name: workstationName,
         oee: oeeTarget,
@@ -162,11 +160,15 @@ export default function Register({ o }) {
         discount_scrap: discountScrap,
       });
       if (post && post === 201) {
-        handleAlertSetValues("success", "Certo", "A maquina foi cadastrada!");
-        console.log("chegou no if");
+        console.log("cadastrou!");
+        handleAlertSetValues(
+          "success",
+          "Certo",
+          "Maquina Cadastrada com Sucesso!"
+        );
       } else {
+        console.log("Não cadastrou!");
         handleAlertSetValues("error", "Erro!", post);
-        console.log("chegou no else");
       }
     }
   }
@@ -199,8 +201,8 @@ export default function Register({ o }) {
         {console.log(window.screen.width)}
       </DisplayGridStyle>
       <DisplayFlexStyle top={3}>
-        <MarginSpaceStyle right={6}>
-          <DisplayGridStyle>
+        <MarginSpaceStyle>
+          {/* <DisplayGridStyle>
             <FieldNameRegisterWorkstation>Turnos</FieldNameRegisterWorkstation>
             <NormalInput
               size={16}
@@ -211,16 +213,16 @@ export default function Register({ o }) {
               msgErro="Campo não pode estar vazio!"
               onChange={setShift}
             />
-          </DisplayGridStyle>
+          </DisplayGridStyle> */}
         </MarginSpaceStyle>
 
-        <MarginSpaceStyle right={6}>
+        <MarginSpaceStyle right={9}>
           <DisplayGridStyle>
             <FieldNameRegisterWorkstation>
               Meta OEE%
             </FieldNameRegisterWorkstation>
             <NormalInput
-              size={16}
+              size={25}
               title=""
               dValue={o?.oee ? o?.oee : oeeTarget}
               setValueInput={setOeeTarget}
@@ -237,7 +239,7 @@ export default function Register({ o }) {
               Taxa produção/h
             </FieldNameRegisterWorkstation>
             <NormalInput
-              size={16}
+              size={25}
               title=""
               dValue={
                 o?.production_per_hour

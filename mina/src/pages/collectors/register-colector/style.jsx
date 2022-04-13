@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 export const BoxPrincipalDivRegisterColector = styled.div`
 
     width: 70vh;
-    height: 40vh;
+    height: 50vh;
     border: 1px solid rgba(0, 0, 0, 0.1);
     margin-left: 35%;
     border-radius: 5px;
@@ -12,7 +12,7 @@ export const BoxPrincipalDivRegisterColector = styled.div`
 
     @media(max-width: 1600px) {
         width: 70vh;
-        height: 55vh;
+        height: 65vh;
     }
 `
 

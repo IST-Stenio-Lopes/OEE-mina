@@ -19,21 +19,21 @@ export function formatWord(word) {
 }
 
 export function getStateMachine(value) {
-  if (value === "funcionando") {
-    return "FUNCIONANDO";
-  } else if (value === "manutencao") {
+  if (value === "Produzindo") {
+    return "PRODUZINDO";
+  } else if (value === "Desativada ") {
     return "MAN.MECÂNICA";
-  } else if (value === "pausa") {
+  } else if (value === "Parada") {
     return "PARADO";
   }
 }
 
 export function getStateIcon(value) {
-  if (value === "funcionando") {
+  if (value === "Produzindo") {
     return /* "check"; */ Check;
-  } else if (value === "manutencao") {
+  } else if (value === "Desativada ") {
     return Build;
-  } else if (value === "pausa") {
+  } else if (value === "Parada") {
     return Pause;
   }
 }
