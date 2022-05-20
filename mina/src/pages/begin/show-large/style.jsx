@@ -15,12 +15,17 @@ export const MachineName = styled.h1`
     font-weight: bolder;
 `
 
+
 export const StatusColor = styled.p`
     ${(props) => props.description === 'Produzindo' && css`
         color: #2BC079;
     `}
 
-    ${(props) => props.description === 'Desativada ' && css`
+    ${(props) => props.description === 'Fora do turno' && css`
+        color: #2BC079;
+    `}
+
+    ${(props) => props.description === 'Pausada' && css`
         color: #C66B00;
     `}
 
@@ -34,7 +39,12 @@ export const DateStatusControll = styled.p`
         display:none;
     `}
 
-    ${(props) => props.description === 'Desativada ' && css`
+    ${(props) => props.description === 'Fora do turno' && css`
+        color: #2BC079;
+    `}
+
+
+    ${(props) => props.description === 'Pausada' && css`
         color: #C66B00;
     `}
 
@@ -46,11 +56,17 @@ export const DateStatusControll = styled.p`
 export const NameTop = styled.h5`
     font-size: 10px;
     margin-left: -10px;
+
     ${(props) => props.description === 'Produzindo' && css`
         color: #2BC079;
     `}
 
-    ${(props) => props.description === 'Desativada ' && css`
+    ${(props) => props.description === 'Fora do turno' && css`
+        color: #2BC079;
+    `}
+
+
+    ${(props) => props.description === 'Pausada' && css`
         color: #C66B00;
     `}
 
@@ -70,13 +86,26 @@ export const LinhaL = styled.p`
         border-top: 2px solid #2BC079;
     `}
 
-    ${(props) => props.description === 'Desativada ' && css`
+    ${(props) => props.description === 'Fora do turno' && css`
+        border-top: 2px solid #2BC079;
+    `}
+
+    ${(props) => props.description === 'Pausada' && css`
         border-top: 2px solid #C66B00;
     `}
 
     ${(props) => props.description === 'Parada' && css`
         border-top: 2px solid #C02B2B;
     `}
+`
+
+export const GraphicOeeHorizontalLineChart = styled.div`
+    position: relative;
+    background-color: #0C4394;
+    margin-top: 9%;
+    width: ${(props) => props.value}%;
+    max-width: 100%;
+    height: 100%;
 `
 
 

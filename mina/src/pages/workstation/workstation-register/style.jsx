@@ -2,10 +2,10 @@ import styled, {css} from "styled-components";
 
 export const BoxDivPrincipalRegisterWorkstation = styled.div`
     width: 70vh;
-    height: 53vh;
+    height: auto;
     border: 1px solid rgba(0, 0, 0, 0.1);
-    margin-left: 40%;
-    margin-top: 5%;
+    margin-left: 35%;
+    margin-top: 7%;
     padding: 2%;
 
 
@@ -17,8 +17,8 @@ export const BoxDivPrincipalRegisterWorkstation = styled.div`
     }
     
 
-    ${(props) => props.size <= 1600 && css`
-        height: 57vh;
+/*     ${(props) => props.size <= 1600 && css`
+        height: 57vh auto;
     `}
     @media(max-width: 1500px) {
         margin-left: 35%;
@@ -29,8 +29,15 @@ export const BoxDivPrincipalRegisterWorkstation = styled.div`
             font-size: 14px;
             margin-bottom: 5%;
         }
-    }
+    } */
 `
+
+export const ShiftAreaExpand = styled.div`
+
+`
+export const MakeSpanToButton = styled.span`
+    cursor: pointer;
+` 
 
 export const CloseButtonRegisterWorkstation = styled.button `
     text-decoration: none;

@@ -25,13 +25,17 @@ export function getStateMachine(value) {
     return "MAN.MECÂNICA";
   } else if (value === "Parada") {
     return "PARADO";
+  } else if (value === "Pausada") {
+    return "PAUSADA";
+  } else if (value === "Fora do turno") {
+    return "FORA DO TURNO";
   }
 }
 
 export function getStateIcon(value) {
   if (value === "Produzindo") {
-    return /* "check"; */ Check;
-  } else if (value === "Desativada ") {
+    return Check;
+  } else if (value === "Pausada") {
     return Build;
   } else if (value === "Parada") {
     return Pause;

@@ -1,8 +1,9 @@
-import { response } from 'express';
-import { Workstation } from './../contexts/workstation/workstation';
 import axios from "axios";
+import { response } from 'express';
 import React, { useCallback } from "react";
-import { useAlert, AlertActions } from "../contexts/alert/alert";
+
+import { AlertActions, useAlert } from "../contexts/alert/alert";
+import { Workstation } from './../contexts/workstation/workstation';
 import api from "./api";
 
 //  /machine/dashboard   para adicionar maquina
@@ -40,11 +41,11 @@ const { dispatch } = useAlert();
 
 try {
     const response = await api.get('/dashboard/list/detailed');
-    console.log(response);
+    //console.log(response);
 } catch (error: any) {
     
     
-    console.error(error);
+    //console.error(error);
     handleAlertSetValues(
         "error",
         "Deu águia!",
@@ -62,7 +63,25 @@ interface ICreateMachineDTO {
     oee: number;
     discount_rework: boolean;
     discount_scrap: boolean;
+    shifts: [{hour_begin: string , hour_end: string}];
     status?: string;
+  }
+
+  interface PatchStopObjectI{
+    status: string,
+    status_code: string,
+    description: string
+}
+
+
+
+  export async function changeWorkstation(id:string, machine: ICreateMachineDTO) {
+      try {
+        const response = api.put(`/machine/dashboard/${id}`, machine);
+        return (await response).status; 
+      } catch (error: any) {
+        return error.response.data.message;
+      }
   }
 
 
@@ -99,7 +118,7 @@ interface ICreateMachineDTO {
           //console.log(error.response.data.message);
            return error.response.data.message;
         }
-    } 
+    }
 
     export async function listWorkstationsBegin(){
       try {
@@ -113,11 +132,44 @@ interface ICreateMachineDTO {
     export async function deleteWorkstation(id:string) {
       try {
         const response : any = await api.delete(`/machine/dashboard/${id}`, {params: {itens_per_page: 500, page: 0}});
-        return response.data;
+        //return response.data;
+        return (await response).status;
     } catch (error: any) {
         return error.response.data.message ? error.response.data.message : error.message;
     }
     }
+
+
+    export async function StopMachine(id:string, obj: PatchStopObjectI) {
+      try {
+        const response : any = await api.patch(`/machine/dashboard/suppression/${id}`, obj);
+        //return response.data;
+        return (await response).status;
+    } catch (error: any) {
+        return error.response.data.message ? error.response.data.message : error.message;
+    }
+    }
+
+    export async function StartMachine(id:string) {
+      try {
+        const response : any = await api.patch(`/machine/dashboard/suppression/release/${id}`, {status: "Produzindo"});
+        //return response.data;
+        return response;
+    } catch (error: any) {
+        return error.response.data.message ? error.response.data.message : error.message;
+    }
+    }
+
+    export async function getSpecifcWorkstation(machineId: string) {
+        try {
+          const response : any = await api.get(`/machine/dashboard/specific/${machineId}`);
+          return (await response).data;
+        } catch (error: any) {
+          return error.response.data.message ? error.response.data.message : error.message;
+        }
+    }
+
+  
 
 
 

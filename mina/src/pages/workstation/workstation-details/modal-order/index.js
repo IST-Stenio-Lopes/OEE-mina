@@ -1,12 +1,12 @@
 import moment from "moment";
 import React, { useState, useCallback } from "react";
-import DateAndTimeInput from "../../../../components/inputs/date";
+import DateAndTimeInput from "../../../../components/inputs/date-time";
 import NormalInput from "../../../../components/inputs/normal";
 
 import Modal from "../../../../components/modal";
 import { useAlert, AlertActions } from "../../../../contexts/alert/alert";
 import { useOrder, OrderActions } from "../../../../contexts/order/order";
-import { postOrder } from "../../../../services/order";
+import { postOrder, SendOrderToMachine } from "../../../../services/order";
 import { DisplayFlexStyle, MarginSpaceStyle } from "../../../../styles/style";
 import { CancelButton, SaveButton } from "../../workstation-register/style";
 import {
@@ -74,19 +74,31 @@ export default function ModalAddOrder({ machineId, close }) {
   };
 
   async function sendObjectOrder() {
-    var post = await postOrder(machineId, {
+    var post1 = await postOrder(machineId, {
       begin: dateBegin,
       end: dateEnd,
       code: order,
       planned_quantity: plannedQuantity,
       product: product,
     });
-    if (post && post === 201) {
-      console.log("cadastrou!");
-      handleAlertSetValues("success", "Certo", "Ordem Cadastrada com Sucesso!");
+    if (post1 && post1.status === 201) {
+      var post2 = await SendOrderToMachine(machineId, post1.data.order.id);
+      //console.log("post2");
+      //console.log(post2);
+      if (post2 && post2.status === 201) {
+        //console.log("cadastrou!");
+        handleAlertSetValues("success", "Certo", post2.data.message);
+        close();
+        machineHadChange();
+      } else {
+        //console.log("Não cadastrou!");
+        //console.log(post2);
+        handleAlertSetValues("error", "Erro!", post2);
+        close();
+        machineHadChange();
+      }
     } else {
-      console.log("Não cadastrou!");
-      handleAlertSetValues("error", "Erro!", post);
+      handleAlertSetValues("error", "Erro!", post1);
     }
   }
 

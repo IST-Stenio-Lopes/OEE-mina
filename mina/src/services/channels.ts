@@ -1,7 +1,5 @@
 import api from "./api";
 
-
-
 interface ICreateChannelDTO {
     user_id?: string;
     company_id?: string;
@@ -32,4 +30,16 @@ export async function listChannels(collectorId:string) {
     } catch (error: any) {
         return error.response.data.message;
     }
+}
+
+export async function deleteChannel(id: string, collector : ICreateChannelDTO){
+
+    try {
+        const response = await api.put(`/collector/dashboard/${id}`, collector);
+        return response.status; 
+
+    } catch (error: any) {
+        return error.response.data.message;
+    }
+
 }

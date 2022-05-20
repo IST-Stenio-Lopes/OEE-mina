@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { AlertActions, useAlert } from "../../../contexts/alert/alert";
 import Interruptor2 from "../../../components/inputs/interruptor/index2";
 import {
@@ -6,10 +6,12 @@ import {
   CancelButton,
   CloseButtonRegisterWorkstation,
   FieldNameRegisterWorkstation,
+  MakeSpanToButton,
   ReduceSizeFieldTextWorkstation,
   SaveButton,
+  ShiftAreaExpand,
 } from "./style";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./style.css";
 import {
   DisplayFlexStyle,
@@ -22,12 +24,14 @@ import {
   HasPermission,
 } from "../../../utils/utilities";
 //import { MachineActions, useMachine } from "../../../contexts/machine/machine";
-import { postWorkstation } from "../../../services/workstation";
+import { changeWorkstation, postWorkstation } from "../../../services/workstation";
+import FormShifts from "./shifts";
 
-export default function Register({ o }) {
+export default function Register({ o, functionToSendToBack }) {
   let navigate = useNavigate();
   /*   const { stateMachine, dispatch } = useMachine(); */
   const { dispatch } = useAlert();
+  const location = useLocation();
 
   const [workstationName, setWorkstationName] = useState("");
   //const [shift, setShift] = useState("");
@@ -36,6 +40,8 @@ export default function Register({ o }) {
   //const [freeTime, setFreeTime] = useState("");
   const [discountScrap, setDiscountScrap] = useState(false);
   const [discountRework, setDiscountRework] = useState(false);
+  const [shifts, setShifts] = useState([]);
+  const [numberOfShifts, setNumberOfShifts] = useState();
 
   const [errorInputWorkstationName, setErrorInputWorkstationName] =
     useState(false);
@@ -43,6 +49,7 @@ export default function Register({ o }) {
   const [errorInputOeeTarget, setErrorInputOeeTarget] = useState(false);
   const [errorInputProductionPerHour, setErrorInputProductionPerHour] =
     useState(false);
+  
   //const [errorInputFreeTime, setErrorInputFreeTime] = useState(false);
 
   /*  description: '',
@@ -96,13 +103,29 @@ export default function Register({ o }) {
   };
 
   useEffect(() => {
-    o?.name && setWorkstationName(o?.name);
-    //o?.shift && setShift(o?.shift);
-    o?.oee && setOeeTarget(o?.oee);
-    o?.production_per_hour && setProductionPerHour(o?.production_per_hour);
-    o?.discount_scrap && setDiscountScrap(o?.discount_scrap);
-    o?.discount_rework && setDiscountRework(o?.discount_rework);
-  }, [o]);
+    if (location.state) {
+
+      /* o?.name && setWorkstationName(o?.name);
+      //o?.shift && setShift(o?.shift);
+      o?.oee && setOeeTarget(o?.oee);
+      o?.production_per_hour && setProductionPerHour(o?.production_per_hour);
+      o?.discount_scrap && setDiscountScrap(o?.discount_scrap);
+      o?.discount_rework && setDiscountRework(o?.discount_rework);
+    o?.shifts && setShifts(o?.shifts); */
+  
+    
+    setWorkstationName(location.state.object.name),
+    setShifts(location.state.object.shifts.map((item, index) => ({...item, id: index}))),
+    setOeeTarget(location.state.object.oee),
+    setProductionPerHour(location.state.object.production_per_hour),
+    setDiscountScrap(location.state.object.discount_scrap),
+    setDiscountRework(location.state.object.discount_rework)
+    setNumberOfShifts(location.state.object.shifts.length - 1);
+
+  }
+  }, [location.state]);
+
+  //console.log(location.state ? location.state.object : "não tá aqui");
   /* 
   const setData = () => {
     dispatch({
@@ -127,6 +150,98 @@ export default function Register({ o }) {
     });
   }; */
 
+  const updateShiftsHandler = (index, inputField, value) => {
+
+    
+    const updateShifts = [...shifts]
+    //console.log('antes de atualizar', updateShifts)
+    updateShifts[index][inputField] = value; 
+    //console.log('depois de atualizar', updateShifts)
+    setShifts(updateShifts)
+  }
+
+  function removeShiftFromList(shift){
+    const newShiftArray = shifts.filter((item) => shift.id !== item.id)
+    setShifts(newShiftArray);
+    // if(shifts.length > 0){
+    //   let newShiftArray = shifts;
+
+    //   newShiftArray.splice(index, 1);
+    //   setNumberOfShifts(prev => prev -1);
+      
+    
+    // }else{
+    //   handleAlertSetValues("error", "Erro", "Deve existir ao menos um turno")
+    // }
+    
+  }
+  
+  // const renderShifts = useCallback(() => {
+  //   return shifts.map((shift, index) => (
+  //     <DisplayFlexStyle
+  //             key={index}
+  //           >
+  //             <FormShifts 
+  //               hour={{hour_begin: shift.hour_begin, hour_end: shift.hour_end}}
+  //               index={index}
+  //               onChangeValue={updateShiftsHandler}
+  //             />
+
+  //             <MarginSpaceStyle top={9} left={10}>
+  //               <span className="material-icons button" onClick={() => {
+  //                     removeShiftFromList(index)
+  //                   // setNumberOfShifts(prev => prev-1); 
+  //                     //setShifts([...shifts, {}])
+  //                   }}
+  //               >
+  //                     remove_circle_outline
+  //               </span> 
+  //             </MarginSpaceStyle>
+                
+  //       </DisplayFlexStyle>
+  //   ))
+     
+
+  // }, [shifts])
+
+  // const renderFormShifts = useMemo(() => {
+    
+  //   const shiftsComponents = [];
+
+  //console.log("111111111111111111111111");
+  //   console.dir(shifts);
+  //   for (let index = 0; index < numberOfShifts; index++) {
+      
+
+  //     shiftsComponents.push(
+  //       <DisplayFlexStyle
+  //         key={index}
+  //       >
+  //         <FormShifts 
+  //           objectList={shifts}
+  //           index={index}
+  //           onChangeValue={updateShiftsHandler}
+  //         />
+
+  //         <MarginSpaceStyle top={9} left={10}>
+  //           <span className="material-icons button" onClick={() => {
+  //                 removeShiftFromList(index)
+  //               // setNumberOfShifts(prev => prev-1); 
+  //                 //setShifts([...shifts, {}])
+  //               }}
+  //           >
+  //                 remove_circle_outline
+  //           </span> 
+  //         </MarginSpaceStyle>
+                
+  //       </DisplayFlexStyle>
+        
+  //     ); 
+  //   }
+
+  //   return shiftsComponents; 
+  // }, [numberOfShifts, shifts]);
+
   async function SendObjectMachine() {
     setErrorInputWorkstationName(false);
     //setErrorInputShift(false);
@@ -135,7 +250,7 @@ export default function Register({ o }) {
 
     if (workstationName === "") {
       setErrorInputWorkstationName(true);
-      console.log(parseInt(oeeTarget, 10));
+      //console.log(parseInt(oeeTarget, 10));
     } /* else if (shift === "") {
       setErrorInputShift(true);
     } */ else if (
@@ -152,30 +267,98 @@ export default function Register({ o }) {
       setErrorInputProductionPerHour(true);
     } else {
       //setShowSave(true);
-      var post = await postWorkstation({
+
+      
+      // var post = location.state.functionToSendToBack? await functionToSendToBack({
+      //   name: workstationName,
+      //   oee: oeeTarget,
+      //   production_per_hour: productionPerHour,
+      //   discount_rework: discountRework,
+      //   discount_scrap: discountScrap,
+      //   shifts: shifts
+      // }) :
+/* 
+      //console.log("atualizou", {
         name: workstationName,
         oee: oeeTarget,
         production_per_hour: productionPerHour,
         discount_rework: discountRework,
         discount_scrap: discountScrap,
+        shifts: shifts
+      }) */
+      const post = await postWorkstation({
+        name: workstationName,
+        oee: oeeTarget,
+        production_per_hour: productionPerHour,
+        discount_rework: discountRework,
+        discount_scrap: discountScrap,
+        shifts: shifts
       });
       if (post && post === 201) {
-        console.log("cadastrou!");
+        //console.log("cadastrou!");
         handleAlertSetValues(
           "success",
           "Certo",
           "Maquina Cadastrada com Sucesso!"
         );
+        navigate("/machines");
       } else {
-        console.log("Não cadastrou!");
+        //console.log("Não cadastrou!");
         handleAlertSetValues("error", "Erro!", post);
       }
     }
   }
 
+  async function ChangeObjectMachine(){
+    setErrorInputWorkstationName(false);
+    setErrorInputOeeTarget(false);
+    setErrorInputProductionPerHour(false);
+
+    if (workstationName === "") {
+      setErrorInputWorkstationName(true);
+    } 
+     else if (
+      oeeTarget === undefined ||
+      oeeTarget <= 0 ||
+      parseInt(oeeTarget, 10) / 1 !== parseInt(oeeTarget, 10)
+    ) {
+      setErrorInputOeeTarget(true);
+    } else if (
+      productionPerHour === undefined ||
+      productionPerHour <= 0 ||
+      parseInt(productionPerHour, 10) / 1 !== parseInt(productionPerHour, 10)
+    ) {
+      setErrorInputProductionPerHour(true);
+    } else {
+      const post = await changeWorkstation(location.state.object.id, {
+        name: workstationName,
+        oee: oeeTarget,
+        production_per_hour: productionPerHour,
+        discount_rework: discountRework,
+        discount_scrap: discountScrap,
+        shifts: shifts
+      });
+      if (post && post === 201) {
+        //console.log("cadastrou!");
+        handleAlertSetValues(
+          "success",
+          "Certo",
+          "Maquina Atualizada com Sucesso!"
+        );
+        navigate("/machines");
+      } else {
+        //console.log("Não cadastrou!");
+        handleAlertSetValues("error", "Erro!", post);
+      }
+
+    }
+  }
+
+  
+
   return (
     <BoxDivPrincipalRegisterWorkstation size={window.screen.width}>
-      <DisplayFlexStyle>
+      <DisplayFlexStyle bottom={3}>
         <h1>CADASTRAR NOVA ESTAÇÃO DE TRABALHO</h1>
         <a href="/machines">
           <CloseButtonRegisterWorkstation>x</CloseButtonRegisterWorkstation>
@@ -191,14 +374,13 @@ export default function Register({ o }) {
           <NormalInput
             size={55}
             title=""
-            dValue={o?.name ? o?.name : workstationName}
+            dValue={location.state ? location.state.object.name : workstationName}
             setValueInput={setWorkstationName}
             error={errorInputWorkstationName}
             msgErro="Campo não pode estar vazio!"
             onChange={setWorkstationName}
           />
         </ReduceSizeFieldTextWorkstation>
-        {console.log(window.screen.width)}
       </DisplayGridStyle>
       <DisplayFlexStyle top={3}>
         <MarginSpaceStyle>
@@ -222,9 +404,13 @@ export default function Register({ o }) {
               Meta OEE%
             </FieldNameRegisterWorkstation>
             <NormalInput
+              type="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
               size={25}
               title=""
-              dValue={o?.oee ? o?.oee : oeeTarget}
+              dValue={location.state ? location.state.object.oee : oeeTarget}
               setValueInput={setOeeTarget}
               error={errorInputOeeTarget}
               msgErro="Preencha o campo com um valor!"
@@ -242,8 +428,8 @@ export default function Register({ o }) {
               size={25}
               title=""
               dValue={
-                o?.production_per_hour
-                  ? o?.production_per_hour
+                location.state
+                  ? location.state.object.production_per_hour
                   : productionPerHour
               }
               setValueInput={setProductionPerHour}
@@ -261,6 +447,11 @@ export default function Register({ o }) {
           </FieldNameRegisterWorkstation>
           <MarginSpaceStyle left={adjustSizeWithResolution(58)}>
             <Interruptor2
+              dValue={
+                location.state
+                  ? location.state.object.discountScrap
+                  : discountScrap
+              }
               state={discountScrap}
               changeState={() => setDiscountScrap(!discountScrap)}
             />
@@ -276,13 +467,55 @@ export default function Register({ o }) {
           </FieldNameRegisterWorkstation>
           <MarginSpaceStyle left={adjustSizeWithResolution(58)}>
             <Interruptor2
+              dValue={
+                location.state
+                ? location.state.object.discount_rework
+                : discountRework
+              }
               state={discountRework}
               changeState={() => setDiscountRework(!discountRework)}
             />
           </MarginSpaceStyle>
         </DisplayFlexStyle>
       </MarginSpaceStyle>
+      <MarginSpaceStyle top={5}>
+        <ShiftAreaExpand>
+          <DisplayFlexStyle bottom={5}>
+           <FieldNameRegisterWorkstation>Turnos</FieldNameRegisterWorkstation> 
+           <MarginSpaceStyle left={5} bottom={1}> 
+              <span className="material-icons button" onClick={() => {
+                setShifts([...shifts, {hour_begin: '', hour_end: '', id: shifts.length}])
+              }}>
+                add_circle_outline
+            </span>  
+            </MarginSpaceStyle>
+          </DisplayFlexStyle>
+            {shifts.map((shift, index) => (
+              <DisplayFlexStyle
+                      key={index}
+                    >
+                      <FormShifts 
+                        shift={shift}
+                        index={index}
+                        onChangeValue={updateShiftsHandler}
+                      />
 
+                      <MarginSpaceStyle top={9} left={10}>
+                        <span className="material-icons button" onClick={() => {
+                              removeShiftFromList(shift)
+                            // setNumberOfShifts(prev => prev-1); 
+                              //setShifts([...shifts, {}])
+                            }}
+                        >
+                              remove_circle_outline
+                        </span> 
+                      </MarginSpaceStyle>
+                        
+                </DisplayFlexStyle>
+            ))}
+        </ShiftAreaExpand>
+      </MarginSpaceStyle>
+            
       <MarginSpaceStyle top={window.screen.width <= 1600 ? 5 : 10}>
         <MarginSpaceStyle left={window.screen.width <= 1600 ? 6 : 26}>
           <DisplayFlexStyle>
@@ -290,13 +523,14 @@ export default function Register({ o }) {
               Cancelar
             </CancelButton>
             <MarginSpaceStyle left={10}>
-              <SaveButton onClick={() => SendObjectMachine()}>
+              <SaveButton onClick={() => location.state? ChangeObjectMachine() : SendObjectMachine()}>
                 Salvar
               </SaveButton>
             </MarginSpaceStyle>
           </DisplayFlexStyle>
         </MarginSpaceStyle>
       </MarginSpaceStyle>
+
     </BoxDivPrincipalRegisterWorkstation>
   );
 }

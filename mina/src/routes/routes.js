@@ -1,5 +1,19 @@
+import PersonalizedAlerts from "../components/alert";
+import Menu from "../components/menu";
+import { useAlert } from "../contexts/alert/alert";
+import { useAuth } from "../contexts/auth/auth";
+import { SocketActions, useSocket } from "../contexts/socket/socket";
+import Machines from "../pages/begin";
+import Collectors from "../pages/collectors";
+import RegisterColector from "../pages/collectors/register-colector";
+import SignIn from "../pages/signIn";
+import WorkstationList from "../pages/workstation/workstation list";
+import WorkstationDetails from "../pages/workstation/workstation-details";
+import ColumnOee from "../pages/workstation/workstation-details/bar-chart2/index";
+import Register from "../pages/workstation/workstation-register";
+import CustomRoute from "./custom";
 /*import React from "react";
-import { BrowserRouter, Switch, Route, useLocation } from 'react-router-dom';
+import { useEffect } from 'react-router-dom';
 import Machines from "../components/machines";
 import Workstation from "../components/workstation";
 import Register from "../components/register";
@@ -24,27 +38,27 @@ const Routes = () => {
 
 export default Routes;*/
 
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
-import PersonalizedAlerts from "../components/alert";
-import RegisterColector from "../pages/collectors/register-colector";
-import ColumnOee from "../pages/workstation/workstation-details/bar-chart2/index";
-import { useAlert } from "../contexts/alert/alert";
-import { useAuth } from "../contexts/auth/auth";
-import Machines from "../pages/begin";
-import Collectors from "../pages/collectors";
-import SignIn from "../pages/signIn";
-import WorkstationList from "../pages/workstation/workstation list";
-import Register from "../pages/workstation/workstation-register";
-import CustomRoute from "./custom";
-import WorkstationDetails from "../pages/workstation/workstation-details";
 
 /* import Error from '../components/404'; */
 
 const Routees = () => {
   //const location = useLocation(); tá deixando tudo branco, nn sei pq
   const { user } = useAuth();
-  const { stateAlert, dispatch } = useAlert();
+  const { stateAlert } = useAlert();
+  const { dispatch } = useSocket();
+
+  /*   const handleSocketSetLocation = (value) => {
+    dispatch({
+      type: SocketActions.setLocation,
+      payload: value,
+    });
+  };
+
+  useEffect(() => {
+    handleSocketSetLocation(location.pathname);
+  }, [location]); */
 
   return (
     <BrowserRouter>
@@ -54,6 +68,7 @@ const Routees = () => {
         title={stateAlert.title}
         msg={stateAlert.msg}
       />
+      <Menu />
       {/* { location.pathname !== '/'
          && location.pathname !== '/forgot'
           && location.pathname !== '/404'
@@ -64,29 +79,31 @@ const Routees = () => {
         <Route path="/" element={<CustomRoute component={<SignIn />} />} />
         <Route
           path="/machines"
-          element={<CustomRoute component={<Machines />} />}
+          element={<CustomRoute isPrivate component={<Machines />} />}
         />
         <Route path="workstation">
           <Route
             index
-            element={<CustomRoute component={<WorkstationList />} />}
+            element={<CustomRoute isPrivate component={<WorkstationList />} />}
           />
           <Route
             path="details"
-            element={<CustomRoute component={<WorkstationDetails />} />}
+            element={
+              <CustomRoute isPrivate component={<WorkstationDetails />} />
+            }
           />
           <Route
             path="register"
-            element={<CustomRoute component={<Register />} />}
+            element={<CustomRoute isPrivate component={<Register />} />}
           />
         </Route>
         <Route
           path="collector"
-          element={<CustomRoute component={<Collectors />} />}
+          element={<CustomRoute isPrivate component={<Collectors />} />}
         />
         <Route
           path="/registercolector"
-          element={<CustomRoute component={<RegisterColector />} />}
+          element={<CustomRoute isPrivate component={<RegisterColector />} />}
         />
 
         <Route path="test" element={<ColumnOee />} />

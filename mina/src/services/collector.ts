@@ -42,3 +42,13 @@ export async function DeleteCollector(id: string){
         
     }
 }
+
+export async function ChangeCollectorStatus(id: string, status: boolean) {
+    try {
+        const response : any = await api.patch("/collector/dashboard/" + id.toString(), {active: status});
+        return response.status;
+    } catch (error : any) {
+        return error.response.data.message;
+        
+    }
+}

@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
 import moment from "moment";
+import React, { useEffect, useState } from "react";
+
 import { TimeMachineDisplayGrid } from "./style";
 
 export default function TimeMachine() {

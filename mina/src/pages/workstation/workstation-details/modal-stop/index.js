@@ -1,23 +1,27 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
-import { CancelButton, SaveButton } from "../../workstation-register/style";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+
+import NormalInput from "../../../../components/inputs/normal";
+import ReactSelect from "../../../../components/inputs/react-select";
+import WithPromises from "../../../../components/inputs/react-select";
+import Select from "../../../../components/inputs/select";
+import Modal from "../../../../components/modal";
+import { AlertActions, useAlert } from "../../../../contexts/alert/alert";
+import { StopActions, useStop } from "../../../../contexts/stop/stop";
+import { useWorkstation } from "../../../../contexts/workstation/workstation";
+import { postOrder } from "../../../../services/order";
+import { StopMachine } from "../../../../services/workstation";
 import {
   AlignCenterStyle,
   DisplayFlexStyle,
   DisplayGridStyle,
   MarginSpaceStyle,
 } from "../../../../styles/style";
-import NormalInput from "../../../../components/inputs/normal";
-import ReactSelect from "../../../../components/inputs/react-select";
-import WithPromises from "../../../../components/inputs/react-select";
-import Select from "../../../../components/inputs/select";
-import Modal from "../../../../components/modal";
+import { CancelButton, SaveButton } from "../../workstation-register/style";
 import {
   CloseButtonStopWorkstation,
   ContainerModalStopWorkstation,
   FieldNameStopWorkstation,
 } from "./style";
-import { StopActions, useStop } from "../../../../contexts/stop/stop";
-import { useWorkstation } from "../../../../contexts/workstation/workstation";
 
 export default function ModalStopWorkstation(props) {
   const [firstOptionCategory, setFirstOptionCategory] = useState(0);
@@ -25,7 +29,7 @@ export default function ModalStopWorkstation(props) {
   const [reason_code, setReason_code] = useState("");
   const [estimated_date, setEstimated_date] = useState("");
   const [oEquipament, setOEquipament] = useState("");
-
+  const { dispatch: dispatchAlert } = useAlert();
   const { stateStop, dispatch } = useStop();
 
   const FirstSelectOptions = [
@@ -91,7 +95,26 @@ export default function ModalStopWorkstation(props) {
     }
   }
 
-  const setReasonCode = (reason) => {
+  const handleAlertSetValues = (type, title, msg) => {
+    dispatchAlert({
+      type: AlertActions.setVisibility,
+      payload: true,
+    });
+    dispatchAlert({
+      type: AlertActions.setType,
+      payload: type,
+    });
+    dispatchAlert({
+      type: AlertActions.setTitle,
+      payload: title,
+    });
+    dispatchAlert({
+      type: AlertActions.setMsg,
+      payload: msg,
+    });
+  };
+
+  /*   const setReasonCode = (reason) => {
     dispatch({
       type: StopActions.setReason_code,
       payload: reason,
@@ -112,27 +135,44 @@ export default function ModalStopWorkstation(props) {
       payload: code,
     });
   };
-
+ */
   const handleClear = () => {
     dispatch({
       type: StopActions.reset,
     });
   };
 
-  function SendObjectStop() {
+  async function SendObjectStop() {
     if (secondOptionCategory === "") {
       alert("Deve ser preenchido o código do motivo");
-    } else if (estimated_date === "") {
+    } else if (secondOptionCategory === "") {
       alert("Deve ser preenchido o tempo estimado");
     } else {
       setReason_code(secondOptionCategory);
-      handleStopChange(oEquipament, estimated_date, secondOptionCategory);
-      alert("ok");
+      //handleStopChange(oEquipament, estimated_date, secondOptionCategory);
+      var stop = await StopMachine(props.machineId, {
+        status: "Parada",
+        status_code: secondOptionCategory,
+        description: oEquipament,
+      });
+      if (stop && stop === 201) {
+        //console.log("cadastrou!");
+        handleAlertSetValues(
+          "success",
+          "Certo",
+          "Atualização realizada com Sucesso!"
+        );
+        props.close();
+        props.machineHadChange();
+      } else {
+        //console.log("Não cadastrou!");
+        handleAlertSetValues("error", "Erro!", stop);
+      }
     }
   }
 
   const handleSelectChange = useCallback((selectValue) => {
-    console.log(selectValue.value);
+    //console.log(selectValue.value);
     setFirstOptionCategory(selectValue.value);
     ReturnSelect();
   }, []);
@@ -143,7 +183,8 @@ export default function ModalStopWorkstation(props) {
 
   return (
     <Modal>
-      <h1>{stateStop.reason_code}</h1>
+      {/* <h1>{stateStop.reason_code}</h1> */}
+      {secondOptionCategory}
       <ContainerModalStopWorkstation>
         <DisplayFlexStyle>
           <h1>Apontar Parada</h1>
@@ -151,7 +192,6 @@ export default function ModalStopWorkstation(props) {
             <CloseButtonStopWorkstation
               onClick={() => {
                 props.close();
-                stateStop.reset();
                 handleClear();
               }}
             >
@@ -182,7 +222,7 @@ export default function ModalStopWorkstation(props) {
           </MarginSpaceStyle>
           <DisplayFlexStyle top={4}>
             <MarginSpaceStyle right={10}>
-              <FieldNameStopWorkstation>Equipamento</FieldNameStopWorkstation>
+              <FieldNameStopWorkstation>Descrição</FieldNameStopWorkstation>
               <NormalInput size={25} setValueInput={setOEquipament} />
             </MarginSpaceStyle>
             <MarginSpaceStyle>
@@ -207,7 +247,7 @@ export default function ModalStopWorkstation(props) {
                 <SaveButton
                   onClick={() => {
                     SendObjectStop();
-                    console.log(stateStop);
+                    //console.log(stateStop);
                   }}
                 >
                   Salvar

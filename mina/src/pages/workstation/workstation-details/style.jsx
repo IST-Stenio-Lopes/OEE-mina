@@ -102,9 +102,16 @@ export const  ButtonMachineDetailsSimulate = styled.button`
     border: 1px solid #C1C2C3;
     color: #C1C2C3;
     background-color: white;
-    padding: 5px 40px;
+    padding: 0.4vw;
+    width: 8vw;
+    text-align: center;
     border-radius: 5px;
     z-index: 1;
+
+    :hover{
+        background-color: #0C4394;
+        color: white;
+    }
 `
 
 export const OeeGoalBarChart = styled.p`

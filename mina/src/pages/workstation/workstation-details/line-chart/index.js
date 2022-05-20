@@ -1,34 +1,39 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
 
 class ApexChart extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log(props.production_per_hour);
     this.state = {
+      approved_per_hour: props.approved_per_hour,
+      rework_per_hour: props.rework_per_hour,
+      scrap_per_hour: props.scrap_per_hour,
+      hours: props.hours,
       series: [
         {
           name: "PRODUÇÃO",
           type: "line",
           //data: [1000, 410, 350, 510, 490, 620, 690, 1520, 2150, 2540, 620, 690, 910, 1480, 1300, 510, 490, 1000, 1200, 2000, 1600, 2800, 1750, 1990, 2100, 2300, 2500]
-          data: props.production_per_hour,
+          data: [...props.approved_per_hour],
           color: "#0C4394",
         },
         {
           name: "RETRABALHO",
-          data: [
-            808, 468, 726, 355, 335, 769, 890, 654, 864, 326, 652, 423, 537,
-            449, 729, 823, 584, 692, 499, 200, 985, 161, 193, 257,
-          ],
+          // data: [
+          //   // 808, 468, 726, 355, 335, 769, 890, 654, 864, 326, 652, 423, 537,
+          //   // 449, 729, 823, 584, 692, 499, 200, 985, 161, 193, 257,
+          // ],
+          data: [...props.rework_per_hour],
           color: "#C66B00",
         },
         {
           name: "REFUGO",
-          data: [
-            259, 290, 493, 92, 486, 131, 689, 256, 304, 434, 602, 257, 281, 507,
-            568, 405, 363, 570, 689, 554, 381, 324, 668, 348,
-          ],
+          // data: [
+          //   // 259, 290, 493, 92, 486, 131, 689, 256, 304, 434, 602, 257, 281, 507,
+          //   // 568, 405, 363, 570, 689, 554, 381, 324, 668, 348,
+          // ],
+          data: [...props.scrap_per_hour],
           color: "#C02B2B",
         },
       ],
@@ -59,127 +64,85 @@ class ApexChart extends React.Component {
           },
         },
         xaxis: {
-          type: "category",
-          categories: [
-            "0:0",
-            "1:0",
-            "2h",
-            "3h",
-            "4h",
-            "5h",
-            "6h",
-            "7h",
-            "8h",
-            "9h",
-            "10h",
-            "11h",
-            "12h",
-            "13h",
-            "14h",
-            "15h",
-            "16h",
-            "17h",
-            "18h",
-            "19h",
-            "20h",
-            "21h",
-            "22h",
-            "23h",
-            "24h",
-            "25h",
-            "26h",
-            "27h",
-          ],
+          type: "string",
+          labels: {
+            show: false,
+          },
+          categories: props.hours,
+        },
+      },
+      tooltip: {
+        style: {
+          textAlign: "center",
         },
       },
     };
   }
-  componentWillReceiveProps(nextProps) {
-    this.state = {
-      series: [
-        {
-          name: "PRODUÇÃO",
-          type: "line",
-          //data: [1000, 410, 350, 510, 490, 620, 690, 1520, 2150, 2540, 620, 690, 910, 1480, 1300, 510, 490, 1000, 1200, 2000, 1600, 2800, 1750, 1990, 2100, 2300, 2500]
-          data: nextProps.production_per_hour,
-          color: "#0C4394",
-        },
-        {
-          name: "RETRABALHO",
-          data: [
-            808, 468, 726, 355, 335, 769, 890, 654, 864, 326, 652, 423, 537,
-            449, 729, 823, 584, 692, 499, 200, 985, 161, 193, 257,
-          ],
-          color: "#C66B00",
-        },
-        {
-          name: "REFUGO",
-          data: [
-            259, 290, 493, 92, 486, 131, 689, 256, 304, 434, 602, 257, 281, 507,
-            568, 405, 363, 570, 689, 554, 381, 324, 668, 348,
-          ],
-          color: "#C02B2B",
-        },
-      ],
-      options: {
-        markers: {},
-        chart: {
-          height: 350,
-          type: "line",
-          zoom: {
-            enabled: false,
+
+  componentDidUpdate(prevProps) {
+    // Uso típico, (não esqueça de comparar as props):
+    if (
+      (this.props.approved_per_hour !== prevProps.approved_per_hour ||
+        this.props.rework_per_hour !== prevProps.rework_per_hour ||
+        this.props.scrap_per_hour !== prevProps.scrap_per_hour) &&
+      prevProps.hours.length != 0
+    ) {
+      this.setState({
+        ...this.state,
+        approved_per_hour: prevProps.approved_per_hour,
+        rework_per_hour: prevProps.rework_per_hour,
+        scrap_per_hour: prevProps.scrap_per_hour,
+        hours: prevProps.hours,
+
+        series: [
+          {
+            name: "PRODUÇÃO",
+            type: "line",
+            //data: [1000, 410, 350, 510, 490, 620, 690, 1520, 2150, 2540, 620, 690, 910, 1480, 1300, 510, 490, 1000, 1200, 2000, 1600, 2800, 1750, 1990, 2100, 2300, 2500]
+            data: prevProps.approved_per_hour,
+            color: "#0C4394",
           },
-        },
-        dataLabels: {
-          enabled: false,
-        },
-        stroke: {
-          curve: "straight",
-          colors: ["#0C4394"], //Muda a cor da linha
-        },
-        title: {
-          text: "PRODUÇÃO POR DIA",
-          align: "left",
-        },
-        grid: {
-          row: {
-            colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
-            opacity: 0.5,
+          {
+            name: "RETRABALHO",
+            data: prevProps.rework_per_hour /* [
+              808, 468, 726, 355, 335, 769, 890, 654, 864, 326, 652, 423, 537,
+              449, 729, 823, 584, 692, 499, 200, 985, 161, 193, 257,
+            ] */,
+            color: "#C66B00",
           },
-        },
+          {
+            name: "REFUGO",
+            data: [...prevProps.scrap_per_hour] /* [
+              259, 290, 493, 92, 486, 131, 689, 256, 304, 434, 602, 257, 281, 507,
+              568, 405, 363, 570, 689, 554, 381, 324, 668, 348,
+            ] */,
+            color: "#C02B2B",
+          },
+        ],
         xaxis: {
-          type: "category",
-          categories: [
-            "0h",
-            "1h",
-            "2h",
-            "3h",
-            "4h",
-            "5h",
-            "6h",
-            "7h",
-            "8h",
-            "9h",
-            "10h",
-            "11h",
-            "12h",
-            "13h",
-            "14h",
-            "15h",
-            "16h",
-            "17h",
-            "18h",
-            "19h",
-            "20h",
-            "21h",
-            "22h",
-            "23h",
-            "24h",
-          ],
+          type: "string",
+          labels: {
+            show: false,
+            trim: false,
+            hideOverlappingLabels: false,
+            rotateAlways: false,
+            rotate: false,
+          },
+          categories: prevProps.hours,
         },
-      },
-    };
+      });
+    }
   }
+
+  /*   componentDidUpdate(prevProps) {
+    // Uso típico, (não esqueça de comparar as props):
+    if (this.props.approved_per_hour !== prevProps.approved_per_hour) {
+      this.setState({
+        ...this.state,
+        series: [{ data: [25] }],
+      });
+    }
+  } */
 
   render() {
     return (
@@ -188,7 +151,7 @@ class ApexChart extends React.Component {
           options={this.state.options}
           series={this.state.series}
           type="line"
-          height={350}
+          height={window.screen.width > 1600 ? 660 : 450}
         />
       </div>
     );

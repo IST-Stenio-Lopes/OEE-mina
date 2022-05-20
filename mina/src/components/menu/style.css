@@ -5,6 +5,21 @@
   z-index: 5;
 }
 
+.flex{
+  display: flex;
+}
+
+.flex button{
+  margin-left: 20%;
+  border: none;
+  padding: 5px; 
+  color: white;
+  background-color: #052554;
+}
+
+.flex button:hover{
+  color: #888A8C;
+}
 
 nav{
     background-color: #052554;

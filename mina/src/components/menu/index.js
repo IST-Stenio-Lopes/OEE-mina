@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import "../menu/style.css";
 import MaterialIcon from "react-google-material-icons";
-import Drop from "./drop";
+
 import MenuDrop from "../../assets/menu/menu.svg";
 import Person from "../../assets/menu/person_outline.svg";
+import { useAuth } from "../../contexts/auth/auth";
+import { SocketActions, useSocket } from "../../contexts/socket/socket";
+import Drop from "./drop";
+
+import "../menu/style.css";
 
 export default function Menu() {
   // var dropValue = true;
@@ -18,7 +22,15 @@ export default function Menu() {
   //     }
 
   // }
+
+  const { stateSocket, dispatch } = useSocket();
+
+  const handleSocketdisconnect = () => {
+    stateSocket.ioSocket.close();
+  };
+
   const [dropValue, setDropValue] = useState(false);
+  const { user, signOut } = useAuth();
 
   /*setDropValue(){
         dropValue = !dropValue;
@@ -68,14 +80,13 @@ export default function Menu() {
     <div id="menu-index">
       {dropValue && (
         <div id="add-dropdown">
-          <Drop />
+          <Drop onCloseMenu={() => setDropValue(!dropValue)} />
         </div>
       )}
       <nav>
         <div className="dropdown" style={{ alignItems: "flex-start" }}>
           <button
             className="dropbtn"
-            onClick={dropValue}
             /*onClick={changeAside}*/ onClick={() => setDropValue(!dropValue)}
             style={{
               textDecoration: "none",
@@ -84,13 +95,31 @@ export default function Menu() {
               color: "#fff",
             }}
           >
-            <img src={MenuDrop}/>
+            <img src={MenuDrop} />
             {/* <MaterialIcon id="dropdawn" icon="menu" size={20} /> */}
           </button>
         </div>
-        <div style={{ color: "#FFF", right: "0px", marginRight: "10%" }}>
-            <img src={Person} width={30}/>
+
+        <div
+          style={{ color: "#FFF", right: "0px", marginRight: "10%" }}
+          className="flex"
+        >
+          {/*  <img src={Person} width={30} /> */}
           {/* <MaterialIcon icon="person" size={30} float={"right"} /> */}
+          <div>
+            {user ? (
+              <button
+                onClick={() => {
+                  handleSocketdisconnect();
+                  signOut();
+                }}
+              >
+                SAIR
+              </button>
+            ) : (
+              <p></p>
+            )}
+          </div>
         </div>
 
         {/* <span class="material-icons-outlined">

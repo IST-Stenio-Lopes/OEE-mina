@@ -2,11 +2,46 @@ import React, { useState } from "react";
 import { createStyles, makeStyles, Theme } from '@material-ui/styles';
 import TextField from '@material-ui/core/TextField';
 import { NormalInputI } from "../utilities";
-
+import {time, numberMask} from './masks';
 
 export default function NormalInput(props) {
 
-
+    function handKeyUp(e){
+        switch (props.mask) {
+          case 'cep':
+            cep(e);
+            break;
+          case 'tel':
+            tel(e);
+            break;
+          case 'cell-phone':
+            cellPhone(e);
+            break;
+          case 'cpf':
+            cpf(e);
+            break;
+          case 'date':
+            date(e);
+            break;
+          case 'time':
+            time(e);
+            break;
+          case 'numeric':
+            numberMask(e);
+            break;
+          case 'currency':
+            currencyMask(e);
+            break;
+          case 'cpfOrCnpj':
+            cpfOrCnpj(e);
+            break;
+          case 'meters':
+            metersMask(e);
+            break;
+          default:
+            break;
+        }
+      }
 
   const useStyles = makeStyles(() =>
         createStyles({
@@ -37,7 +72,13 @@ export default function NormalInput(props) {
     return (
         <TextField
             id="standard-basic"
-            onChange={(e) => props.setValueInput && props.setValueInput(e.target.value)}
+            placeholder={props.placeholder}
+            onChange={(e) => {
+                //console.log(e.target.value)
+                handKeyUp(e);
+                props.setValueInput && props.setValueInput(e.target.value); 
+                // props.onChangeValue(e.target.value);
+            }}
             className={classes.textField}
             label={props.title}
             value={props.pValue}

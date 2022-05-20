@@ -8,8 +8,8 @@ import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
 import Box from "@mui/material/Box";
-import Larger from '../../../assets/landscapelarger.svg';
-import Small from '../../../assets/landscapesmall.svg'
+import Larger from "../../../assets/landscapelarger.svg";
+import Small from "../../../assets/landscapesmall.svg";
 import { MarginSpaceStyle } from "../../../styles/style";
 
 export default function Size({ handleChange }) {
@@ -21,10 +21,10 @@ export default function Size({ handleChange }) {
       handleChange(newValue);
     }
   }
-
+  /* 
   useEffect(() => {
-    console.log(valueSlider);
-  }, [valueSlider]);
+    //console.log(valueSlider);
+  }, [valueSlider]);  olhar o valor que está no slider*/
 
   const Slider2 = styled(Slider)({
     color: "#0C4394", //Cor da linha e da bolinha
@@ -46,13 +46,12 @@ export default function Size({ handleChange }) {
 
   return (
     <div id="size">
-      <p id="size-icon1">
+      <div id="size-icon1">
         {/* <MaterialIcon icon="landscape" size={20} /> */}
         <MarginSpaceStyle top={-12}>
-          <img src={Larger} width={20}/>  
+          <img src={Larger} width={20} />
         </MarginSpaceStyle>
-        
-      </p>
+      </div>
 
       {/*       <Slider
         min={1}
@@ -77,13 +76,12 @@ export default function Size({ handleChange }) {
         disableSwap={false} //remove a borda da bolinha na hora do hover
       />
 
-      <p id="size-icon2">
+      <div id="size-icon2">
         {/* <MaterialIcon icon="landscape" size={16} /> */}
         <MarginSpaceStyle top={-30}>
-          <img src={Small} width={16}/>  
+          <img src={Small} width={16} />
         </MarginSpaceStyle>
-        
-      </p>
+      </div>
     </div>
   );
 }

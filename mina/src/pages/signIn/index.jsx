@@ -2,6 +2,7 @@ import React, { useCallback, useState } from "react";
 import { Link, Navigate } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import NormalInput from "../../components/inputs/normal";
+import { AlertActions, useAlert} from "../../contexts/alert/alert";
 import { useAuth } from "../../contexts/auth/auth";
 import { DisplayFlexStyle, DisplayGridStyle, MarginSpaceStyle } from "../../styles/style";
 import { LoginButton, PrincipalDivLogin } from "./style";
@@ -68,21 +69,57 @@ export default function SignIn() {
 
     const [errorInputUserName, setErrorInputUserName] = useState(false);
     const [errorInputKey, setErrorInputKey] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const {dispatch, stateAlert} = useAlert();
 
-    const {signIn} = useAuth();
+    const {signIn, signOut} = useAuth();
 
 
     const handleSignIn = useCallback(async (data_email, data_key) => {
+        setLoading(true);
         try {
             await signIn({
                 email: data_email,
                 password: data_key
             })
-            console.log("machines")
+            //console.log("machines")
             navigate('/machines');
         } catch (err) {
+            //handleAlertSetValues("error", "Falha", err);
+            //console.log(err);
+        }
+        finally{
+            setLoading(false);
         }
     });
+
+    const handleSignOut = useCallback(async () => {
+        try {
+            await signOut()
+            navigate('/');
+        } catch (err) {
+            
+        }
+    })
+
+    const handleAlertSetValues = (type, title, msg) => {
+        dispatch({
+          type: AlertActions.setVisibility,
+          payload: true,
+        });
+        dispatch({
+          type: AlertActions.setType,
+          payload: type,
+        });
+        dispatch({
+          type: AlertActions.setTitle,
+          payload: title,
+        });
+        dispatch({
+          type: AlertActions.setMsg,
+          payload: msg,
+        });
+      };
 
 
     return(
@@ -110,10 +147,10 @@ export default function SignIn() {
                         msgErro="senha não pode estar vazio!"
                     />
                 </DisplayGridStyle>
-{/* <button onClick={() => console.log(userName)}>usuario</button>
-<button onClick={() => console.log(key)}>password</button> */}
+{/* <button onClick={() => //console.log(userName)}>usuario</button>
+<button onClick={() => //console.log(key)}>password</button> */}
                 <DisplayFlexStyle top={10} left={51}>
-                    <LoginButton  onClick={() => handleSignIn(userName, key)} /* onClick={() => navigate("/machines")} */>Login</LoginButton>
+                    <LoginButton disabled={loading} onClick={() => handleSignIn(userName, key)} /* onClick={() => navigate("/machines")} */>{loading? 'carregando...' : 'Login'}</LoginButton>
                 </DisplayFlexStyle>
             </MarginSpaceStyle>
         </PrincipalDivLogin>

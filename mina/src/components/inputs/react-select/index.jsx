@@ -1,10 +1,8 @@
 import React, { Component, useEffect, useRef, useState } from 'react';
+import { ActionMeta } from 'react-select';
 
-import {ActionMeta} from 'react-select';
 //import AsyncSelect from 'react-select/async';
 import { SelectContainer } from './style';
-
-
 
 /* export interface ColourOption {
     readonly value: string;
@@ -79,6 +77,7 @@ export default function ReactSelect({array, selectRefProp, onChange, placeholder
                     placeholder={placeholder} 
                     ref={selectRefProp}
                     onChange={onChange}
+                    
                 />
         );
 

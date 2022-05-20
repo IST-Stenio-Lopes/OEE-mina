@@ -2,16 +2,24 @@ import Button from "@material-ui/core/Button";
 import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Data from "../../../mock-data.json";
-import { deleteWorkstation, listWorkstationsBegin } from "../../../services/workstation";
+import {
+  deleteWorkstation,
+  listWorkstationsBegin,
+  postWorkstation,
+} from "../../../services/workstation";
 import { DisplayFlexStyle, MarginSpaceStyle } from "../../../styles/style";
 import { WorksCenterButton } from "./style";
 import Delete from "../../../assets/delete.svg";
+import Edit from "../../../assets/edit.svg";
 import "./style.css";
+import { useAlert, AlertActions } from "../../../contexts/alert/alert";
+import { HasPermission } from "../../../utils/utilities";
 
 export default function WorkstationList() {
   let navigate = useNavigate();
   const [dataWorkstations, setDataWorkstations] = useState();
   const [dataOS, setDataOS] = useState(Data);
+  const { dispatch } = useAlert();
 
   const getListWorkstations = useCallback(async () => {
     const res = await listWorkstationsBegin();
@@ -22,6 +30,56 @@ export default function WorkstationList() {
   useEffect(() => {
     getListWorkstations();
   }, []);
+
+  const handleAlertSetValues = (type, title, msg) => {
+    dispatch({
+      type: AlertActions.setVisibility,
+      payload: true,
+    });
+    dispatch({
+      type: AlertActions.setType,
+      payload: type,
+    });
+    dispatch({
+      type: AlertActions.setTitle,
+      payload: title,
+    });
+    dispatch({
+      type: AlertActions.setMsg,
+      payload: msg,
+    });
+  };
+
+  async function deleteWorkstationByClick(id) {
+    if (
+      HasPermission(
+        [1024, 15360, 536887168, 1073758094, -2147221506],
+        parseInt(localStorage.getItem("@Oee:role"), 10)
+      ) === false
+    ) {
+      handleAlertSetValues(
+        "error",
+        "sem permissão",
+        "Você não possui permissão para remover maquina!"
+      );
+    } else {
+      var remove = await deleteWorkstation(id);
+      //console.log(remove);
+      if (remove && remove === 201) {
+        setInterval(() => {
+          window.location.reload();
+        }, 1000);
+
+        handleAlertSetValues(
+          "success",
+          "Tudo Certo!",
+          "Maquina Removida com Sucesso!"
+        );
+      } else {
+        handleAlertSetValues("error", "Ops", remove);
+      }
+    }
+  }
 
   return (
     <div className="principal-workstationlist">
@@ -44,12 +102,14 @@ export default function WorkstationList() {
               <p>Meta OEE%</p>
               <p>Descontar retrabalho</p>
               <p>Descontar refugo</p>
+              <p>Editar</p>
               <p>Remover</p>
             </div>
             <div>
               {dataWorkstations &&
                 dataWorkstations.object_list.map((post) => (
                   <div
+                    key={post.id}
                     id="ws-table-data"
                     /* onClick={() => {
                     navigate("/workstation/details", {
@@ -64,7 +124,20 @@ export default function WorkstationList() {
                     <p>{post.cach_in_word ? "Sim" : "Não"}</p>
                     <p>{post.discount_scrap ? "Sim" : "Não"}</p>
                     <p>
-                      <img onClick={() => deleteWorkstation(post.id)} src={Delete} />
+                      <img
+                        src={Edit}
+                        onClick={() => {
+                          navigate("/workstation/register", {
+                            state: { object: post },
+                          });
+                        }}
+                      />
+                    </p>
+                    <p>
+                      <img
+                        onClick={() => deleteWorkstationByClick(post.id)}
+                        src={Delete}
+                      />
                     </p>
                   </div>
                 ))}

@@ -1,28 +1,35 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+
+import Remove from "../../../assets/delete.svg";
+import Warning from "../../../assets/warning.svg";
+import Interruptor2 from "../../../components/inputs/interruptor/index2";
+import NormalInput from "../../../components/inputs/normal";
+import ReactSelect from "../../../components/inputs/react-select";
 import Modal from "../../../components/modal";
+import { AlertActions, useAlert } from "../../../contexts/alert/alert";
+import {
+  deleteChannel,
+  listChannels,
+  postChannel,
+} from "../../../services/channels";
+import { listWorkstationsBegin } from "../../../services/workstation";
 import {
   DisplayFlexStyle,
   DisplayGridStyle,
   MarginSpaceStyle,
 } from "../../../styles/style";
 import { HasPermission } from "../../../utils/utilities";
+import { SaveButton } from "../../workstation/workstation-register/style";
 import {
   BoxTitleAndSubtitleCollectorChannel,
   CloseButtonCollectorChannel,
   ContainerRegisterChannel,
+  ContainerTableChannel,
   FieldNameRegisterCollectorChannel,
   PrincipalContainerModalCollectorChannel,
   TableFieldCollectorChannel,
   TableValuesCollectorChannel,
 } from "./style";
-import Warning from "../../../assets/warning.svg";
-import Interruptor2 from "../../../components/inputs/interruptor/index2";
-import NormalInput from "../../../components/inputs/normal";
-import ReactSelect from "../../../components/inputs/react-select";
-import { SaveButton } from "../../workstation/workstation-register/style";
-import { listWorkstationsBegin } from "../../../services/workstation";
-import { listChannels, postChannel } from "../../../services/channels";
-import { useAlert, AlertActions } from "../../../contexts/alert/alert";
 
 export default function CollectorChannels({ post, setShowModal }) {
   const [dataWorkstations, setDataWorkstations] = useState();
@@ -95,11 +102,56 @@ export default function CollectorChannels({ post, setShowModal }) {
     var requisition = await postChannel(post.id, obj);
 
     if (requisition && requisition === 201) {
-      handleAlertSetValues("success", "Certo", "Canal Cadastrado com sucesso!");
-      console.log("chegou no if");
+      handleAlertSetValues("success", "Certo", "Canal cadastrado com sucesso!");
+      setInterval(() => {
+        window.location.reload();
+      }, 1000);
+      //console.log("chegou no if");
     } else {
       handleAlertSetValues("error", "Erro!", requisition);
-      console.log("chegou no else");
+      //console.log("chegou no else");
+    }
+  }
+
+  /*   const deleteChannel = useCallback(async (channel) => {
+    const obj = {
+      ...post,
+      channels: [...post.channels.splice(channel.indexOf(), 1)],
+    };
+
+    var requisition = await deleteChannel(post.id, obj);
+
+    //const res = await DeleteCollector(id);
+    //setResponseDelete(res);
+    res === 201
+      ? handleAlertSetValues("success", "ok", "Coletor removido com sucesso!")
+      : handleAlertSetValues("error", "", res);
+    setInterval(() => {
+      window.location.reload();
+    }, 1500);
+  }, []); */
+
+  async function sendObjectCollectorRemoveCollector(channel) {
+    const channelsUpdated = [...post.channels];
+
+    const obj = {
+      ...post,
+      channels: [
+        ...channelsUpdated.filter((ch) => ch.channel !== channel.channel),
+      ],
+    };
+
+    var requisition = await deleteChannel(post.id, obj);
+
+    if (requisition && requisition === 201) {
+      handleAlertSetValues("success", "Certo", "Canal Removido com sucesso!");
+      setInterval(() => {
+        window.location.reload();
+      }, 1000);
+      //console.log("chegou no if");
+    } else {
+      handleAlertSetValues("error", "Erro!", requisition);
+      //console.log("chegou no else");
     }
   }
 
@@ -209,23 +261,44 @@ export default function CollectorChannels({ post, setShowModal }) {
             )}
           </DisplayFlexStyle>
 
-          <TableFieldCollectorChannel>
-            <p>Ativo</p>
-            <p>Número/Código</p>
-            <p>Tipo</p>
-            <p>Contagem Acumulativa</p>
-          </TableFieldCollectorChannel>
-          <TableValuesCollectorChannel>
-            {dataChannels &&
-              dataChannels.map((post) => (
-                <div>
-                  <p>{post.active ? "sim " : " não"}</p>
-                  <p>{post.channel}</p>
-                  <p>{post.type}</p>
-                  <p>{post.cumulative ? "sim " : " não"}</p>
-                </div>
-              ))}
-          </TableValuesCollectorChannel>
+          <ContainerTableChannel>
+            <TableFieldCollectorChannel>
+              <p>Ativo</p>
+              <p>Número/Código</p>
+              <p>Tipo</p>
+              <p>Contagem Acumulativa</p>
+              <p>Remover</p>
+            </TableFieldCollectorChannel>
+            <TableValuesCollectorChannel>
+              {dataChannels &&
+                dataChannels.map((channel) => (
+                  <div key={channel.id}>
+                    <p>{channel.active ? "sim " : " não"}</p>
+                    <p>{channel.channel}</p>
+                    <p>{channel.type}</p>
+                    <p>{channel.cumulative ? "sim " : " não"}</p>
+                    <p>
+                      <img
+                        src={Remove}
+                        onClick={() => {
+                          HasPermission(
+                            [-2147221506],
+                            parseInt(localStorage.getItem("@Oee:role"), 10)
+                          )
+                            ? sendObjectCollectorRemoveCollector(channel)
+                            : handleAlertSetValues(
+                                "error",
+                                "Sem Permissão",
+                                "Você não possui Permissão suficiente para remover um canal!"
+                              );
+                          //responseDelete
+                        }}
+                      />
+                    </p>
+                  </div>
+                ))}
+            </TableValuesCollectorChannel>
+          </ContainerTableChannel>
         </ContainerRegisterChannel>
       </PrincipalContainerModalCollectorChannel>
     </Modal>

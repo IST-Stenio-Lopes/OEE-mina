@@ -1,10 +1,11 @@
 import React from "react";
 import MaterialIcon from "react-google-material-icons";
+import { useNavigate } from "react-router-dom";
+
 import Begin from "../../../assets/lateral-menu/home.svg";
-import Workstations from "../../../assets/lateral-menu/view_agenda.svg";
 import Colectors from "../../../assets/lateral-menu/settings_remote.svg";
 import Configurations from "../../../assets/lateral-menu/settings.svg";
-
+import Workstations from "../../../assets/lateral-menu/view_agenda.svg";
 import {
   useWorkstation,
   WorkstationActions,
@@ -13,8 +14,9 @@ import { MarginSpaceStyle } from "../../../styles/style";
 
 import "../drop/style.css";
 
-export default function Drop() {
+export default function Drop({ onCloseMenu }) {
   const { stateWorkstation, dispatch } = useWorkstation();
+  const navigate = useNavigate();
 
   const handleWorkstationClear = () => {
     dispatch({
@@ -24,37 +26,61 @@ export default function Drop() {
 
   return (
     <div id="drop">
-      <a href="/machines" onClick={() => handleWorkstationClear()}>
-        <p id="icon">
+      <a
+        onClick={() => {
+          navigate("/machines");
+          handleWorkstationClear();
+          onCloseMenu();
+        }}
+      >
+        <div id="icon">
           {/* <MaterialIcon id="dropdawn" icon="home" size={20} /> */}
           <MarginSpaceStyle top={-10}>
             <img src={Begin} width={25} />
           </MarginSpaceStyle>
-        </p>
+        </div>
         <p>INÍCIO</p>
       </a>
-      <a href="/workstation" onClick={() => handleWorkstationClear()}>
-        <p id="icon">
+      <a
+        onClick={() => {
+          navigate("/workstation");
+          handleWorkstationClear();
+          onCloseMenu();
+        }}
+      >
+        <div id="icon">
           <MarginSpaceStyle top={-10}>
             <img src={Workstations} />
           </MarginSpaceStyle>
-        </p>{" "}
+        </div>{" "}
         <p>ESTAÇÕES</p>
       </a>
-      <a href="/collector" onClick={() => handleWorkstationClear()}>
-        <p id="icon">
+      <a
+        onClick={() => {
+          navigate("/collector");
+          handleWorkstationClear();
+          onCloseMenu();
+        }}
+      >
+        <div id="icon">
           <MarginSpaceStyle top={-10}>
             <img src={Colectors} />
           </MarginSpaceStyle>
-        </p>{" "}
+        </div>{" "}
         <p>COLETORES</p>
       </a>
-      <a href="/" onClick={() => handleWorkstationClear()}>
-        <p id="icon">
+      <a
+        onClick={() => {
+          navigate("/");
+          handleWorkstationClear();
+          onCloseMenu();
+        }}
+      >
+        <div id="icon">
           <MarginSpaceStyle top={-10}>
             <img src={Configurations} />
           </MarginSpaceStyle>
-        </p>{" "}
+        </div>{" "}
         <p>CONFIGURAÇÕES</p>
       </a>
     </div>

@@ -2,6 +2,10 @@
     margin-top: 5%;
 }
 
+.button{
+    cursor: pointer;
+}
+
 .row-cabecalho {
     margin-left: 20%;
     margin-right: 10%;

@@ -1,4 +1,4 @@
-import styled, {css} from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const PrincipalContainerModalCollectorChannel = styled.div`
     background-color: white;
@@ -48,22 +48,30 @@ export const TableFieldCollectorChannel = styled.div`
     display: flex;
     align-items: center;
     border-bottom: 1px solid gray;
-    width: 100%;
+    width: 100% auto;
     text-align: center;
     justify-content: space-between;
+
     p{
 
-        width: 230px;
+        min-width: 230px;
         text-align: center;
     }
+`
+export const ContainerTableChannel = styled.div`
+      overflow-y: scroll;
+      overflow: auto;
 `
 
 export const TableValuesCollectorChannel = styled.div`
     margin-top: 1%;
     display: grid;
-    overflow: auto;
-    width: 100%;
+
+    max-width: 100%;
+    height: 16vh;
+    
     align-items: center;
+
     div{
         width: 100%;
         display: flex;

@@ -1,6 +1,5 @@
 import { createContext, ReactNode, useCallback, useContext, useReducer, useState } from 'react';
 
-
 export type Order = {
     id?: string;
     begin: Date;

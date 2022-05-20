@@ -1,13 +1,15 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { AlertActions, useAlert } from "../../../contexts/alert/alert";
-import { DisplayFlexStyle, MarginSpaceStyle } from "../../../styles/style";
 import NormalInput from "../../../components/inputs/normal";
-import { BoxPrincipalDivRegisterColector, CancelButtonColector, CloseButtonRegisterColector, FieldNameRegisterColector, SaveButtonColector } from "./style";
-import { useNavigate } from "react-router-dom";
-import './style.css';
-import { HasPermission } from "../../../utils/utilities";
 import ReactSelect from "../../../components/inputs/react-select";
+import { AlertActions, useAlert } from "../../../contexts/alert/alert";
 import { postCollector } from "../../../services/collector";
+import { DisplayFlexStyle, MarginSpaceStyle } from "../../../styles/style";
+import { HasPermission } from "../../../utils/utilities";
+import React, { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { BoxPrincipalDivRegisterColector, CancelButtonColector, CloseButtonRegisterColector, FieldNameRegisterColector, SaveButtonColector } from "./style";
+
+import './style.css';
 
 export default function RegisterColector(){
 
@@ -67,10 +69,10 @@ export default function RegisterColector(){
             });
             if (post && post === 201) {
                 handleAlertSetValues("success", "Certo", "Coletor Cadastrado com sucesso!");
-                console.log("chegou no if");
+                navigate("/collector");
               } else {
                 handleAlertSetValues("error", "Erro!", post);
-                console.log("chegou no else");
+
               }
         }
       }
@@ -118,7 +120,7 @@ export default function RegisterColector(){
                 <MarginSpaceStyle top={3}>
                     <FieldNameRegisterColector>Tipo</FieldNameRegisterColector>
                     <ReactSelect
-                        array={[{ value: "Wise4050", label: "WISE 4050" }]}
+                        array={[{ value: "Wise4050", label: "WISE 4050" }, { value: "DigiRail", label: "DIGIRAIL 8100" }]}
                         placeholder={"Selecione o tipo do Coletor"}
                         onChange={handleSelectChangeCode}
                     />

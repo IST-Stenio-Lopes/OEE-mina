@@ -5,6 +5,8 @@ import styled, {css} from "styled-components";
 export const DisplayFlexStyle = styled.div`
     display: flex;
     position: relative;
+    align-items: center;
+    
     ${(props) => css`
         margin-right: ${props.right}%;
         margin-left: ${props.left}%;

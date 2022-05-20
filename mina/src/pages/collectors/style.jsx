@@ -41,6 +41,15 @@ export const DescriptionTableCollector = styled.div`
     p{
         width: 150px;
     }
+    #adjustSize{
+    width: 150px;
+    text-align: center;
+
+    }
+
+    #icon{
+
+    }
 `
 
 export const DataTableCollector = styled.div`
@@ -62,5 +71,10 @@ export const DataTableCollector = styled.div`
 
     p{
         width: 150px;
+    }
+
+    #adjustSize{
+    width: 150px;
+    text-align: center;
     }
 `

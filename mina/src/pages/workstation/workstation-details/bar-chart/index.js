@@ -116,7 +116,10 @@ export default function GraphicBar(props) {
           //enabled: false, //remove o percentual interno
 
           style: {
-            colors: ["#FFFFFF", oeeGoal - oee < 0 || oee === 0? "transparent" : "#000000" ], //muda cor do percentual interno
+            colors: [
+              "#FFFFFF",
+              oeeGoal - oee < 0 || oee === 0 ? "transparent" : "#000000",
+            ], //muda cor do percentual interno
           },
         },
         chart: {
@@ -184,7 +187,7 @@ export default function GraphicBar(props) {
         options={object.options}
         series={object.series}
         type="bar"
-        height={window.screen.width > 1600 ? 560 : 510}
+        height={window.screen.width > 1600 ? 660 : 510}
       />
     </div>
   );
