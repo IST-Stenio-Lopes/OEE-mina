@@ -1,12 +1,12 @@
-import ShowLarge from "./show-large";
-import ShowMedium from "./show-medium";
-import ShowSmall from "./show-small";
 import React, { useCallback, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import Top from "../../components/top";
 import { SocketActions, useSocket } from "../../contexts/socket/socket";
 import { listWorkstationsBegin } from "../../services/workstation";
+import ShowLarge from "./show-large";
+import ShowMedium from "./show-medium";
+import ShowSmall from "./show-small";
 
 import "./style.css";
 
@@ -154,6 +154,9 @@ export default function Machines() {
       //console.log("Dado recebido:");
       //console.dir(arg);
     });
+
+    return () =>
+      stateSocket.ioSocket.removeAllListeners("machine_oee_list_data");
   }, [workingMachinesIds]);
 
   return (

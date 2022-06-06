@@ -1,5 +1,4 @@
-import styled, {css} from 'styled-components';
-
+import styled, { css } from 'styled-components';
 
 export const TimeMachineDisplayGrid = styled.div`
     display: grid;

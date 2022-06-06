@@ -1,10 +1,3 @@
-import moment from "moment";
-import React, { useCallback, useEffect, useState } from "react";
-import MaterialIcon from "react-google-material-icons";
-import { useLocation } from "react-router-dom";
-import SelectSearch from "react-select-search";
-import { useSelect } from "react-select-search";
-
 import add from "../../../assets/add-work.svg";
 import DownBlack from "../../../assets/down-black.svg";
 import pause from "../../../assets/pause.svg";
@@ -35,6 +28,14 @@ import ApexChart from "./line-chart";
 import ModalAddOrder from "./modal-order";
 import ModalSearchOee from "./modal-search";
 import ModalStopWorkstation from "./modal-stop";
+import TimeMachine from "./time-machine";
+import moment from "moment";
+import React, { useCallback, useEffect, useState } from "react";
+import MaterialIcon from "react-google-material-icons";
+import { useLocation } from "react-router-dom";
+import SelectSearch from "react-select-search";
+import { useSelect } from "react-select-search";
+
 import {
   ButtonMachineDetailsSimulate,
   ButtonSetMachineDetailsBlue,
@@ -45,7 +46,6 @@ import {
   SelectSearchModifield,
   ShowHourAndMinute,
 } from "./style";
-import TimeMachine from "./time-machine";
 
 import "./style.css";
 
@@ -128,7 +128,7 @@ export default function WorkstationDetails(props) {
     //let hour = new Date().getHours().toString();
     //let minutes = new Date().getMinutes().toString();
     setDate(moment(data).format("hh:mm"));
-  }, 4000);
+  }, 1000);
 
   /*   useEffect(() => {
     dataWorkstations && handleChangeMachine(location.state.id);
@@ -288,7 +288,7 @@ export default function WorkstationDetails(props) {
   useEffect(() => {
     //console.log("entrou 0");
     stateSocket.ioSocket.on("machine_oee_data", (arg) => {
-      //console.log("entrou 1");
+      console.log(arg);
       try {
         var array = Object.entries(arg).map(([key, value]) => value);
         //console.log("1");
@@ -308,7 +308,7 @@ export default function WorkstationDetails(props) {
         //console.log("2");
         Object.entries(array).forEach(([key, value]) => {
           //console.log("3");
-          console.dir(value);
+          //console.dir(value);
           const currentDate = value["date"];
           oee_sum += value.oee_value;
           shift_count_sum += value.shift_count;
@@ -354,6 +354,8 @@ export default function WorkstationDetails(props) {
       //console.log("Dado recebido:");
       //console.dir(arg);
     });
+
+    return () => stateSocket.ioSocket.removeAllListeners("machine_oee_data");
   }, []);
 
   function getFinalAprovedFromSocket() {
