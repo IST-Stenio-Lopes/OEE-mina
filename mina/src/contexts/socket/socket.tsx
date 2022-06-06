@@ -60,15 +60,16 @@ const socketReducer = (socket: ObjectSocketToSend, action: Action) => { //Ela re
 //Provider
 export const SocketProvider = ({ children }: SocketProviderProps) => {
 
-
     const ioSocket = socketCliente(socketServer, {
         path: "/dashboard/",
         auth: {
             //company_id: MachineAuth,
-            user_id: localStorage.getItem("@Oee:user_id"),
-            company_id: localStorage.getItem("@Oee:company_id"),
+            user_id: undefined,
+            //user_id: localStorage.getItem("@Oee:user_id"),
+            //company_id: localStorage.getItem("@Oee:company_id"),
         },
         reconnectionDelay: 5000,
+        reconnection: false,
         autoConnect: false,
     });
 
@@ -103,6 +104,8 @@ export const SocketProvider = ({ children }: SocketProviderProps) => {
 
     useEffect(() => {
         if (stateSocket.user) {
+
+            stateSocket.ioSocket.auth.user_id = stateSocket.user.user_id;
             stateSocket.ioSocket.connect();
 
             if (path === "/machines") {

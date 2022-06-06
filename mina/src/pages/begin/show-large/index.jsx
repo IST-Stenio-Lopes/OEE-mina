@@ -1,7 +1,3 @@
-import React, { Component, useCallback, useEffect, useState } from "react";
-import MaterialIcon from "react-google-material-icons";
-import { useNavigate } from "react-router-dom";
-
 import Inventory from "../../../assets/machine-begin/inventory_2.svg";
 import Vpn from "../../../assets/machine-begin/vpn_key.svg";
 import { SocketActions, useSocket } from "../../../contexts/socket/socket";
@@ -24,6 +20,9 @@ import {
   MachineName,
   GraphicOeeHorizontalLineChart,
 } from "./style";
+import React, { Component, useCallback, useEffect, useState } from "react";
+import MaterialIcon from "react-google-material-icons";
+import { useNavigate } from "react-router-dom";
 
 import "../show-large/style.css";
 
@@ -41,10 +40,43 @@ export default function ShowLarge({ description, machine, socket }) {
 
   useEffect(() => {
     setDataWorkstations(machine);
+    //console.log("======  1 ======");
+    //console.log(machine);
   }, [machine]);
 
   useEffect(() => {
-    setLocalSocket(socket);
+    if (socket) {
+      setLocalSocket(socket);
+      //console.log("======  2 ======");
+      //console.log(socket);
+  
+      const reponse_object = {
+        object_list: [],
+      }
+
+      if (socket.length >= 1) {
+        for(let i = 0; i < socket.length; i++)
+        {
+          if (socket[i].length >= 1)
+          {
+            reponse_object.object_list.push({
+              id: socket[i][0].machine_id,
+              name: socket[i][0].machine_name,
+              status: socket[i][0].machine_status,
+              order_code: socket[i][0].order_code,
+              product_code: socket[i][0].order_product,
+              arrayOfData: [...socket[i]],
+            })
+          }
+        }
+      }
+
+      //console.log(reponse_object);
+
+      // set new data
+      setDataWorkstations(reponse_object);
+    }
+
   }, [socket]);
   /* 
   useEffect(() => {
@@ -139,7 +171,7 @@ export default function ShowLarge({ description, machine, socket }) {
       var performanceValue = 0;
 
           arrayOfData.map((element) => {
-            console.log(element);
+            //console.log(element);
             disponibilityValue += element.disponibility_value;
             oeeCount += element.oee_value;
             qualityValue += element.quality_value;
@@ -161,7 +193,7 @@ export default function ShowLarge({ description, machine, socket }) {
         });
 
         disponibilityValue = disponibilityValue / arrayOfData.length;
-        return (<b>{disponibilityValue + '%'}</b>)
+        return (<b>{ (Math.round(disponibilityValue * 100) / 100) + '%'}</b>)
       }
 
       function getMachineQuality(arrayOfData){
@@ -172,7 +204,7 @@ export default function ShowLarge({ description, machine, socket }) {
         });
 
         qualityValue = qualityValue / arrayOfData.length;
-        return (<b>{qualityValue + '%'}</b>)
+        return (<b>{ (Math.round(qualityValue * 100) / 100)+ '%'}</b>)
       }
 
       function getMachineEficience(arrayOfData){
@@ -183,7 +215,7 @@ export default function ShowLarge({ description, machine, socket }) {
         });
 
         performanceValue = performanceValue / arrayOfData.length; 
-        return (<b>{performanceValue + '%'}</b>)
+        return (<b>{ (Math.round(performanceValue * 100) / 100) + '%'}</b>)
       }
 
       function getMachineOee(arrayOfData){
@@ -194,7 +226,7 @@ export default function ShowLarge({ description, machine, socket }) {
         });
 
         oeeCount = oeeCount / arrayOfData.length;
-        return oeeCount;
+        return (Math.round(oeeCount * 100) / 100);
       }
 
     
@@ -337,7 +369,7 @@ export default function ShowLarge({ description, machine, socket }) {
                     } */}
                     {/* {getDisponibilityFromSocket(localSocket?.filter((sk) => sk[0].machine_id === post.id)[0])} */}
                     { post.status === "Produzindo" ? getMachineDisponibility(post.arrayOfData) : <b>-</b>}
-                    {/* {post.status === "Produzindo" && console.log(post.arrayOfData)} */}
+                    {/* {post.status === "Produzindo" && //console.log(post.arrayOfData)} */}
             
 
 

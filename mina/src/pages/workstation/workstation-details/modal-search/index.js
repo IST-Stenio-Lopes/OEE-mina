@@ -5,6 +5,7 @@ import DateInput from "../../../../components/inputs/date";
 import DateAndTimeInput from "../../../../components/inputs/date-time";
 import ReactSelect from "../../../../components/inputs/react-select";
 import Modal from "../../../../components/modal";
+import { AlertActions, useAlert } from "../../../../contexts/alert/alert";
 import { DisplayFlexStyle, MarginSpaceStyle } from "../../../../styles/style";
 import { CancelButton, SaveButton } from "../../workstation-register/style";
 import {
@@ -18,11 +19,13 @@ export default function ModalSearchOee({
   array,
   setDate,
   setShift,
+  date,
+  shift,
   send,
 }) {
   const [dateBegin, setDateBegin] = useState();
   const [newArrayList, setNewArrayList] = useState();
-
+  const { dispatch, stateAlert } = useAlert();
   // const [a]
 
   // 0:{hour_begin: '10:00', hour_end: '13:15', id: 0}
@@ -33,6 +36,25 @@ export default function ModalSearchOee({
   //   { value: "Retrabalho", label: "Retrabalho" },
   //   { value: "Refugo", label: "Refugo" },
   // ]}
+
+  const handleAlertSetValues = (type, title, msg) => {
+    dispatch({
+      type: AlertActions.setVisibility,
+      payload: true,
+    });
+    dispatch({
+      type: AlertActions.setType,
+      payload: type,
+    });
+    dispatch({
+      type: AlertActions.setTitle,
+      payload: title,
+    });
+    dispatch({
+      type: AlertActions.setMsg,
+      payload: msg,
+    });
+  };
 
   function changeObjectArrayToList(array) {
     let newArray = [];
@@ -46,9 +68,15 @@ export default function ModalSearchOee({
   }
 
   function sandObjectToFather() {
-    // setDate(dateBegin);
-    // setShift(newArrayList);
-    close();
+    if (date) {
+      //alert(shift);
+      // setDate(dateBegin);
+      // setShift(newArrayList);
+      send();
+      close();
+    } else {
+      handleAlertSetValues("error", "Erro", "Preencha o dia desejado!");
+    }
   }
 
   // useEffect(() => {
@@ -87,7 +115,7 @@ export default function ModalSearchOee({
             <ReactSelect
               array={changeObjectArrayToList(array)}
               placeholder={"Selecione um periodo"}
-              //onChange={(v) => setNewArrayList(v.value)}
+              // onChange={(v) => setNewArrayList(v.value)}
               onChange={(v) => setShift(v.value)}
             />
           </MarginSpaceStyle>
@@ -96,8 +124,8 @@ export default function ModalSearchOee({
           <DisplayFlexStyle>
             <CancelButton
               onClick={() => {
-                handleClear();
-                props.close();
+                // handleClear();
+                close();
               }}
             >
               Cancelar
@@ -106,7 +134,7 @@ export default function ModalSearchOee({
               <SaveButton
                 onClick={() => {
                   sandObjectToFather();
-                  send();
+                  //send();
                   //console.log(stateStop);
                 }}
               >

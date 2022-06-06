@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { createStyles, makeStyles, Theme } from '@material-ui/styles';
 import TextField from '@material-ui/core/TextField';
+import { createStyles, makeStyles, Theme } from '@material-ui/styles';
+import React, { useEffect, useState } from "react";
+
 import { NormalInputI } from "../utilities";
-import {time, numberMask} from './masks';
+import { numberMask, time } from './masks';
 
 export default function NormalInput(props) {
 
@@ -42,6 +43,10 @@ export default function NormalInput(props) {
             break;
         }
       }
+
+      useEffect(() => {
+        
+      },[props]);
 
   const useStyles = makeStyles(() =>
         createStyles({

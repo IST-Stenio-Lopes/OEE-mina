@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MaterialIcon from "react-google-material-icons";
 
 import MenuDrop from "../../assets/menu/menu.svg";
@@ -47,6 +47,15 @@ export default function Menu() {
   // }
 
   // (dropValue? document.getElementById("add-dropdown").innerHTML(<Drop/>) : document.getElementById("add-dropdown").innerHTML());
+
+  // Gerenciar disconexão pelo servidor ( No menu pois o mesmo só é instanciado uma vez (acho) )
+  useEffect(() => {
+    // Server disconnect data
+    stateSocket.ioSocket.on("disconnect", () => {
+      // Deslogar
+      signOut();
+    });
+  }, []);
 
   return (
     /*

@@ -50,10 +50,13 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 // cria o provedor do contexto
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const { dispatch } = useSocket();
+  const { stateSocket, dispatch } = useSocket();
 
   // define o estado inicial dos dados
   const [data, setData] = useState<AuthState>(() => {
+    // O usuário precisar sempre se connectar primeiro ao socket para depois entrar na aplicação
+    // como não está feito foi preciso ser comentado
+    /*
     // busca no local storage os dados
     const token = localStorage.getItem('@Oee:token');
     const user = localStorage.getItem('@Oee:user');
@@ -84,6 +87,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       return { token, user: JSON.parse(user), refresh_token };
     }
+    */
 
     dispatch({
       type: SocketActions.setUser,
@@ -127,12 +131,31 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
     // localStorage.setItem('@Oee:user', JSON.stringify(profile));
 
+    // Adicionar user_id para objeto
+    responseSession.data.user.user_id = profile.id;
+
     dispatch({
       type: SocketActions.setUser,
       payload: responseSession.data.user,
     })
-    // // atualiza o estado dos dados
-    setData({ token: responseSession.data.token, user: responseSession.data.user, refresh_token: responseSession.data.refresh_token });
+
+    //console.log(responseSession.data.user);
+
+    // Apenas se conseguir connectar podemos entrar no sistema
+    stateSocket.ioSocket.on("connect", () => {
+      //console.log(responseSession.data.user);
+
+      if (stateSocket.ioSocket.connected) {
+        // // atualiza o estado dos dados
+        setData({ token: responseSession.data.token, user: responseSession.data.user, refresh_token: responseSession.data.refresh_token });
+      }
+      else {
+        // atuliaza o estado global do hook com um objeto vazio
+        setData({} as AuthState);
+      }
+    });
+
+
     /* //console.log(token);
     //console.log(user);
     //console.log(refresh_token); */

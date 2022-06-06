@@ -139,3 +139,11 @@ export const SelectedMachineTopTextStatus = styled.p`
         `}
 
 `
+
+export const ShowHourAndMinute = styled.p`
+    margin-top: 5%;
+    font-size: 2rem;
+    color: #0C4394;
+    font-weight: bolder;
+    margin-left: 20%;
+`

@@ -1,6 +1,10 @@
 import Button from "@material-ui/core/Button";
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import Delete from "../../../assets/delete.svg";
+import Edit from "../../../assets/edit.svg";
+import { AlertActions, useAlert } from "../../../contexts/alert/alert";
 import Data from "../../../mock-data.json";
 import {
   deleteWorkstation,
@@ -8,12 +12,10 @@ import {
   postWorkstation,
 } from "../../../services/workstation";
 import { DisplayFlexStyle, MarginSpaceStyle } from "../../../styles/style";
-import { WorksCenterButton } from "./style";
-import Delete from "../../../assets/delete.svg";
-import Edit from "../../../assets/edit.svg";
-import "./style.css";
-import { useAlert, AlertActions } from "../../../contexts/alert/alert";
 import { HasPermission } from "../../../utils/utilities";
+import { WorksCenterButton } from "./style";
+
+import "./style.css";
 
 export default function WorkstationList() {
   let navigate = useNavigate();

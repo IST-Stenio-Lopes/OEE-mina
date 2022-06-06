@@ -19,9 +19,19 @@ export async function postCollector(collector : ICreateCollectorDTO){
     } catch (error: any) {
         return error.response.data.message;
     }
-
-
 }
+
+export async function putCollector(id: string, collector : ICreateCollectorDTO){
+
+    try {
+        const response = await api.put(`/collector/dashboard/${id}`, collector);
+        return response.status; 
+
+    } catch (error: any) {
+        return error.response.data.message;
+    }
+}
+
 
 export async function listCollectors(){
     try {

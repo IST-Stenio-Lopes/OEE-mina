@@ -1,3 +1,7 @@
+import React, { useCallback, useEffect, useState } from "react";
+import MaterialIcon from "react-google-material-icons";
+import { useNavigate } from "react-router-dom";
+
 import {
   useWorkstation,
   WorkstationActions,
@@ -8,9 +12,6 @@ import { oeeValue } from "../../../utils/utilities";
 import { formatWord, getStateMachine } from "../../../utils/utilities";
 import ApexChart from "../percentBar";
 import { LinhaL, MachineName, NameTop } from "../show-large/style";
-import React, { useCallback, useEffect, useState } from "react";
-import MaterialIcon from "react-google-material-icons";
-import { useNavigate } from "react-router-dom";
 
 import "../show-medium/style.css";
 
@@ -111,7 +112,7 @@ export default function ShowMedium({ description, machine, socket }) {
               </div>
               <div className="informacoes">
                 <div className="segundo">
-                  <p id="aprovados">{post.approved}</p>
+                  <p id="aprovados">{Math.round(post.approved * 100) / 100}</p>
                   APROVADAS
                 </div>
               </div>

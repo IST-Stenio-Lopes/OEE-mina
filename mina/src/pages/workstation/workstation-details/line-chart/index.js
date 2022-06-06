@@ -38,13 +38,16 @@ class ApexChart extends React.Component {
         },
       ],
       options: {
-        markers: {},
+        markers: {
+          size: 1,
+        },
         chart: {
           height: 350,
           type: "line",
           zoom: {
-            enabled: false,
+            enabled: true,
           },
+          events: {},
         },
         dataLabels: {
           enabled: false,
@@ -68,12 +71,32 @@ class ApexChart extends React.Component {
           labels: {
             show: false,
           },
-          categories: props.hours,
+          categories: [props.hours],
         },
-      },
-      tooltip: {
-        style: {
-          textAlign: "center",
+        tooltip: {
+          enabled: true,
+          shared: true,
+          followCursor: true,
+          intersect: false,
+          inverseOrder: false,
+          fillSeriesColor: false,
+          style: {
+            fontSize: "12px",
+            textAlign: "center",
+            fontFamily: undefined,
+          },
+          onDatasetHover: {
+            highlightDataSeries: true,
+          },
+          marker: {
+            show: true,
+          },
+          fixed: {
+            enabled: false,
+            position: "topLeft",
+            offsetX: 50,
+            offsetY: 50,
+          },
         },
       },
     };
@@ -87,13 +110,15 @@ class ApexChart extends React.Component {
         this.props.scrap_per_hour !== prevProps.scrap_per_hour) &&
       prevProps.hours.length != 0
     ) {
+      {
+        //console.log("entrou de novo");
+      }
       this.setState({
         ...this.state,
         approved_per_hour: prevProps.approved_per_hour,
         rework_per_hour: prevProps.rework_per_hour,
         scrap_per_hour: prevProps.scrap_per_hour,
         hours: prevProps.hours,
-
         series: [
           {
             name: "PRODUÇÃO",
@@ -119,16 +144,16 @@ class ApexChart extends React.Component {
             color: "#C02B2B",
           },
         ],
-        xaxis: {
-          type: "string",
-          labels: {
-            show: false,
-            trim: false,
-            hideOverlappingLabels: false,
-            rotateAlways: false,
-            rotate: false,
+        options: {
+          xaxis: {
+            type: "string",
+            labels: {
+              show: false,
+              trim: false,
+              hideOverlappingLabels: false,
+            },
+            categories: [...prevProps.hours],
           },
-          categories: prevProps.hours,
         },
       });
     }

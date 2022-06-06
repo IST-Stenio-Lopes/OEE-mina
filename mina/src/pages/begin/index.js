@@ -1,12 +1,12 @@
+import ShowLarge from "./show-large";
+import ShowMedium from "./show-medium";
+import ShowSmall from "./show-small";
 import React, { useCallback, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import Top from "../../components/top";
 import { SocketActions, useSocket } from "../../contexts/socket/socket";
 import { listWorkstationsBegin } from "../../services/workstation";
-import ShowLarge from "./show-large";
-import ShowMedium from "./show-medium";
-import ShowSmall from "./show-small";
 
 import "./style.css";
 
@@ -63,9 +63,9 @@ export default function Machines() {
   useEffect(() => {
     getListWorkstations();
 
-    const time = setInterval(() => {
-      getListWorkstations();
-    }, 60000);
+    // const time = setInterval(() => {
+    //   getListWorkstations();
+    // }, 60000);
 
     return () => {
       clearInterval(time);
@@ -107,17 +107,17 @@ export default function Machines() {
           performanceValue = performanceValue / post.arrayOfData.length;
 
           /*           Object.entries(post["arrayOfData"])(([key, value]) => {
-            console.log(key);
+            //console.log(key);
           }); */
 
           /* // post.forEach(([key, value]) => {
           //   oee_sum += value.oee_value;
 
           //   console.dir(key);
-          //   //console.log("3 -" + value.machine_data[currentDate]);
+          //console.log("3 -" + value.machine_data[currentDate]);
 
           //   Object.entries(value.arrayOfData[key]).forEach(([key2, value2]) => {
-          //     //console.log("4");
+          //console.log("4");
           //   });
           //console.log("5");
           // }); */
@@ -144,6 +144,7 @@ export default function Machines() {
           array.push(value);
         });
         setDataSocket(array);
+        //getListWorkstations();
         //console.log(array);
       } catch (e) {
         //console.dir(`Error : ${e}`);

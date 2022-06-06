@@ -1,31 +1,17 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { AlertActions, useAlert } from "../../../contexts/alert/alert";
-import Interruptor2 from "../../../components/inputs/interruptor/index2";
-import {
-  BoxDivPrincipalRegisterWorkstation,
-  CancelButton,
-  CloseButtonRegisterWorkstation,
-  FieldNameRegisterWorkstation,
-  MakeSpanToButton,
-  ReduceSizeFieldTextWorkstation,
-  SaveButton,
-  ShiftAreaExpand,
-} from "./style";
-import { useLocation, useNavigate } from "react-router-dom";
-import "./style.css";
-import {
-  DisplayFlexStyle,
-  DisplayGridStyle,
-  MarginSpaceStyle,
-} from "../../../styles/style";
-import NormalInput from "../../../components/inputs/normal";
-import {
-  adjustSizeWithResolution,
-  HasPermission,
-} from "../../../utils/utilities";
-//import { MachineActions, useMachine } from "../../../contexts/machine/machine";
-import { changeWorkstation, postWorkstation } from "../../../services/workstation";
 import FormShifts from "./shifts";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+
+import Interruptor2 from "../../../components/inputs/interruptor/index2";
+import NormalInput from "../../../components/inputs/normal";
+import { AlertActions, useAlert } from "../../../contexts/alert/alert";
+//import { changeWorkstation, postWorkstation } from "../../../contexts/machine/machine";
+import { changeWorkstation, postWorkstation } from "../../../services/workstation";
+import { DisplayFlexStyle, DisplayGridStyle, MarginSpaceStyle } from "../../../styles/style";
+import { adjustSizeWithResolution, HasPermission } from "../../../utils/utilities";
+import { BoxDivPrincipalRegisterWorkstation, CancelButton, CloseButtonRegisterWorkstation, FieldNameRegisterWorkstation, MakeSpanToButton, ReduceSizeFieldTextWorkstation, SaveButton, ShiftAreaExpand } from "./style";
+
+import "./style.css";
 
 export default function Register({ o, functionToSendToBack }) {
   let navigate = useNavigate();
@@ -112,7 +98,6 @@ export default function Register({ o, functionToSendToBack }) {
       o?.discount_scrap && setDiscountScrap(o?.discount_scrap);
       o?.discount_rework && setDiscountRework(o?.discount_rework);
     o?.shifts && setShifts(o?.shifts); */
-  
     
     setWorkstationName(location.state.object.name),
     setShifts(location.state.object.shifts.map((item, index) => ({...item, id: index}))),

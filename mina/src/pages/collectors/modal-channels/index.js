@@ -72,6 +72,7 @@ export default function CollectorChannels({ post, setShowModal }) {
   useEffect(() => {
     getListWorkstations();
     getListChannels();
+    //console.log(post);
   }, [changePage]);
 
   useEffect(() => {
@@ -264,6 +265,7 @@ export default function CollectorChannels({ post, setShowModal }) {
           <ContainerTableChannel>
             <TableFieldCollectorChannel>
               <p>Ativo</p>
+              <p>Maquina</p>
               <p>Número/Código</p>
               <p>Tipo</p>
               <p>Contagem Acumulativa</p>
@@ -274,6 +276,7 @@ export default function CollectorChannels({ post, setShowModal }) {
                 dataChannels.map((channel) => (
                   <div key={channel.id}>
                     <p>{channel.active ? "sim " : " não"}</p>
+                    <p>{channel.machine_name}</p>
                     <p>{channel.channel}</p>
                     <p>{channel.type}</p>
                     <p>{channel.cumulative ? "sim " : " não"}</p>

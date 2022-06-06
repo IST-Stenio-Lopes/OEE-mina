@@ -1,3 +1,7 @@
+import moment from "moment";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import False from "../../assets/close.svg";
 import Remove from "../../assets/delete.svg";
 import Edit from "../../assets/edit.svg";
@@ -18,10 +22,6 @@ import {
 import { HasPermission } from "../../utils/utilities";
 import CollectorsData from "./mock-collectors.json";
 import CollectorChannels from "./modal-channels";
-import moment from "moment";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
-
 import {
   BoxPrincipalDivCollectors,
   ButtonAddCollector,
@@ -134,6 +134,7 @@ export default function Collectors() {
                 <div key={post.id}>
                   <p>{post.name}</p>
                   <p>{post.type}</p>
+
                   <p>
                     {post.updated_at
                       ? moment(post.updated_at).format("DD / MM / YYYY") +
@@ -182,7 +183,9 @@ export default function Collectors() {
                           [32768, 245760, -2147221506],
                           parseInt(localStorage.getItem("@Oee:role"), 10)
                         )
-                          ? alert("ok")
+                          ? navigate("/registercolector", {
+                              state: { object: post, nameToSend: "Alterar" },
+                            })
                           : handleAlertSetValues(
                               "error",
                               "Sem Permissão",

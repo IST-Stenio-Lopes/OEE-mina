@@ -41,7 +41,7 @@ import { SelectContainer } from './style';
     }); */
 
 const options =[
-    {value: '1 teste ', label: "1   "},
+    {value: '1 teste ', label: "1"},
     {value: '2 serio ', label: "2"},
     {value: '3 doidao ', label: "3"},
     {value: 'asd cpoisffa ', label: "outra cousa"},
@@ -77,7 +77,6 @@ export default function ReactSelect({array, selectRefProp, onChange, placeholder
                     placeholder={placeholder} 
                     ref={selectRefProp}
                     onChange={onChange}
-                    
                 />
         );
 

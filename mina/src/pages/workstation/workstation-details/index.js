@@ -43,6 +43,7 @@ import {
   OeelBarChart,
   SelectedMachineTopTextStatus,
   SelectSearchModifield,
+  ShowHourAndMinute,
 } from "./style";
 import TimeMachine from "./time-machine";
 
@@ -72,7 +73,10 @@ export default function WorkstationDetails(props) {
   const [dataDateReworkSocket, setDataDateReworkSocket] = useState([]);
   const [dataDateScrapSocket, setDataDateScrapkSocket] = useState([]);
   const [oeeSocketReceived, setOeeSocketReceived] = useState(0);
+  const [shiftCountSocket, setShiftCountSocket] = useState(0);
   //const [aprovedSocketReceived, setAprovedSocketReceived] = useState(0);
+
+  const [date, setDate] = useState();
 
   const [machineHadChange, setMachineHadChange] = useState(false);
   const [shiftFound, setShiftFound] = useState(false);
@@ -117,7 +121,14 @@ export default function WorkstationDetails(props) {
 
   useEffect(() => {
     getListWorkstations();
-  }, [machineHadChange]);
+  }, []);
+
+  setInterval(() => {
+    let data = new Date();
+    //let hour = new Date().getHours().toString();
+    //let minutes = new Date().getMinutes().toString();
+    setDate(moment(data).format("hh:mm"));
+  }, 4000);
 
   /*   useEffect(() => {
     dataWorkstations && handleChangeMachine(location.state.id);
@@ -140,73 +151,73 @@ export default function WorkstationDetails(props) {
     }, 2000); */
   }, []);
 
-  useEffect(() => {
-    //console.log("entrou no primeiro useeffect parte 1");
-    // Create variable to handle date begin and date end of request
-    if (selectedMachine && selectedMachine.shifts) {
-      const collector_date_begin = new Date();
-      const collector_date_end = new Date();
-      let shift_begin = new Date();
-      let shift_end = new Date();
+  // useEffect(() => {
+  //console.log("entrou no primeiro useeffect parte 1");
+  //   // Create variable to handle date begin and date end of request
+  //   if (selectedMachine && selectedMachine.shifts) {
+  //     const collector_date_begin = new Date();
+  //     const collector_date_end = new Date();
+  //     let shift_begin = new Date();
+  //     let shift_end = new Date();
 
-      // Check if exists in the array
-      for (let i = 0; i < selectedMachine.shifts.length && !shiftFound; i++) {
-        // Reset
-        shift_begin = new Date();
-        shift_end = new Date();
+  //     // Check if exists in the array
+  //     for (let i = 0; i < selectedMachine.shifts.length && !shiftFound; i++) {
+  //       // Reset
+  //       shift_begin = new Date();
+  //       shift_end = new Date();
 
-        // Current hour index
-        let [bHour, bMinute] = selectedMachine.shifts[i].hour_begin
-          .toString()
-          .split(":");
-        let [eHour, eMinute] = selectedMachine.shifts[i].hour_end
-          .toString()
-          .split(":");
+  //       // Current hour index
+  //       let [bHour, bMinute] = selectedMachine.shifts[i].hour_begin
+  //         .toString()
+  //         .split(":");
+  //       let [eHour, eMinute] = selectedMachine.shifts[i].hour_end
+  //         .toString()
+  //         .split(":");
 
-        bHour = Number.parseInt(bHour, 10);
-        eHour = Number.parseInt(eHour, 10);
+  //       bHour = Number.parseInt(bHour, 10);
+  //       eHour = Number.parseInt(eHour, 10);
 
-        bMinute = Number.parseInt(bMinute, 10);
-        eMinute = Number.parseInt(eMinute, 10);
+  //       bMinute = Number.parseInt(bMinute, 10);
+  //       eMinute = Number.parseInt(eMinute, 10);
 
-        shift_begin.setHours(bHour, bMinute, 0, 0);
+  //       shift_begin.setHours(bHour, bMinute, 0, 0);
 
-        if (bHour > eHour) {
-          shift_end.setDate(collector_date_begin.getDate() + 1);
-        }
+  //       if (bHour > eHour) {
+  //         shift_end.setDate(collector_date_begin.getDate() + 1);
+  //       }
 
-        shift_end.setHours(eHour, eMinute, 0, 0);
+  //       shift_end.setHours(eHour, eMinute, 0, 0);
 
-        if (
-          collector_date_begin.getTime() >= shift_begin.getTime() &&
-          collector_date_begin.getTime() <= shift_end.getTime()
-        ) {
-          setShiftFound(true);
-          //console.log(selectedMachine.shifts[i]);
+  //       if (
+  //         collector_date_begin.getTime() >= shift_begin.getTime() &&
+  //         collector_date_begin.getTime() <= shift_end.getTime()
+  //       ) {
+  //         setShiftFound(true);
+  //         //console.log(selectedMachine.shifts[i]);
 
-          collector_date_begin.setHours(bHour, bMinute);
+  //         collector_date_begin.setHours(bHour, bMinute);
 
-          if (bHour > eHour) {
-            collector_date_end.setDate(collector_date_begin.getDate() + 1);
-          }
+  //         if (bHour > eHour) {
+  //           collector_date_end.setDate(collector_date_begin.getDate() + 1);
+  //         }
 
-          collector_date_end.setHours(eHour, eMinute);
+  //         collector_date_end.setHours(eHour, eMinute);
 
-          //console.log(shift_begin.toISOString());
-          //console.log(shift_end.toISOString());
+  //         //console.log(shift_begin.toISOString());
+  //         //console.log(shift_end.toISOString());
 
-          stateSocket.ioSocket.emit("set_socket_data", {
-            inMachineList: false,
-            inMachineDetails: true,
-            machine_list: [location.state.id],
-            machine_begin: shift_begin,
-            machine_end: shift_end,
-            locationUrl: "Machines Details",
-          });
-        }
-      }
-    }
-  }, [selectedMachine]);
+  //         stateSocket.ioSocket.emit("set_socket_data", {
+  //           inMachineList: false,
+  //           inMachineDetails: true,
+  //           machine_list: [location.state.id],
+  //           machine_begin: shift_begin,
+  //           machine_end: shift_end,
+  //           locationUrl: "Machines Details",
+  //         });
+  //       }
+  //     }
+  //   }
+  // }, [selectedMachine]);
 
   // const [searchDateTimeSocket, setSearchDateTimeSocket] = useState();
   // const [searcSelectShiftSocket, setSearchSelectShiftSocket] = useState();
@@ -215,17 +226,27 @@ export default function WorkstationDetails(props) {
     //console.log("entrou no segundo useeffect parte 1");
     if (searcSelectShiftSocket && searchDateTimeSocket) {
       //console.log("entrou no if");
-      const shift_begin = new Date(searchDateTimeSocket);
-      const shift_end = new Date(searchDateTimeSocket);
+      let shift_begin = new Date(searchDateTimeSocket);
+      let shift_end = new Date(searchDateTimeSocket);
 
-      const [bHour, bMinute] = searcSelectShiftSocket.hour_begin.split(":");
-      const [eHour, eMinute] = searcSelectShiftSocket.hour_end.split(":");
+      let [bHour, bMinute] = searcSelectShiftSocket.hour_begin.split(":");
+      let [eHour, eMinute] = searcSelectShiftSocket.hour_end.split(":");
+
+      bHour = Number.parseInt(bHour, 10);
+      eHour = Number.parseInt(eHour, 10);
+
+      bMinute = Number.parseInt(bMinute, 10);
+      eMinute = Number.parseInt(eMinute, 10);
 
       shift_begin.setHours(bHour, bMinute, 0, 0);
 
+      if (bHour >= eHour) {
+        shift_end.setDate(shift_begin.getDate() + 1);
+      }
+
       shift_end.setHours(eHour, eMinute, 0, 0);
 
-      stateSocket.ioSocket.emit("set_socket_data", {
+      stateSocket.ioSocket.emit("search_socket_data", {
         inMachineList: false,
         inMachineDetails: true,
         machine_list: [location.state.id],
@@ -235,10 +256,39 @@ export default function WorkstationDetails(props) {
       });
       //console.log("entrou no segundo useeffect parte 2");
     }
+    //console.log("entrou no segundo useeffect parte 1");
+    // if (searchDateTimeSocket) {
+    //   //console.log("entrou no if");
+    //   const shift_begin = new Date(searchDateTimeSocket);
+    //   const shift_end = new Date(searchDateTimeSocket);
+
+    //   if (searcSelectShiftSocket) {
+    //     const [bHour, bMinute] = searcSelectShiftSocket.hour_begin.split(":");
+    //     const [eHour, eMinute] = searcSelectShiftSocket.hour_end.split(":");
+
+    //     shift_begin.setHours(bHour, bMinute, 0, 0);
+    //     shift_end.setHours(eHour, eMinute, 0, 0);
+    //   } else {
+    //     shift_begin.setHours(0, 0, 0, 0);
+    //     shift_end.setHours(23, 59, 59, 0);
+    //   }
+
+    //   stateSocket.ioSocket.emit("search_socket_data", {
+    //     inMachineList: false,
+    //     inMachineDetails: true,
+    //     machine_list: [location.state.id],
+    //     machine_begin: shift_begin,
+    //     machine_end: shift_end,
+    //     locationUrl: "Machines Details",
+    //   });
+    //   //console.log("entrou no segundo useeffect parte 2");
+    // }
   }
 
   useEffect(() => {
+    //console.log("entrou 0");
     stateSocket.ioSocket.on("machine_oee_data", (arg) => {
+      //console.log("entrou 1");
       try {
         var array = Object.entries(arg).map(([key, value]) => value);
         //console.log("1");
@@ -246,6 +296,7 @@ export default function WorkstationDetails(props) {
         let aproved = 0;
         let rework = 0;
         let scrap = 0;
+        let shift_count_sum = 0;
 
         setDataSocket(array);
         //console.log(array);
@@ -254,32 +305,41 @@ export default function WorkstationDetails(props) {
         var arrayapproved = [];
         var arrayrework = [];
         var arrayscrap = [];
+        //console.log("2");
         Object.entries(array).forEach(([key, value]) => {
+          //console.log("3");
+          console.dir(value);
           const currentDate = value["date"];
           oee_sum += value.oee_value;
+          shift_count_sum += value.shift_count;
           // console.dir(value);
           //console.log("3 -" + value.machine_data[currentDate]);
+          //console.log("4");
+          if (value.machine_data && value.machine_data[currentDate]) {
+            //console.log("5");
+            //console.log(value.machine_data[currentDate]);
+            Object.entries(value.machine_data[currentDate]).forEach(
+              ([key2, value2]) => {
+                //console.log("6");
+                const [hora, minuto] = key2.split(":");
 
-          Object.entries(value.machine_data[currentDate]).forEach(
-            ([key2, value2]) => {
-              //console.log("4");
-              const [hora, minuto] = key2.split(":");
+                let date = moment(currentDate + " " + key2).format(
+                  "DD/MM/YYYY - HH:mm"
+                );
 
-              let date = moment(currentDate + " " + key2).format(
-                "DD/MM/YYYY - HH:mm"
-              );
+                arrayhours.push(`${date}`);
+                arrayapproved.push(value2.approved);
+                arrayrework.push(value2.rework);
+                arrayscrap.push(value2.scrap);
+              }
+            );
+          }
 
-              arrayhours.push(`${date}`);
-              arrayapproved.push(value2.approved);
-              arrayrework.push(value2.rework);
-              arrayscrap.push(value2.scrap);
-            }
-          );
           //console.log("5");
         });
 
         setOeeSocketReceived(oee_sum / array.length);
-
+        setShiftCountSocket(shift_count_sum / array.length);
         //console.log(arrayscrap);
         setDataDateHoursSocket(arrayhours);
         setDataDateApprovedSocket(arrayapproved);
@@ -442,8 +502,14 @@ export default function WorkstationDetails(props) {
         <ModalSearchOee
           setDate={setSearchDateTimeSocket}
           setShift={setSearchSelectShiftSocket}
+          date={searchDateTimeSocket}
+          shift={searcSelectShiftSocket}
           array={selectedMachine.shifts}
-          close={() => setShowModalSearch(false)}
+          close={() => {
+            setShowModalSearch(false);
+            setSearchDateTimeSocket();
+            setSearchSelectShiftSocket();
+          }}
           send={updateSocketSearchInformations}
         ></ModalSearchOee>
       )}
@@ -467,7 +533,7 @@ export default function WorkstationDetails(props) {
                         ? "Desativada"
                         : "Parada"}
                     </SelectedMachineTopTextStatus>
-                  </MarginSpaceStyle>
+                  </MarginSpaceStyle>{" "}
                   <SelectSearchModifield
                     status={selectedMachine.status}
                     className="container"
@@ -484,6 +550,8 @@ export default function WorkstationDetails(props) {
                     <img src={DownBlack} />
                   </SelectSearchModifield>
                 </div>
+                <ShowHourAndMinute>{date && date}</ShowHourAndMinute>
+
                 {/*                 <div className="col-md-5 data">
                   <DateMachineStoped
                     description={selectedMachine.description}
@@ -572,6 +640,7 @@ export default function WorkstationDetails(props) {
                         getFinalAprovedFromSocket() +
                           getFinalRejectedFromSocket()
                       : 0}
+                    {" de "} {shiftCountSocket}
                   </p>
                 </div>
                 <div className="informations">
@@ -597,12 +666,14 @@ export default function WorkstationDetails(props) {
                 <GraphicBar
                   /* oeeGoal={selectedMachine.oee_goal} */
                   oeeGoal={selectedMachine.oee}
-                  oee={oeeSocketReceived}
+                  oee={Math.round(oeeSocketReceived * 100) / 100}
                 />
 
                 <MarginSpaceStyle top={-40}>
                   {/* <OeelBarChart>OEE = {selectedMachine.oee}%</OeelBarChart> */}
-                  <OeelBarChart>OEE = {oeeSocketReceived}%</OeelBarChart>
+                  <OeelBarChart>
+                    OEE = {Math.round(oeeSocketReceived * 100) / 100}%
+                  </OeelBarChart>
                 </MarginSpaceStyle>
                 <MarginSpaceStyle top={-20}>
                   <OeeGoalBarChart>
