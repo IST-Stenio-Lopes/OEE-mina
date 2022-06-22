@@ -1,3 +1,10 @@
+import moment from "moment";
+import React, { useCallback, useEffect, useState } from "react";
+import MaterialIcon from "react-google-material-icons";
+import { useLocation } from "react-router-dom";
+import SelectSearch from "react-select-search";
+import { useSelect } from "react-select-search";
+
 import add from "../../../assets/add-work.svg";
 import DownBlack from "../../../assets/down-black.svg";
 import pause from "../../../assets/pause.svg";
@@ -22,20 +29,14 @@ import {
   MarginSpaceStyle,
 } from "../../../styles/style";
 import { HasPermission } from "../../../utils/utilities";
+import * as Radial from "../../begin/percentBar";
 //import { ApexChart as ApexChart2 } from "./bar-chart";
 import GraphicBar from "./bar-chart";
 import ApexChart from "./line-chart";
 import ModalAddOrder from "./modal-order";
 import ModalSearchOee from "./modal-search";
 import ModalStopWorkstation from "./modal-stop";
-import TimeMachine from "./time-machine";
-import moment from "moment";
-import React, { useCallback, useEffect, useState } from "react";
-import MaterialIcon from "react-google-material-icons";
-import { useLocation } from "react-router-dom";
-import SelectSearch from "react-select-search";
-import { useSelect } from "react-select-search";
-
+import RadialGraphic from "./radial-bar";
 import {
   ButtonMachineDetailsSimulate,
   ButtonSetMachineDetailsBlue,
@@ -46,6 +47,7 @@ import {
   SelectSearchModifield,
   ShowHourAndMinute,
 } from "./style";
+import TimeMachine from "./time-machine";
 
 import "./style.css";
 
@@ -124,10 +126,15 @@ export default function WorkstationDetails(props) {
   }, []);
 
   setInterval(() => {
-    let data = new Date();
+    //let data = new Date();
     //let hour = new Date().getHours().toString();
     //let minutes = new Date().getMinutes().toString();
-    setDate(moment(data).format("hh:mm"));
+    // setDate(moment(data).utcOffset("+12").format("hh:mm"));
+    setDate(
+      new Intl.DateTimeFormat("pt-BR", { timeStyle: "short" }).format(
+        Date.now()
+      )
+    );
   }, 1000);
 
   /*   useEffect(() => {
@@ -581,7 +588,7 @@ export default function WorkstationDetails(props) {
                   </p>
                 </MarginSpaceStyle>
 
-                <MarginSpaceStyle left={5}>
+                {/*                 <MarginSpaceStyle left={5}>
                   <ButtonMachineDetailsSimulate
                     onClick={() => {
                       handleChangeOrderStatus(
@@ -604,7 +611,7 @@ export default function WorkstationDetails(props) {
                   >
                     FINALIZAR
                   </ButtonMachineDetailsSimulate>
-                </MarginSpaceStyle>
+                </MarginSpaceStyle> */}
 
                 {/*  <MarginSpaceStyle left={4}>
                   <ButtonSetMachineDetailsBlue>
@@ -663,16 +670,16 @@ export default function WorkstationDetails(props) {
                 </div>
               </div>
             </div>
-            <MarginSpaceStyle pleft={8} right={5} top={-3}>
+            {/*             <MarginSpaceStyle pleft={8} right={5} top={-3}>
               <DisplayGridStyle>
                 <GraphicBar
-                  /* oeeGoal={selectedMachine.oee_goal} */
+                  //oeeGoal={selectedMachine.oee_goal} 
                   oeeGoal={selectedMachine.oee}
                   oee={Math.round(oeeSocketReceived * 100) / 100}
                 />
 
                 <MarginSpaceStyle top={-40}>
-                  {/* <OeelBarChart>OEE = {selectedMachine.oee}%</OeelBarChart> */}
+             
                   <OeelBarChart>
                     OEE = {Math.round(oeeSocketReceived * 100) / 100}%
                   </OeelBarChart>
@@ -683,10 +690,12 @@ export default function WorkstationDetails(props) {
                   </OeeGoalBarChart>
                 </MarginSpaceStyle>
               </DisplayGridStyle>
-            </MarginSpaceStyle>
+            </MarginSpaceStyle> */}
+
+            {/* <Radial oee={50} /> */}
           </div>
           <div className="col-md-6">
-            {dataDateHoursSocket.length > 0 && (
+            {/* {dataDateHoursSocket.length > 0 && (
               <ApexChart
                 //production_per_hour={[selectedMachine.production_per_hour, 20]}
                 //production_per_hour={Data[0].production_per_hour}
@@ -696,7 +705,8 @@ export default function WorkstationDetails(props) {
                 scrap_per_hour={dataDateScrapSocket}
                 time_list
               />
-            )}
+            )} */}
+            <RadialGraphic oee={Math.round(oeeSocketReceived)} />
 
             <DisplayFlexStyle>
               <MarginSpaceStyle top={2}>
@@ -714,18 +724,19 @@ export default function WorkstationDetails(props) {
                       StartMachineObject(selectedMachine.id);
                     }}
                   />
-                  <img
+                  {/* <img
                     src={add}
                     onClick={() => {
                       HasPermission(
                         [2048, 15360, 536887168, 1073758094, -2147221506],
                         parseInt(localStorage.getItem("@Oee:role"), 10)
                       )
-                        ? /* handleAlertSetValues(
-                            "success",
-                            "Com Permissão",
-                            "Parabéns!"
-                          ) */ setShowModalOrder(true)
+                        ? //   handleAlertSetValues(
+                          //     "success",
+                          //     "Com Permissão",
+                          //     "Parabéns!"
+                          //   )
+                          setShowModalOrder(true)
                         : handleAlertSetValues(
                             "error",
                             "Sem Permissão",
@@ -739,7 +750,7 @@ export default function WorkstationDetails(props) {
                     onClick={() => {
                       setShowModalStop(true);
                     }}
-                  />
+                  /> */}
 
                   <img src={search} onClick={() => setShowModalSearch(true)} />
                 </AlignCenterStyle>

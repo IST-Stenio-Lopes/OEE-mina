@@ -1,6 +1,4 @@
-import styled, {css} from "styled-components";
-
-
+import styled, { css } from "styled-components";
 
 export const DisplayFlexStyle = styled.div`
     display: flex;
@@ -51,7 +49,7 @@ export const MarginSpaceStyle = styled.div`
 export const AlignCenterStyle = styled.div`
   position: absolute;
   top: 50%;
-  left: 40%;
+  left: 50%;
   white-space: nowrap;
 
   img{

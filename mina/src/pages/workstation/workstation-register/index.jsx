@@ -1,4 +1,3 @@
-import FormShifts from "./shifts";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -9,6 +8,7 @@ import { AlertActions, useAlert } from "../../../contexts/alert/alert";
 import { changeWorkstation, postWorkstation } from "../../../services/workstation";
 import { DisplayFlexStyle, DisplayGridStyle, MarginSpaceStyle } from "../../../styles/style";
 import { adjustSizeWithResolution, HasPermission } from "../../../utils/utilities";
+import FormShifts from "./shifts";
 import { BoxDivPrincipalRegisterWorkstation, CancelButton, CloseButtonRegisterWorkstation, FieldNameRegisterWorkstation, MakeSpanToButton, ReduceSizeFieldTextWorkstation, SaveButton, ShiftAreaExpand } from "./style";
 
 import "./style.css";
@@ -345,9 +345,9 @@ export default function Register({ o, functionToSendToBack }) {
     <BoxDivPrincipalRegisterWorkstation size={window.screen.width}>
       <DisplayFlexStyle bottom={3}>
         <h1>CADASTRAR NOVA ESTAÇÃO DE TRABALHO</h1>
-        <a href="/machines">
-          <CloseButtonRegisterWorkstation>x</CloseButtonRegisterWorkstation>
-        </a>
+
+          <CloseButtonRegisterWorkstation onClick={() => {navigate("/machines")}}>x</CloseButtonRegisterWorkstation>
+
       </DisplayFlexStyle>
 
       <DisplayGridStyle>

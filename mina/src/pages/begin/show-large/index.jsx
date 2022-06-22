@@ -1,3 +1,7 @@
+import React, { Component, useCallback, useEffect, useState } from "react";
+import MaterialIcon from "react-google-material-icons";
+import { useNavigate } from "react-router-dom";
+
 import Inventory from "../../../assets/machine-begin/inventory_2.svg";
 import Vpn from "../../../assets/machine-begin/vpn_key.svg";
 import { SocketActions, useSocket } from "../../../contexts/socket/socket";
@@ -20,9 +24,6 @@ import {
   MachineName,
   GraphicOeeHorizontalLineChart,
 } from "./style";
-import React, { Component, useCallback, useEffect, useState } from "react";
-import MaterialIcon from "react-google-material-icons";
-import { useNavigate } from "react-router-dom";
 
 import "../show-large/style.css";
 
@@ -70,8 +71,6 @@ export default function ShowLarge({ description, machine, socket }) {
           }
         }
       }
-
-      //console.log(reponse_object);
 
       // set new data
       setDataWorkstations(reponse_object);
@@ -193,7 +192,7 @@ export default function ShowLarge({ description, machine, socket }) {
         });
 
         disponibilityValue = disponibilityValue / arrayOfData.length;
-        return (<b>{ (Math.round(disponibilityValue * 100) / 100) + '%'}</b>)
+        return (<b>{ (Math.round(disponibilityValue)) + '%'}</b>)
       }
 
       function getMachineQuality(arrayOfData){
@@ -204,7 +203,7 @@ export default function ShowLarge({ description, machine, socket }) {
         });
 
         qualityValue = qualityValue / arrayOfData.length;
-        return (<b>{ (Math.round(qualityValue * 100) / 100)+ '%'}</b>)
+        return (<b>{ (Math.round(qualityValue))+ '%'}</b>)
       }
 
       function getMachineEficience(arrayOfData){
@@ -215,7 +214,7 @@ export default function ShowLarge({ description, machine, socket }) {
         });
 
         performanceValue = performanceValue / arrayOfData.length; 
-        return (<b>{ (Math.round(performanceValue * 100) / 100) + '%'}</b>)
+        return (<b>{ (Math.round(performanceValue)) + '%'}</b>)
       }
 
       function getMachineOee(arrayOfData){
@@ -226,7 +225,7 @@ export default function ShowLarge({ description, machine, socket }) {
         });
 
         oeeCount = oeeCount / arrayOfData.length;
-        return (Math.round(oeeCount * 100) / 100);
+        return (Math.round(oeeCount));
       }
 
     

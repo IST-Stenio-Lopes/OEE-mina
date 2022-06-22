@@ -2,10 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import MaterialIcon from "react-google-material-icons";
 import { useNavigate } from "react-router-dom";
 
-import {
-  useWorkstation,
-  WorkstationActions,
-} from "../../../contexts/workstation/workstation";
+import { useWorkstation, WorkstationActions } from "../../../contexts/workstation/workstation";
 //import Data from "../../../mock-data.json";
 import { listWorkstationsBegin } from "../../../services/workstation";
 import { oeeValue } from "../../../utils/utilities";
@@ -112,7 +109,7 @@ export default function ShowMedium({ description, machine, socket }) {
               </div>
               <div className="informacoes">
                 <div className="segundo">
-                  <p id="aprovados">{Math.round(post.approved * 100) / 100}</p>
+                  <p id="aprovados">{Math.round(post.approved)}</p>
                   APROVADAS
                 </div>
               </div>
